@@ -194,7 +194,7 @@ export default function SignUpPage() {
           - On Mobile & Tablet (< lg): Mockup is hidden entirely (`hidden lg:flex`), Form takes full width & centered
           - On Desktop (>= lg): Split screen layout with animated device mockup on the left and form on the right
       */}
-      <div className="relative z-10 w-full min-h-screen lg:h-screen grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] bg-white/60 backdrop-blur-xl saturate-180 overflow-y-auto lg:overflow-hidden">
+      <div className="relative z-10 w-full min-h-screen lg:h-screen grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] bg-white overflow-y-auto lg:overflow-hidden">
         
         {/* ====== LEFT: ANIMATED MOCKUP COLUMN (Desktop only: hidden on mobile) ====== */}
         <div className="hidden lg:flex bg-gradient-to-br from-[#0b1a33] via-[#0d2242] to-[#142b4a] p-8 lg:p-12 flex-col items-center justify-center relative overflow-hidden text-white min-h-full select-none">
@@ -375,8 +375,8 @@ export default function SignUpPage() {
           </div>
         </div>
 
-        {/* ====== RIGHT: CLEAN RESPONSIVE SIGN UP FORM (Full width on mobile) ====== */}
-        <div className="w-full min-h-screen flex flex-col justify-center items-center p-5 sm:p-8 lg:p-12 relative overflow-y-auto">
+        {/* ====== RIGHT: CLEAN RESPONSIVE SIGN UP FORM (Full width on mobile, Solid crisp white) ====== */}
+        <div className="w-full min-h-screen flex flex-col justify-center items-center p-5 sm:p-8 lg:p-12 relative overflow-y-auto bg-white">
           <div className="w-full max-w-[460px] mx-auto">
             {/* Brand Header on Mobile & Desktop */}
             <div className="mb-6 text-left">
@@ -398,7 +398,7 @@ export default function SignUpPage() {
                 Create your account
               </h1>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                Join thousands of Nigerian university students who never snooze.
+                Join thousands of students who never miss a beat.
               </p>
             </div>
 
@@ -419,8 +419,8 @@ export default function SignUpPage() {
                         value={formData.firstName}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("firstName")}
-                        placeholder="e.g. Chidiebere"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-white/90 focus:bg-white ${
+                        placeholder="e.g. David"
+                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
                           touched.firstName && errors.firstName
                             ? "border-red-500 ring-2 ring-red-500/10"
                             : touched.firstName && !errors.firstName && formData.firstName
@@ -447,7 +447,7 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("lastName")}
                         placeholder="e.g. Okonkwo"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-white/90 focus:bg-white ${
+                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
                           touched.lastName && errors.lastName
                             ? "border-red-500 ring-2 ring-red-500/10"
                             : touched.lastName && !errors.lastName && formData.lastName
@@ -476,8 +476,8 @@ export default function SignUpPage() {
                         value={formData.username}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("username")}
-                        placeholder="e.g. chidi_unilag"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-white/90 focus:bg-white ${
+                        placeholder="Choose a username"
+                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
                           touched.username && errors.username
                             ? "border-red-500 ring-2 ring-red-500/10"
                             : touched.username && !errors.username && formData.username
@@ -503,8 +503,8 @@ export default function SignUpPage() {
                         value={formData.email}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("email")}
-                        placeholder="e.g. chidi@gmail.com"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-white/90 focus:bg-white ${
+                        placeholder="Enter your email"
+                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
                           touched.email && errors.email
                             ? "border-red-500 ring-2 ring-red-500/10"
                             : touched.email && !errors.email && formData.email
@@ -533,8 +533,7 @@ export default function SignUpPage() {
                         value={formData.password}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("password")}
-                        placeholder="Min 8 characters"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-white/90 focus:bg-white ${
+                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
                           touched.password && errors.password
                             ? "border-red-500 ring-2 ring-red-500/10"
                             : touched.password && !errors.password && formData.password
@@ -560,8 +559,7 @@ export default function SignUpPage() {
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("confirmPassword")}
-                        placeholder="Re-enter password"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-white/90 focus:bg-white ${
+                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
                           touched.confirmPassword && errors.confirmPassword
                             ? "border-red-500 ring-2 ring-red-500/10"
                             : touched.confirmPassword && !errors.confirmPassword && formData.confirmPassword
