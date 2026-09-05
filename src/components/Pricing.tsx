@@ -233,8 +233,10 @@ export default function Pricing() {
             </div>
           </div>
           <a
-            href="#get-started"
-            className="whitespace-nowrap px-6 py-3 rounded-full bg-[#0b1a33] hover:bg-[#1b2f4f] text-white font-semibold text-xs shadow-xs transition-all flex items-center gap-1.5"
+            href="https://wa.me/2349027874036?text=Hello%20MyPact,%20I%20am%20interested%20in%20Campus%20and%20Department%20plans"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="whitespace-nowrap px-6 py-3 rounded-full bg-[#0b1a33] hover:bg-[#1b2f4f] text-white font-semibold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <span>Contact Campus Sales</span>
             <i className="fas fa-arrow-right text-[10px]"></i>

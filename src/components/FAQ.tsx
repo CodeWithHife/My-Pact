@@ -191,10 +191,13 @@ export default function FAQ() {
             </div>
           </div>
           <a
-            href="mailto:support@mypact.app"
-            className="px-6 py-2.5 rounded-full bg-[#0b1a33] hover:bg-[#1a2d4a] text-white font-semibold text-xs shadow-xs transition-all whitespace-nowrap"
+            href="https://wa.me/2349027874036?text=Hello%20MyPact%20Support,%20I%20have%20a%20question"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-2.5 rounded-full bg-[#0b1a33] hover:bg-[#1a2d4a] text-white font-semibold text-xs shadow-xs transition-all whitespace-nowrap flex items-center gap-2 cursor-pointer"
           >
-            Contact Support
+            <i className="fas fa-headset text-xs text-[#0a66ff]"></i>
+            <span>Contact Support</span>
           </a>
         </div>
       </div>

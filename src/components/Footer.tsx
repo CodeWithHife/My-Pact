@@ -150,7 +150,12 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2.5 text-xs sm:text-sm">
                 <li>
-                  <a href="mailto:support@mypact.app" className="hover:text-white transition-colors">
+                  <a
+                    href="https://wa.me/2349027874036?text=Hello%20MyPact%20Support,%20I%20need%20assistance"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors"
+                  >
                     Help Center
                   </a>
                 </li>
