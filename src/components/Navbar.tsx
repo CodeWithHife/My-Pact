@@ -15,7 +15,6 @@ const navLinks: NavLinkItem[] = [
   { label: "Testimonials", href: "#testimonials" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
-  { label: "Community", href: "#community" },
 ];
 
 export default function Navbar() {
