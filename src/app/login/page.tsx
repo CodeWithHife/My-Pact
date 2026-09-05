@@ -591,14 +591,12 @@ export default function LoginPage() {
                     <label className="block text-[0.72rem] font-bold text-[#0b1a33]">
                       Password <span className="text-red-500">*</span>
                     </label>
-                    <a
-                      href="https://wa.me/2349027874036?text=Hello%20MyPact%20Support,%20I%20need%20help%20resetting%20my%20password"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/forgot-password"
                       className="text-[0.68rem] text-[#0a66ff] font-semibold hover:underline"
                     >
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
                   <div className="relative">
                     <i className="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
