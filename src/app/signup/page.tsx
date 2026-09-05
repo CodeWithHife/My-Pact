@@ -473,59 +473,58 @@ export default function SignUpPage() {
             {/* If Form is NOT Submitted */}
             {!isSuccess ? (
               <form onSubmit={handleSubmit} noValidate className="space-y-2.5">
-                {/* Row 1: First & Last Name */}
-                <div className="grid grid-cols-2 gap-2">
+                {/* First Name (Full Width Block) */}
+                <div className="relative">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
+                    First name <span className="text-red-500">*</span>
+                  </label>
                   <div className="relative">
-                    <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
-                      First name <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative">
-                      <i className="fas fa-user absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
-                      <input
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        onBlur={() => handleBlur("firstName")}
-                        placeholder="David"
-                        className={`w-full pl-7 pr-2 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.firstName || hasSubmitted) && currentErrors.firstName
-                          ? "border-red-500 ring-2 ring-red-500/10"
-                          : touched.firstName && !currentErrors.firstName && formData.firstName
-                            ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                            : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                          }`}
-                      />
-                    </div>
-                    {(touched.firstName || hasSubmitted) && currentErrors.firstName && (
-                      <p className="text-[0.62rem] text-red-500 mt-0.5 font-medium leading-tight">{currentErrors.firstName}</p>
-                    )}
+                    <i className="fas fa-user absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      onBlur={() => handleBlur("firstName")}
+                      placeholder="First name"
+                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.firstName || hasSubmitted) && currentErrors.firstName
+                        ? "border-red-500 ring-2 ring-red-500/10"
+                        : touched.firstName && !currentErrors.firstName && formData.firstName
+                          ? "border-emerald-500 ring-2 ring-emerald-500/10"
+                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                        }`}
+                    />
                   </div>
+                  {(touched.firstName || hasSubmitted) && currentErrors.firstName && (
+                    <p className="text-[0.62rem] text-red-500 mt-0.5 font-medium leading-tight">{currentErrors.firstName}</p>
+                  )}
+                </div>
 
+                {/* Last Name (Full Width Block) */}
+                <div className="relative">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
+                    Last name <span className="text-red-500">*</span>
+                  </label>
                   <div className="relative">
-                    <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
-                      Last name <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative">
-                      <i className="fas fa-user absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
-                      <input
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        onBlur={() => handleBlur("lastName")}
-                        placeholder="Okonkwo"
-                        className={`w-full pl-7 pr-2 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.lastName || hasSubmitted) && currentErrors.lastName
-                          ? "border-red-500 ring-2 ring-red-500/10"
-                          : touched.lastName && !currentErrors.lastName && formData.lastName
-                            ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                            : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                          }`}
-                      />
-                    </div>
-                    {(touched.lastName || hasSubmitted) && currentErrors.lastName && (
-                      <p className="text-[0.62rem] text-red-500 mt-0.5 font-medium leading-tight">{currentErrors.lastName}</p>
-                    )}
+                    <i className="fas fa-user absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      onBlur={() => handleBlur("lastName")}
+                      placeholder="Last name"
+                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.lastName || hasSubmitted) && currentErrors.lastName
+                        ? "border-red-500 ring-2 ring-red-500/10"
+                        : touched.lastName && !currentErrors.lastName && formData.lastName
+                          ? "border-emerald-500 ring-2 ring-emerald-500/10"
+                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                        }`}
+                    />
                   </div>
+                  {(touched.lastName || hasSubmitted) && currentErrors.lastName && (
+                    <p className="text-[0.62rem] text-red-500 mt-0.5 font-medium leading-tight">{currentErrors.lastName}</p>
+                  )}
                 </div>
 
                 {/* Row 2: Username */}
