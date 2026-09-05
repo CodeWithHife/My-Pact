@@ -87,13 +87,13 @@ export default function Navbar() {
           {/* Desktop Action Buttons with FontAwesome Icons */}
           <div className="flex items-center gap-3">
             {/* Log In Button (Desktop only) */}
-            <a
-              href="#login"
+            <Link
+              href="/login"
               className="btn-mypact-outline hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold tracking-tight cursor-pointer"
             >
               <i className="fas fa-sign-in-alt text-xs"></i>
               <span>Log In</span>
-            </a>
+            </Link>
 
             {/* Get Started Button (Desktop only) */}
             <Link
@@ -158,7 +158,7 @@ export default function Navbar() {
 
           <div className="flex flex-col gap-2.5 pt-2">
             <Link
-              href="/signup"
+              href="/login"
               onClick={closeMobileMenu}
               className="btn-mypact-outline flex items-center justify-center gap-2 w-full py-2.5 rounded-full text-sm font-semibold"
             >

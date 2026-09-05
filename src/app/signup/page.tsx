@@ -389,10 +389,10 @@ export default function SignUpPage() {
         </div>
 
         {/* ====== RIGHT: MODERN, PROFESSIONAL SIGN UP FORM ====== */}
-        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:p-10 relative overflow-y-auto bg-white">
-
+        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-6 sm:px-6 lg:p-10 relative overflow-y-auto bg-white">
+          
           {/* Mobile Top Navigation Bar */}
-          <div className="w-full max-w-[380px] flex items-center justify-between lg:hidden mb-5">
+          <div className="w-full max-w-[340px] sm:max-w-[380px] flex items-center justify-between lg:hidden mb-4">
             <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
               <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                 <Image
@@ -409,13 +409,13 @@ export default function SignUpPage() {
             </Link>
             <Link
               href="/"
-              className="text-xs font-bold text-[#0a66ff] bg-[#e8f0fe] px-3.5 py-1.5 rounded-full hover:bg-[#d5e4fc] transition-colors"
+              className="text-xs font-bold text-[#0a66ff] bg-[#e8f0fe] px-3 py-1.5 rounded-full hover:bg-[#d5e4fc] transition-colors"
             >
               Back to Home
             </Link>
           </div>
 
-          <div className="w-full max-w-[380px] my-auto flex flex-col justify-center">
+          <div className="w-full max-w-[340px] sm:max-w-[380px] my-auto flex flex-col justify-center">
             {/* Desktop Brand Header */}
             <div className="hidden lg:block mb-5 text-left">
               <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight mb-2.5 group">
@@ -441,30 +441,30 @@ export default function SignUpPage() {
             </div>
 
             {/* Mobile Header */}
-            <div className="lg:hidden text-center mb-6">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.68rem] font-extrabold uppercase tracking-wider mb-2.5">
-                <i className="fas fa-bolt text-[0.65rem]"></i>
+            <div className="lg:hidden text-center mb-5">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-2">
+                <i className="fas fa-bolt text-[0.6rem]"></i>
                 <span>Fast 1-Minute Setup</span>
               </div>
               <h1 className="text-2xl font-black text-[#0b1a33] tracking-tight">
                 Create your account
               </h1>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 mt-0.5">
                 Join thousands of students who never miss a beat.
               </p>
             </div>
 
             {/* If Form is NOT Submitted */}
             {!isSuccess ? (
-              <form onSubmit={handleSubmit} noValidate className="space-y-3.5">
-                {/* Row 1: First & Last Name */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <form onSubmit={handleSubmit} noValidate className="space-y-3">
+                {/* Row 1: First & Last Name (Side by Side on Mobile & Desktop) */}
+                <div className="grid grid-cols-2 gap-2.5">
                   <div className="relative">
-                    <label className="block text-xs font-bold text-[#0b1a33] mb-1">
+                    <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
                       First name <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <i className="fas fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                      <i className="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                       <input
                         type="text"
                         name="firstName"
@@ -472,7 +472,7 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("firstName")}
                         placeholder="David"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.firstName || hasSubmitted) && currentErrors.firstName
+                        className={`w-full pl-8 pr-2.5 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.firstName || hasSubmitted) && currentErrors.firstName
                           ? "border-red-500 ring-2 ring-red-500/10"
                           : touched.firstName && !currentErrors.firstName && formData.firstName
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -481,16 +481,16 @@ export default function SignUpPage() {
                       />
                     </div>
                     {(touched.firstName || hasSubmitted) && currentErrors.firstName && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.firstName}</p>
+                      <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.firstName}</p>
                     )}
                   </div>
 
                   <div className="relative">
-                    <label className="block text-xs font-bold text-[#0b1a33] mb-1">
+                    <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
                       Last name <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <i className="fas fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                      <i className="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                       <input
                         type="text"
                         name="lastName"
@@ -498,7 +498,7 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("lastName")}
                         placeholder="Okonkwo"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.lastName || hasSubmitted) && currentErrors.lastName
+                        className={`w-full pl-8 pr-2.5 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.lastName || hasSubmitted) && currentErrors.lastName
                           ? "border-red-500 ring-2 ring-red-500/10"
                           : touched.lastName && !currentErrors.lastName && formData.lastName
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -507,74 +507,73 @@ export default function SignUpPage() {
                       />
                     </div>
                     {(touched.lastName || hasSubmitted) && currentErrors.lastName && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.lastName}</p>
+                      <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.lastName}</p>
                     )}
                   </div>
                 </div>
 
-                {/* Row 2: Username & Email */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Row 2: Username */}
+                <div className="relative">
+                  <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                    Username <span className="text-red-500">*</span>
+                  </label>
                   <div className="relative">
-                    <label className="block text-xs font-bold text-[#0b1a33] mb-1">
-                      Username <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative">
-                      <i className="fas fa-at absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
-                      <input
-                        type="text"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleInputChange}
-                        onBlur={() => handleBlur("username")}
-                        placeholder="Username"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.username || hasSubmitted) && currentErrors.username
-                          ? "border-red-500 ring-2 ring-red-500/10"
-                          : touched.username && !currentErrors.username && formData.username
-                            ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                            : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                          }`}
-                      />
-                    </div>
-                    {(touched.username || hasSubmitted) && currentErrors.username && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.username}</p>
-                    )}
+                    <i className="fas fa-at absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                    <input
+                      type="text"
+                      name="username"
+                      value={formData.username}
+                      onChange={handleInputChange}
+                      onBlur={() => handleBlur("username")}
+                      placeholder="Username"
+                      className={`w-full pl-8 pr-3 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.username || hasSubmitted) && currentErrors.username
+                        ? "border-red-500 ring-2 ring-red-500/10"
+                        : touched.username && !currentErrors.username && formData.username
+                          ? "border-emerald-500 ring-2 ring-emerald-500/10"
+                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                        }`}
+                    />
                   </div>
-
-                  <div className="relative">
-                    <label className="block text-xs font-bold text-[#0b1a33] mb-1">
-                      Email <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative">
-                      <i className="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        onBlur={() => handleBlur("email")}
-                        placeholder="name@email.com"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.email || hasSubmitted) && currentErrors.email
-                          ? "border-red-500 ring-2 ring-red-500/10"
-                          : touched.email && !currentErrors.email && formData.email
-                            ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                            : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                          }`}
-                      />
-                    </div>
-                    {(touched.email || hasSubmitted) && currentErrors.email && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.email}</p>
-                    )}
-                  </div>
+                  {(touched.username || hasSubmitted) && currentErrors.username && (
+                    <p className="text-[0.65rem] text-red-500 mt-1 font-medium">{currentErrors.username}</p>
+                  )}
                 </div>
 
-                {/* Row 3: Password & Confirm Password (with Eye Show/Hide toggles) */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Row 3: Email */}
+                <div className="relative">
+                  <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                    Email <span className="text-red-500">*</span>
+                  </label>
                   <div className="relative">
-                    <label className="block text-xs font-bold text-[#0b1a33] mb-1">
+                    <i className="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      onBlur={() => handleBlur("email")}
+                      placeholder="name@email.com"
+                      className={`w-full pl-8 pr-3 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.email || hasSubmitted) && currentErrors.email
+                        ? "border-red-500 ring-2 ring-red-500/10"
+                        : touched.email && !currentErrors.email && formData.email
+                          ? "border-emerald-500 ring-2 ring-emerald-500/10"
+                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                        }`}
+                    />
+                  </div>
+                  {(touched.email || hasSubmitted) && currentErrors.email && (
+                    <p className="text-[0.65rem] text-red-500 mt-1 font-medium">{currentErrors.email}</p>
+                  )}
+                </div>
+
+                {/* Row 4: Password & Confirm Password (Side by Side on Mobile & Desktop) */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <div className="relative">
+                    <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
                       Password <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <i className="fas fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                      <i className="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                       <input
                         type={showPassword ? "text" : "password"}
                         name="password"
@@ -582,7 +581,7 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("password")}
                         placeholder="Password"
-                        className={`w-full pl-9 pr-10 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.password || hasSubmitted) && currentErrors.password
+                        className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.password || hasSubmitted) && currentErrors.password
                           ? "border-red-500 ring-2 ring-red-500/10"
                           : touched.password && !currentErrors.password && formData.password
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -592,31 +591,31 @@ export default function SignUpPage() {
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-1"
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-0.5"
                         aria-label={showPassword ? "Hide password" : "Show password"}
                       >
-                        <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+                        <i className={showPassword ? "fas fa-eye-slash text-[0.7rem]" : "fas fa-eye text-[0.7rem]"}></i>
                       </button>
                     </div>
                     {(touched.password || hasSubmitted) && currentErrors.password && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.password}</p>
+                      <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.password}</p>
                     )}
                   </div>
 
                   <div className="relative">
-                    <label className="block text-xs font-bold text-[#0b1a33] mb-1">
-                      Confirm password <span className="text-red-500">*</span>
+                    <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                      Confirm <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <i className="fas fa-check-circle absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                      <i className="fas fa-check-circle absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                       <input
                         type={showConfirmPassword ? "text" : "password"}
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("confirmPassword")}
-                        placeholder="Confirm password"
-                        className={`w-full pl-9 pr-10 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
+                        placeholder="Confirm"
+                        className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
                           ? "border-red-500 ring-2 ring-red-500/10"
                           : touched.confirmPassword && !currentErrors.confirmPassword && formData.confirmPassword
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -626,14 +625,14 @@ export default function SignUpPage() {
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-1"
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-0.5"
                         aria-label={showConfirmPassword ? "Hide password" : "Show password"}
                       >
-                        <i className={showConfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+                        <i className={showConfirmPassword ? "fas fa-eye-slash text-[0.7rem]" : "fas fa-eye text-[0.7rem]"}></i>
                       </button>
                     </div>
                     {(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.confirmPassword}</p>
+                      <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.confirmPassword}</p>
                     )}
                   </div>
                 </div>
