@@ -11,6 +11,7 @@ import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import Community from "@/components/Community";
 import Footer from "@/components/Footer";
+import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
         <Community />
       </main>
       <Footer />
+      <PWAInstallPrompt />
     </div>
   );
 }

@@ -86,6 +86,20 @@ export default function Navbar() {
 
           {/* Desktop Action Buttons with FontAwesome Icons */}
           <div className="flex items-center gap-3">
+            {/* Install App Quick Action Button */}
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("open-pwa-install"));
+                }
+              }}
+              className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#e8f0fe] hover:bg-[#d8e7fe] text-[#0a66ff] text-xs font-bold transition-all cursor-pointer"
+            >
+              <i className="fas fa-mobile-screen-button text-xs"></i>
+              <span>Install App</span>
+            </button>
+
             {/* Log In Button (Desktop only) */}
             <a
               href="#login"
@@ -137,7 +151,7 @@ export default function Navbar() {
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
           mobileMenuOpen
-            ? "max-h-[460px] opacity-100 border-b border-[#e6edf5] bg-white/95 backdrop-blur-xl shadow-lg mt-3"
+            ? "max-h-[500px] opacity-100 border-b border-[#e6edf5] bg-white/95 backdrop-blur-xl shadow-lg mt-3"
             : "max-h-0 opacity-0"
         }`}
       >
@@ -157,6 +171,21 @@ export default function Navbar() {
           </div>
 
           <div className="flex flex-col gap-2.5 pt-2">
+            {/* Install App Button in Mobile Drawer */}
+            <button
+              type="button"
+              onClick={() => {
+                closeMobileMenu();
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("open-pwa-install"));
+                }
+              }}
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full text-sm font-bold bg-[#e8f0fe] text-[#0a66ff] hover:bg-[#d8e7fe] transition-colors cursor-pointer"
+            >
+              <i className="fas fa-mobile-screen-button text-xs"></i>
+              <span>Install App on Device</span>
+            </button>
+
             <a
               href="#login"
               onClick={closeMobileMenu}
