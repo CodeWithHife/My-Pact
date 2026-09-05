@@ -1,10 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export default function Community() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,7 +35,11 @@ export default function Community() {
   };
 
   return (
-    <section id="community" className="py-24 bg-[#f8faff] border-b border-slate-100 relative overflow-hidden">
+    <section
+      id="community"
+      ref={sectionRef}
+      className="py-24 bg-[#f8faff] border-b border-slate-100 relative overflow-hidden"
+    >
       {/* Subtle Background Glows */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
@@ -24,7 +47,11 @@ export default function Community() {
       <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* Left Column: Community Copy, Stats & Newsletter */}
-          <div className="lg:col-span-7 flex flex-col items-start">
+          <div
+            className={`lg:col-span-7 flex flex-col items-start transition-all duration-700 ease-out ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
             {/* Tag Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-5 border border-[#0a66ff]/20 shadow-xs">
               <i className="fas fa-users text-[#0a66ff]"></i>
@@ -41,29 +68,23 @@ export default function Community() {
               Connect with thousands of university students who are using MyPact to transform their academic lives. Share tips, celebrate streak milestones, and stay motivated together.
             </p>
 
-            {/* Community Stats Counters */}
-            <div className="grid grid-cols-3 gap-4 sm:gap-6 w-full mb-8 pb-8 border-b border-slate-200/80">
+            {/* Community Stats Counters (2-card layout without 15k) */}
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full max-w-md mb-8 pb-8 border-b border-slate-200/80">
               <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-                <div className="text-2xl sm:text-3xl font-black text-[#0a66ff]">
-                  15k+
+                <div className="flex items-center gap-2 mb-1">
+                  <i className="fas fa-clock text-emerald-600 text-sm"></i>
+                  <span className="text-2xl sm:text-3xl font-black text-emerald-600">2.3M</span>
                 </div>
-                <div className="text-xs text-slate-500 font-semibold mt-0.5">
-                  Active Students
-                </div>
-              </div>
-              <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-                <div className="text-2xl sm:text-3xl font-black text-emerald-600">
-                  2.3M
-                </div>
-                <div className="text-xs text-slate-500 font-semibold mt-0.5">
+                <div className="text-xs text-slate-500 font-semibold">
                   Hours Logged
                 </div>
               </div>
               <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-                <div className="text-2xl sm:text-3xl font-black text-amber-600">
-                  98%
+                <div className="flex items-center gap-2 mb-1">
+                  <i className="fas fa-star text-amber-500 text-sm"></i>
+                  <span className="text-2xl sm:text-3xl font-black text-amber-600">98%</span>
                 </div>
-                <div className="text-xs text-slate-500 font-semibold mt-0.5">
+                <div className="text-xs text-slate-500 font-semibold">
                   Satisfaction Rate
                 </div>
               </div>
@@ -101,7 +122,11 @@ export default function Community() {
           </div>
 
           {/* Right Column: Live Study Feed / Community Activity Mockup */}
-          <div className="lg:col-span-5 flex justify-center">
+          <div
+            className={`lg:col-span-5 flex justify-center transition-all duration-800 delay-150 ease-out ${
+              isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-[0.98]"
+            }`}
+          >
             <div className="w-full max-w-md bg-white rounded-3xl p-6 sm:p-7 border border-[#0a66ff]/20 shadow-[0_20px_50px_rgba(10,102,255,0.08)]">
               {/* Header */}
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
@@ -116,7 +141,7 @@ export default function Community() {
                 </span>
               </div>
 
-              {/* Feed Items */}
+              {/* Feed Items (with FontAwesome icons instead of emojis) */}
               <div className="space-y-3">
                 {/* Activity 1 */}
                 <div className="p-3.5 rounded-2xl bg-[#f8faff] border border-slate-200 flex items-start gap-3">
@@ -128,11 +153,13 @@ export default function Community() {
                       <span className="font-bold text-[#0b1a33]">Chidiebere O.</span>
                       <span className="text-[10px] text-slate-400">2m ago</span>
                     </div>
-                    <p className="text-[11px] text-[#3d4e6b] mt-0.5">
-                      Completed 90m Organic Chemistry sprint & verified via textbook scan 🔥
+                    <p className="text-[11px] text-[#3d4e6b] mt-0.5 flex items-center gap-1.5 flex-wrap">
+                      <span>Completed 90m Organic Chemistry sprint & verified via textbook scan</span>
+                      <i className="fas fa-qrcode text-[#0a66ff] text-xs"></i>
                     </p>
-                    <span className="inline-block text-[9px] font-extrabold text-[#0a66ff] bg-[#e8f0fe] px-2 py-0.5 rounded mt-1.5">
-                      14-Day Streak Unlocked
+                    <span className="inline-flex items-center gap-1 text-[9px] font-extrabold text-[#0a66ff] bg-[#e8f0fe] px-2 py-0.5 rounded mt-1.5">
+                      <i className="fas fa-fire text-amber-500 text-[9px]"></i>
+                      <span>14-Day Streak Unlocked</span>
                     </span>
                   </div>
                 </div>
@@ -147,11 +174,13 @@ export default function Community() {
                       <span className="font-bold text-[#0b1a33]">Amina B.</span>
                       <span className="text-[10px] text-slate-400">8m ago</span>
                     </div>
-                    <p className="text-[11px] text-[#3d4e6b] mt-0.5">
-                      Uploaded Pathology syllabus & auto-scheduled 12 exam review blocks 📚
+                    <p className="text-[11px] text-[#3d4e6b] mt-0.5 flex items-center gap-1.5 flex-wrap">
+                      <span>Uploaded Pathology syllabus & auto-scheduled 12 exam review blocks</span>
+                      <i className="fas fa-book-open text-emerald-600 text-xs"></i>
                     </p>
-                    <span className="inline-block text-[9px] font-extrabold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded mt-1.5">
-                      AI Schedule Active
+                    <span className="inline-flex items-center gap-1 text-[9px] font-extrabold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded mt-1.5">
+                      <i className="fas fa-brain text-emerald-600 text-[9px]"></i>
+                      <span>AI Schedule Active</span>
                     </span>
                   </div>
                 </div>
@@ -166,11 +195,13 @@ export default function Community() {
                       <span className="font-bold text-[#0b1a33]">Tobi A.</span>
                       <span className="text-[10px] text-slate-400">14m ago</span>
                     </div>
-                    <p className="text-[11px] text-[#3d4e6b] mt-0.5">
-                      Zero overrides logged this week. Discipline grade updated to A+ 🎯
+                    <p className="text-[11px] text-[#3d4e6b] mt-0.5 flex items-center gap-1.5 flex-wrap">
+                      <span>Zero overrides logged this week. Discipline grade updated to A+</span>
+                      <i className="fas fa-bullseye text-purple-600 text-xs"></i>
                     </p>
-                    <span className="inline-block text-[9px] font-extrabold text-purple-800 bg-purple-100 px-2 py-0.5 rounded mt-1.5">
-                      Discipline Audit A+
+                    <span className="inline-flex items-center gap-1 text-[9px] font-extrabold text-purple-800 bg-purple-100 px-2 py-0.5 rounded mt-1.5">
+                      <i className="fas fa-award text-purple-600 text-[9px]"></i>
+                      <span>Discipline Audit A+</span>
                     </span>
                   </div>
                 </div>
@@ -181,7 +212,10 @@ export default function Community() {
                 <span className="flex items-center gap-1.5 text-emerald-600 font-bold">
                   <i className="fas fa-users"></i> 1,420 studying right now
                 </span>
-                <span className="text-xs text-[#0a66ff] font-bold">Join Circle →</span>
+                <a href="#pricing" className="text-xs text-[#0a66ff] hover:text-[#084bc2] font-bold flex items-center gap-1 cursor-pointer">
+                  <span>Join Circle</span>
+                  <i className="fas fa-arrow-right text-[10px]"></i>
+                </a>
               </div>
             </div>
           </div>
