@@ -15,16 +15,6 @@ export default function SignUpPage() {
     termsAccepted: false,
   });
 
-  const [errors, setErrors] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    terms: "",
-  });
-
   const [touched, setTouched] = useState({
     firstName: false,
     lastName: false,
@@ -32,8 +22,12 @@ export default function SignUpPage() {
     email: false,
     password: false,
     confirmPassword: false,
+    terms: false,
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [activeSubject, setActiveSubject] = useState(0);
@@ -91,8 +85,9 @@ export default function SignUpPage() {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const validate = () => {
-    const newErrors = {
+  // Real-time error evaluation
+  const getErrors = () => {
+    const errs = {
       firstName: "",
       lastName: "",
       username: "",
@@ -102,31 +97,50 @@ export default function SignUpPage() {
       terms: "",
     };
 
-    if (!formData.firstName.trim() || formData.firstName.trim().length < 2) {
-      newErrors.firstName = "Please enter your first name (at least 2 characters).";
-    }
-    if (!formData.lastName.trim() || formData.lastName.trim().length < 2) {
-      newErrors.lastName = "Please enter your last name (at least 2 characters).";
-    }
-    if (!formData.username.trim() || formData.username.trim().length < 3) {
-      newErrors.username = "Username must be at least 3 characters.";
-    }
-    if (!formData.email.trim() || !emailRegex.test(formData.email.trim())) {
-      newErrors.email = "Enter a valid email address.";
-    }
-    if (!formData.password || formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters.";
-    }
-    if (formData.confirmPassword !== formData.password) {
-      newErrors.confirmPassword = "Passwords do not match.";
-    }
-    if (!formData.termsAccepted) {
-      newErrors.terms = "You must agree to the Terms of Service and Privacy Policy.";
+    if (!formData.firstName.trim()) {
+      errs.firstName = "Please enter your first name.";
+    } else if (formData.firstName.trim().length < 2) {
+      errs.firstName = "First name must be at least 2 characters.";
     }
 
-    setErrors(newErrors);
-    return !Object.values(newErrors).some((err) => err.length > 0);
+    if (!formData.lastName.trim()) {
+      errs.lastName = "Please enter your last name.";
+    } else if (formData.lastName.trim().length < 2) {
+      errs.lastName = "Last name must be at least 2 characters.";
+    }
+
+    if (!formData.username.trim()) {
+      errs.username = "Please choose a username.";
+    } else if (formData.username.trim().length < 3) {
+      errs.username = "Username must be at least 3 characters.";
+    }
+
+    if (!formData.email.trim()) {
+      errs.email = "Please enter your email.";
+    } else if (!emailRegex.test(formData.email.trim())) {
+      errs.email = "Enter a valid email address.";
+    }
+
+    if (!formData.password) {
+      errs.password = "Please enter a password.";
+    } else if (formData.password.length < 8) {
+      errs.password = "Password must be at least 8 characters.";
+    }
+
+    if (!formData.confirmPassword) {
+      errs.confirmPassword = "Please confirm your password.";
+    } else if (formData.confirmPassword !== formData.password) {
+      errs.confirmPassword = "Passwords do not match.";
+    }
+
+    if (!formData.termsAccepted) {
+      errs.terms = "You must agree to the Terms of Service and Privacy Policy.";
+    }
+
+    return errs;
   };
+
+  const currentErrors = getErrors();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -136,9 +150,8 @@ export default function SignUpPage() {
     }));
   };
 
-  const handleBlur = (field: string) => {
+  const handleBlur = (field: keyof typeof touched) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
-    validate();
   };
 
   const triggerConfetti = () => {
@@ -161,6 +174,7 @@ export default function SignUpPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setHasSubmitted(true);
     setTouched({
       firstName: true,
       lastName: true,
@@ -168,9 +182,11 @@ export default function SignUpPage() {
       email: true,
       password: true,
       confirmPassword: true,
+      terms: true,
     });
 
-    if (!validate()) return;
+    const hasErrors = Object.values(currentErrors).some((msg) => msg.length > 0);
+    if (hasErrors) return;
 
     setIsLoading(true);
 
@@ -182,26 +198,25 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-[#f0f5fe] text-[#0b1a33] flex items-center justify-center overflow-x-hidden font-sans">
+    <div className="relative min-h-screen w-full bg-[#f8faff] text-[#0b1a33] flex items-center justify-center font-sans">
       {/* Background Animated Floating Orbs */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute w-[600px] h-[600px] bg-[#0a66ff] rounded-full blur-[110px] opacity-20 -top-[200px] -right-[150px] animate-pulse" />
-        <div className="absolute w-[500px] h-[500px] bg-[#7c3aed] rounded-full blur-[110px] opacity-15 -bottom-[150px] -left-[120px] animate-pulse delay-700" />
-        <div className="absolute w-[400px] h-[400px] bg-[#06b6d4] rounded-full blur-[100px] opacity-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-spin [animation-duration:35s]" />
+        <div className="absolute w-[550px] h-[550px] bg-[#0a66ff] rounded-full blur-[120px] opacity-15 -top-[180px] -right-[120px] animate-pulse" />
+        <div className="absolute w-[450px] h-[450px] bg-[#7c3aed] rounded-full blur-[120px] opacity-10 -bottom-[120px] -left-[100px] animate-pulse delay-700" />
       </div>
 
-      {/* Main Responsive Grid:
-          - On Mobile & Tablet (< lg): Mockup is hidden entirely (`hidden lg:flex`), Form takes full width & centered
-          - On Desktop (>= lg): Split screen layout with animated device mockup on the left and form on the right
+      {/* Main Responsive Layout:
+          - On Mobile (< lg): Centered modern glass card container with quick header and footer trust marks. Mockup is hidden.
+          - On Desktop (>= lg): Ultra-sleek split screen with animated dashboard mockup on the left and form on the right.
       */}
-      <div className="relative z-10 w-full min-h-screen lg:h-screen grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] bg-white overflow-y-auto lg:overflow-hidden">
+      <div className="relative z-10 w-full min-h-screen lg:h-screen grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] bg-white lg:bg-white overflow-y-auto lg:overflow-hidden">
         
         {/* ====== LEFT: ANIMATED MOCKUP COLUMN (Desktop only: hidden on mobile) ====== */}
         <div className="hidden lg:flex bg-gradient-to-br from-[#0b1a33] via-[#0d2242] to-[#142b4a] p-8 lg:p-12 flex-col items-center justify-center relative overflow-hidden text-white min-h-full select-none">
           {/* Subtle Dynamic Radial Glow */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(10,102,255,0.25),transparent_70%)] pointer-events-none" />
 
-          {/* Top Floating Badge Accent */}
+          {/* Top Floating Header */}
           <div className="absolute top-8 left-8 flex items-center gap-3">
             <Link href="/" className="flex items-center gap-3 font-extrabold text-2xl tracking-tight text-white group">
               <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-[#0a66ff] flex items-center justify-center shadow-md transition-transform group-hover:scale-105">
@@ -222,7 +237,7 @@ export default function SignUpPage() {
           <div className="absolute top-8 right-8">
             <span className="text-[0.68rem] font-bold uppercase tracking-wider text-white/90 bg-white/10 px-4 py-1.5 rounded-full border border-white/15 flex items-center gap-2 shadow-xs backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span>Live Campus Dashboard</span>
+              <span>Live Student Dashboard</span>
             </span>
           </div>
 
@@ -367,7 +382,7 @@ export default function SignUpPage() {
                     <i className="fas fa-shield-alt text-[#0a66ff]"></i> Zero override
                   </span>
                   <span className="flex items-center gap-1">
-                    <i className="fas fa-trophy text-amber-400"></i> Top 3% UNILAG
+                    <i className="fas fa-trophy text-amber-400"></i> Top 3%
                   </span>
                 </div>
               </div>
@@ -375,11 +390,36 @@ export default function SignUpPage() {
           </div>
         </div>
 
-        {/* ====== RIGHT: CLEAN RESPONSIVE SIGN UP FORM (Full width on mobile, Solid crisp white) ====== */}
-        <div className="w-full min-h-screen flex flex-col justify-center items-center p-5 sm:p-8 lg:p-12 relative overflow-y-auto bg-white">
-          <div className="w-full max-w-[460px] mx-auto">
-            {/* Brand Header on Mobile & Desktop */}
-            <div className="mb-6 text-left">
+        {/* ====== RIGHT: MODERN, PROFESSIONAL SIGN UP FORM ====== */}
+        <div className="w-full min-h-screen flex flex-col justify-between items-center px-4 py-8 sm:p-8 lg:p-12 relative overflow-y-auto bg-white">
+          
+          {/* Mobile Top Navigation Bar */}
+          <div className="w-full max-w-[460px] flex items-center justify-between lg:hidden mb-6">
+            <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
+              <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
+                <Image
+                  src="/logo/mypact_icon.svg"
+                  alt="MyPact"
+                  width={20}
+                  height={20}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <span>
+                My<span className="text-[#0a66ff]">Pact</span>
+              </span>
+            </Link>
+            <Link
+              href="/"
+              className="text-xs font-bold text-[#0a66ff] bg-[#e8f0fe] px-3.5 py-1.5 rounded-full hover:bg-[#d5e4fc] transition-colors"
+            >
+              Back to Home
+            </Link>
+          </div>
+
+          <div className="w-full max-w-[460px] mx-auto my-auto">
+            {/* Desktop Brand Header */}
+            <div className="hidden lg:block mb-6 text-left">
               <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight mb-3 group">
                 <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                   <Image
@@ -394,6 +434,20 @@ export default function SignUpPage() {
                   My<span className="text-[#0a66ff]">Pact</span>
                 </span>
               </Link>
+              <h1 className="text-2xl sm:text-3xl font-black text-[#0b1a33] tracking-tight">
+                Create your account
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                Join thousands of students who never miss a beat.
+              </p>
+            </div>
+
+            {/* Mobile Header */}
+            <div className="lg:hidden text-center sm:text-left mb-6">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.68rem] font-extrabold uppercase tracking-wider mb-2.5">
+                <i className="fas fa-bolt text-[0.65rem]"></i>
+                <span>Fast 1-Minute Setup</span>
+              </div>
               <h1 className="text-2xl sm:text-3xl font-black text-[#0b1a33] tracking-tight">
                 Create your account
               </h1>
@@ -421,16 +475,16 @@ export default function SignUpPage() {
                         onBlur={() => handleBlur("firstName")}
                         placeholder="e.g. David"
                         className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          touched.firstName && errors.firstName
+                          (touched.firstName || hasSubmitted) && currentErrors.firstName
                             ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.firstName && !errors.firstName && formData.firstName
+                            : touched.firstName && !currentErrors.firstName && formData.firstName
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                       />
                     </div>
-                    {touched.firstName && errors.firstName && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{errors.firstName}</p>
+                    {(touched.firstName || hasSubmitted) && currentErrors.firstName && (
+                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.firstName}</p>
                     )}
                   </div>
 
@@ -448,16 +502,16 @@ export default function SignUpPage() {
                         onBlur={() => handleBlur("lastName")}
                         placeholder="e.g. Okonkwo"
                         className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          touched.lastName && errors.lastName
+                          (touched.lastName || hasSubmitted) && currentErrors.lastName
                             ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.lastName && !errors.lastName && formData.lastName
+                            : touched.lastName && !currentErrors.lastName && formData.lastName
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                       />
                     </div>
-                    {touched.lastName && errors.lastName && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{errors.lastName}</p>
+                    {(touched.lastName || hasSubmitted) && currentErrors.lastName && (
+                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.lastName}</p>
                     )}
                   </div>
                 </div>
@@ -478,16 +532,16 @@ export default function SignUpPage() {
                         onBlur={() => handleBlur("username")}
                         placeholder="Choose a username"
                         className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          touched.username && errors.username
+                          (touched.username || hasSubmitted) && currentErrors.username
                             ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.username && !errors.username && formData.username
+                            : touched.username && !currentErrors.username && formData.username
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                       />
                     </div>
-                    {touched.username && errors.username && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{errors.username}</p>
+                    {(touched.username || hasSubmitted) && currentErrors.username && (
+                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.username}</p>
                     )}
                   </div>
 
@@ -505,21 +559,21 @@ export default function SignUpPage() {
                         onBlur={() => handleBlur("email")}
                         placeholder="Enter your email"
                         className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          touched.email && errors.email
+                          (touched.email || hasSubmitted) && currentErrors.email
                             ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.email && !errors.email && formData.email
+                            : touched.email && !currentErrors.email && formData.email
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                       />
                     </div>
-                    {touched.email && errors.email && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{errors.email}</p>
+                    {(touched.email || hasSubmitted) && currentErrors.email && (
+                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.email}</p>
                     )}
                   </div>
                 </div>
 
-                {/* Row 3: Password & Confirm Password */}
+                {/* Row 3: Password & Confirm Password (with Eye Show/Hide toggles) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="relative">
                     <label className="block text-xs font-bold text-[#0b1a33] mb-1">
@@ -528,22 +582,31 @@ export default function SignUpPage() {
                     <div className="relative">
                       <i className="fas fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         value={formData.password}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("password")}
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          touched.password && errors.password
+                        placeholder="Create password"
+                        className={`w-full pl-9 pr-10 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
+                          (touched.password || hasSubmitted) && currentErrors.password
                             ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.password && !errors.password && formData.password
+                            : touched.password && !currentErrors.password && formData.password
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-1"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                      >
+                        <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+                      </button>
                     </div>
-                    {touched.password && errors.password && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{errors.password}</p>
+                    {(touched.password || hasSubmitted) && currentErrors.password && (
+                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.password}</p>
                     )}
                   </div>
 
@@ -554,22 +617,31 @@ export default function SignUpPage() {
                     <div className="relative">
                       <i className="fas fa-check-circle absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                       <input
-                        type="password"
+                        type={showConfirmPassword ? "text" : "password"}
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("confirmPassword")}
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          touched.confirmPassword && errors.confirmPassword
+                        placeholder="Confirm password"
+                        className={`w-full pl-9 pr-10 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
+                          (touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
                             ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.confirmPassword && !errors.confirmPassword && formData.confirmPassword
+                            : touched.confirmPassword && !currentErrors.confirmPassword && formData.confirmPassword
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-1"
+                        aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                      >
+                        <i className={showConfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+                      </button>
                     </div>
-                    {touched.confirmPassword && errors.confirmPassword && (
-                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{errors.confirmPassword}</p>
+                    {(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword && (
+                      <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.confirmPassword}</p>
                     )}
                   </div>
                 </div>
@@ -596,8 +668,8 @@ export default function SignUpPage() {
                       .
                     </span>
                   </label>
-                  {errors.terms && (
-                    <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{errors.terms}</p>
+                  {(touched.terms || hasSubmitted) && currentErrors.terms && (
+                    <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.terms}</p>
                   )}
                 </div>
 
@@ -605,7 +677,7 @@ export default function SignUpPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] text-white font-bold text-sm shadow-[0_6px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_10px_32px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] text-white font-bold text-sm shadow-[0_6px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_10px_32px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed mt-2"
                 >
                   {isLoading ? (
                     <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin inline-block" />
@@ -670,6 +742,18 @@ export default function SignUpPage() {
               </div>
             )}
           </div>
+
+          {/* Micro Trust Footer */}
+          <div className="w-full max-w-[460px] text-center pt-6 pb-2 text-[0.7rem] text-slate-400 flex items-center justify-center gap-4">
+            <span className="flex items-center gap-1.5">
+              <i className="fas fa-shield-halved text-[#0a66ff] text-xs"></i> 256-bit Encrypted
+            </span>
+            <span>•</span>
+            <span className="flex items-center gap-1.5">
+              <i className="fas fa-bolt text-amber-500 text-xs"></i> Zero Setup Fee
+            </span>
+          </div>
+
         </div>
       </div>
     </div>
