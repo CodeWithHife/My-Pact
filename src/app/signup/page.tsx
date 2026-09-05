@@ -391,10 +391,10 @@ export default function SignUpPage() {
         </div>
 
         {/* ====== RIGHT: MODERN, PROFESSIONAL SIGN UP FORM ====== */}
-        <div className="w-full min-h-screen flex flex-col justify-between items-center px-4 py-8 sm:p-8 lg:p-12 relative overflow-y-auto bg-white">
+        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-8 sm:p-8 lg:p-12 relative overflow-y-auto bg-white">
           
           {/* Mobile Top Navigation Bar */}
-          <div className="w-full max-w-[460px] flex items-center justify-between lg:hidden mb-6">
+          <div className="w-full max-w-[440px] flex items-center justify-between lg:hidden mb-5">
             <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
               <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                 <Image
@@ -417,7 +417,7 @@ export default function SignUpPage() {
             </Link>
           </div>
 
-          <div className="w-full max-w-[460px] mx-auto my-auto">
+          <div className="w-full max-w-[440px] my-auto flex flex-col justify-center">
             {/* Desktop Brand Header */}
             <div className="hidden lg:block mb-6 text-left">
               <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight mb-3 group">
@@ -443,15 +443,15 @@ export default function SignUpPage() {
             </div>
 
             {/* Mobile Header */}
-            <div className="lg:hidden text-center sm:text-left mb-6">
+            <div className="lg:hidden text-center mb-6">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.68rem] font-extrabold uppercase tracking-wider mb-2.5">
                 <i className="fas fa-bolt text-[0.65rem]"></i>
                 <span>Fast 1-Minute Setup</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-black text-[#0b1a33] tracking-tight">
+              <h1 className="text-2xl font-black text-[#0b1a33] tracking-tight">
                 Create your account
               </h1>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 mt-1">
                 Join thousands of students who never miss a beat.
               </p>
             </div>
@@ -473,7 +473,7 @@ export default function SignUpPage() {
                         value={formData.firstName}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("firstName")}
-                        placeholder="e.g. David"
+                        placeholder="David"
                         className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
                           (touched.firstName || hasSubmitted) && currentErrors.firstName
                             ? "border-red-500 ring-2 ring-red-500/10"
@@ -500,7 +500,7 @@ export default function SignUpPage() {
                         value={formData.lastName}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("lastName")}
-                        placeholder="e.g. Okonkwo"
+                        placeholder="Okonkwo"
                         className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
                           (touched.lastName || hasSubmitted) && currentErrors.lastName
                             ? "border-red-500 ring-2 ring-red-500/10"
@@ -530,7 +530,7 @@ export default function SignUpPage() {
                         value={formData.username}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("username")}
-                        placeholder="Choose a username"
+                        placeholder="Username"
                         className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
                           (touched.username || hasSubmitted) && currentErrors.username
                             ? "border-red-500 ring-2 ring-red-500/10"
@@ -557,7 +557,7 @@ export default function SignUpPage() {
                         value={formData.email}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("email")}
-                        placeholder="Enter your email"
+                        placeholder="name@email.com"
                         className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
                           (touched.email || hasSubmitted) && currentErrors.email
                             ? "border-red-500 ring-2 ring-red-500/10"
@@ -587,7 +587,7 @@ export default function SignUpPage() {
                         value={formData.password}
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("password")}
-                        placeholder="Create password"
+                        placeholder="Password"
                         className={`w-full pl-9 pr-10 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
                           (touched.password || hasSubmitted) && currentErrors.password
                             ? "border-red-500 ring-2 ring-red-500/10"
