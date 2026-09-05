@@ -192,14 +192,10 @@ export default function SignUpPage() {
 
     setIsLoading(true);
 
+    // Navigate immediately to onboarding with zero delays or congratulations screens
     setTimeout(() => {
-      setIsLoading(false);
-      setIsSuccess(true);
-      triggerConfetti();
-      setTimeout(() => {
-        router.push("/onboarding");
-      }, 1400);
-    }, 1000);
+      router.push("/onboarding");
+    }, 400);
   };
 
   return (

@@ -6,7 +6,8 @@ import Image from "next/image";
 
 // Comprehensive list of Nigerian & Global Universities / Polytechnics
 const universities = [
-  // Federal Universities
+  // Top Popular & Federal Universities
+  "Federal University of Agriculture, Abeokuta (FUNAAB)",
   "University of Lagos (UNILAG)",
   "University of Ibadan (UI)",
   "Obafemi Awolowo University (OAU Ile-Ife)",
@@ -18,19 +19,23 @@ const universities = [
   "Federal University of Technology, Minna (FUTMINNA)",
   "Federal University of Technology, Owerri (FUTO)",
   "University of Abuja (UniAbuja)",
+  "Federal University, Oye-Ekiti (FUOYE)",
+  "Federal University of Petroleum Resources (FUPRE)",
   "Bayero University Kano (BUK)",
   "University of Port Harcourt (UNIPORT)",
   "University of Jos (UNIJOS)",
   "University of Calabar (UNICAL)",
-  "Federal University of Agriculture, Abeokuta (FUNAAB)",
   "Nnamdi Azikiwe University (UNIZIK)",
   "Usmanu Danfodiyo University (UDUS Sokoto)",
   
   // State Universities
   "Lagos State University (LASU)",
+  "Olabisi Onabanjo University (OOU)",
+  "Tai Solarin University of Education (TASUED)",
+  "Osun State University (UNIOSUN)",
+  "Kwara State University (KWASU)",
   "Delta State University (DELSU)",
   "Rivers State University (RSU)",
-  "Olabisi Onabanjo University (OOU)",
   "Adekunle Ajasin University (AAUA)",
   "Ekiti State University (EKSU)",
   "Kaduna State University (KASU)",
@@ -52,11 +57,12 @@ const universities = [
   "Al-Hikmah University (Ilorin)",
   "Madonna University",
   
-  // Polytechnics & Monotechnics
+  // Polytechnics & Colleges
   "Yaba College of Technology (YABATECH)",
+  "Moshood Abiola Polytechnic (MAPOLY)",
   "Federal Polytechnic, Ilaro",
   "Federal Polytechnic, Nekede",
-  "Lagos State Polytechnic (LASPOTECH)",
+  "Lagos State Polytechnic (LASPOTECH / LASUSTECH)",
   
   // Other / International
   "Other Nigerian Institution",
