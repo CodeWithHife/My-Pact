@@ -85,27 +85,27 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Initial Action Buttons with FontAwesome Icons */}
+          {/* Desktop Action Buttons with FontAwesome Icons */}
           <div className="flex items-center gap-3">
-            {/* Log In Button (Outline with icon) */}
+            {/* Log In Button (Desktop only) */}
             <a
               href="#login"
-              className="btn-mypact-outline hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold tracking-tight cursor-pointer"
+              className="btn-mypact-outline hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold tracking-tight cursor-pointer"
             >
               <i className="fas fa-sign-in-alt text-xs"></i>
               <span>Log In</span>
             </a>
 
-            {/* Get Started Button (Primary with icon) */}
+            {/* Get Started Button (Desktop only) */}
             <a
               href="#get-started"
-              className="btn-mypact-primary inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold tracking-tight cursor-pointer"
+              className="btn-mypact-primary hidden md:inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold tracking-tight cursor-pointer"
             >
               <i className="fas fa-user-plus text-xs"></i>
               <span>Get Started</span>
             </a>
 
-            {/* Mobile Menu Toggle Button */}
+            {/* Mobile Hamburger Menu Toggle Button */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

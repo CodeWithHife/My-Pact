@@ -28,6 +28,9 @@ const backgroundIcons = [
 ];
 
 export default function Hero() {
+  // Mount state for smooth page-load animations & SVG line drawing
+  const [isMounted, setIsMounted] = useState(false);
+
   // Live Interactive Timer State for the Dashboard Mockup
   const [secondsLeft, setSecondsLeft] = useState(2745); // 45:45
   const [activeTask, setActiveTask] = useState<number>(1);
@@ -35,6 +38,7 @@ export default function Hero() {
   const [verifiedSuccess, setVerifiedSuccess] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const interval = setInterval(() => {
       setSecondsLeft((prev) => (prev > 0 ? prev - 1 : 2700));
     }, 1000);
@@ -143,7 +147,7 @@ export default function Hero() {
           {/* Right Column: Ultra-Modern Live Student Dashboard Mockup */}
           <div className="lg:col-span-6 flex justify-center relative">
             {/* Top Floating Glass Badge */}
-            <div className="absolute -top-4 -right-2 sm:-right-4 bg-white/95 backdrop-blur-md rounded-2xl py-2 px-4 shadow-[0_8px_30px_rgba(10,102,255,0.12)] border border-[#0a66ff]/15 flex items-center gap-2.5 text-xs font-bold text-[#0b1a33] z-20 animate-bounce [animation-duration:4s]">
+            <div className="absolute -top-4 -right-2 sm:-right-4 bg-white/95 backdrop-blur-md rounded-2xl py-2 px-4 shadow-[0_8px_30px_rgba(10,102,255,0.12)] border border-[#0a66ff]/15 flex items-center gap-2.5 text-xs font-bold text-[#0b1a33] z-20 animate-badge-float">
               <span className="flex h-2.5 w-2.5 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
@@ -152,13 +156,13 @@ export default function Hero() {
             </div>
 
             {/* Bottom Floating Glass Badge */}
-            <div className="absolute -bottom-4 -left-2 sm:-left-4 bg-white/95 backdrop-blur-md rounded-2xl py-2 px-4 shadow-[0_8px_30px_rgba(10,102,255,0.12)] border border-amber-200 flex items-center gap-2.5 text-xs font-bold text-[#0b1a33] z-20">
+            <div className="absolute -bottom-4 -left-2 sm:-left-4 bg-white/95 backdrop-blur-md rounded-2xl py-2 px-4 shadow-[0_8px_30px_rgba(10,102,255,0.12)] border border-amber-200 flex items-center gap-2.5 text-xs font-bold text-[#0b1a33] z-20 animate-badge-float [animation-delay:1.5s]">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
               <span>3 override attempts blocked</span>
             </div>
 
-            {/* Main Live Dashboard Card */}
-            <div className="w-full max-w-[480px] bg-white rounded-3xl p-6 sm:p-7 shadow-[0_24px_70px_rgba(10,102,255,0.12)] border border-[#0a66ff]/15 relative z-10 transition-all duration-300 hover:shadow-[0_32px_85px_rgba(10,102,255,0.18)]">
+            {/* Main Live Dashboard Card with Entrance Float Animation */}
+            <div className="w-full max-w-[480px] bg-white rounded-3xl p-6 sm:p-7 shadow-[0_24px_70px_rgba(10,102,255,0.12)] border border-[#0a66ff]/15 relative z-10 transition-all duration-300 hover:shadow-[0_32px_85px_rgba(10,102,255,0.18)] animate-mockup-entry">
               {/* App Mockup Top Window Controls & User Profile Bar */}
               <div className="flex items-center justify-between pb-4 border-b border-[#e6edf5]">
                 {/* Left: Window Dots & Brand Icon */}
@@ -188,8 +192,66 @@ export default function Hero() {
                 </div>
               </div>
 
+              {/* Live Academic Momentum & Focus Graph with Animated SVG Drawing Line */}
+              <div className="bg-[#f8faff] rounded-2xl p-3.5 border border-[#e6edf5] my-3.5">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#0b1a33]">
+                    <i className="fas fa-chart-line text-[#0a66ff]"></i>
+                    <span>Discipline Momentum</span>
+                  </div>
+                  <span className="text-[10px] font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60 flex items-center gap-1">
+                    <i className="fas fa-arrow-trend-up text-[9px]"></i> +28% Peak Focus
+                  </span>
+                </div>
+
+                {/* Animated SVG Path Canvas */}
+                <div className="relative w-full h-11 overflow-hidden">
+                  <svg
+                    viewBox="0 0 380 44"
+                    className="w-full h-full overflow-visible"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <linearGradient id="momentumGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#0a66ff" />
+                        <stop offset="50%" stopColor="#38bdf8" />
+                        <stop offset="100%" stopColor="#10b981" />
+                      </linearGradient>
+                      <linearGradient id="momentumArea" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#0a66ff" stopOpacity="0.18" />
+                        <stop offset="100%" stopColor="#0a66ff" stopOpacity="0.0" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* Subtle Grid Guidelines */}
+                    <line x1="0" y1="12" x2="380" y2="12" stroke="#e2e8f0" strokeDasharray="3 3" strokeWidth="1" />
+                    <line x1="0" y1="32" x2="380" y2="32" stroke="#e2e8f0" strokeDasharray="3 3" strokeWidth="1" />
+
+                    {/* Under-Glow Fill Area */}
+                    <path
+                      d="M 0,36 C 45,34 75,20 120,24 C 165,28 200,12 250,16 C 300,20 335,6 380,4 L 380,44 L 0,44 Z"
+                      fill="url(#momentumArea)"
+                    />
+
+                    {/* Main Animated Drawing Line */}
+                    <path
+                      d="M 0,36 C 45,34 75,20 120,24 C 165,28 200,12 250,16 C 300,20 335,6 380,4"
+                      stroke="url(#momentumGradient)"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      className="animate-draw-line"
+                    />
+
+                    {/* Live Target Endpoint Ping */}
+                    <circle cx="380" cy="4" r="5" fill="#10b981" className="animate-ping opacity-75" />
+                    <circle cx="380" cy="4" r="3.5" fill="#10b981" stroke="#ffffff" strokeWidth="1.5" />
+                  </svg>
+                </div>
+              </div>
+
               {/* Task Cards List */}
-              <div className="space-y-3 my-4">
+              <div className="space-y-3 my-3.5">
                 {/* Task 1: Organic Chemistry (Active) */}
                 <div
                   onClick={() => setActiveTask(1)}
@@ -218,9 +280,13 @@ export default function Hero() {
                     </span>
                   </div>
 
-                  {/* Micro Progress Bar */}
+                  {/* Dynamic Animated Progress Bar */}
                   <div className="mt-3 w-full bg-[#e6edf5] h-1.5 rounded-full overflow-hidden">
-                    <div className="bg-[#0a66ff] h-full rounded-full w-[65%] transition-all duration-500"></div>
+                    <div
+                      className={`bg-[#0a66ff] h-full rounded-full transition-all duration-1000 ease-out ${
+                        isMounted ? "w-[68%]" : "w-0"
+                      }`}
+                    ></div>
                   </div>
                 </div>
 
