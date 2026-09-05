@@ -409,16 +409,19 @@ export default function SignUpPage() {
             </Link>
             <Link
               href="/"
-              className="text-xs font-bold text-[#0a66ff] bg-[#e8f0fe] px-3 py-1.5 rounded-full hover:bg-[#d5e4fc] transition-colors"
+              className="group/back inline-flex items-center gap-1.5 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-slate-200/80 hover:border-[#0a66ff] shadow-xs hover:shadow-[0_4px_16px_rgba(10,102,255,0.25)] transition-all duration-300 hover:-translate-x-0.5 active:scale-95"
             >
-              Back to Home
+              <span className="w-4.5 h-4.5 rounded-full bg-[#e8f0fe] group-hover/back:bg-white/20 text-[#0a66ff] group-hover/back:text-white flex items-center justify-center transition-colors">
+                <i className="fas fa-arrow-left text-[0.55rem] transition-transform group-hover/back:-translate-x-0.5"></i>
+              </span>
+              <span className="tracking-tight text-[0.72rem]">Back to Home</span>
             </Link>
           </div>
 
           <div className="w-full max-w-[340px] sm:max-w-[380px] my-auto flex flex-col justify-center">
-            {/* Desktop Brand Header */}
-            <div className="hidden lg:block mb-5 text-left">
-              <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight mb-2.5 group">
+            {/* Desktop Brand & Back to Home Header */}
+            <div className="hidden lg:flex items-center justify-between mb-4">
+              <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight group">
                 <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                   <Image
                     src="/logo/mypact_icon.svg"
@@ -432,6 +435,18 @@ export default function SignUpPage() {
                   My<span className="text-[#0a66ff]">Pact</span>
                 </span>
               </Link>
+              <Link
+                href="/"
+                className="group/back inline-flex items-center gap-2 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-slate-200 hover:border-[#0a66ff] shadow-xs hover:shadow-[0_4px_16px_rgba(10,102,255,0.25)] transition-all duration-300 hover:-translate-x-0.5 active:scale-95"
+              >
+                <span className="w-5 h-5 rounded-full bg-[#e8f0fe] group-hover/back:bg-white/20 text-[#0a66ff] group-hover/back:text-white flex items-center justify-center transition-colors">
+                  <i className="fas fa-arrow-left text-[0.6rem] transition-transform group-hover/back:-translate-x-0.5"></i>
+                </span>
+                <span className="tracking-tight text-[0.75rem]">Back to Home</span>
+              </Link>
+            </div>
+
+            <div className="hidden lg:block mb-5 text-left">
               <h1 className="text-2xl font-black text-[#0b1a33] tracking-tight">
                 Create your account
               </h1>
@@ -683,7 +698,7 @@ export default function SignUpPage() {
                 {/* Log In Link */}
                 <p className="text-center text-xs text-slate-500 pt-2">
                   Already have an account?{" "}
-                  <Link href="/" className="font-bold text-[#0a66ff] hover:underline">
+                  <Link href="/login" className="font-bold text-[#0a66ff] hover:underline">
                     Log in
                   </Link>
                 </p>
@@ -717,7 +732,7 @@ export default function SignUpPage() {
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl font-black text-[#0b1a33] tracking-tight mb-2">
-                  Welcome, {formData.firstName || "Scholar"}! 🎉
+                  Welcome, {formData.firstName || "Scholar"}!
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-sm mb-6 leading-relaxed">
                   Your MyPact account is live. We have initialized your academic dashboard and your study accountability engine is ready.

@@ -4,6 +4,55 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+// Rotating study session mockups for the live dashboard demonstration
+const studySessions = [
+  {
+    course: "Organic Chemistry · Ch. 7",
+    category: "Pre-Med / Sciences",
+    duration: 45,
+    tag: "Strict Barcode",
+    color: "from-blue-600/30 to-indigo-700/30",
+    borderColor: "border-blue-500/30",
+    icon: "fas fa-flask",
+  },
+  {
+    course: "Data Structures & Algorithms",
+    category: "Computer Science",
+    duration: 60,
+    tag: "Strict Physical",
+    color: "from-purple-600/30 to-blue-700/30",
+    borderColor: "border-purple-500/30",
+    icon: "fas fa-code",
+  },
+  {
+    course: "Macroeconomics & Finance",
+    category: "Business & Econ",
+    duration: 50,
+    tag: "Physical Location",
+    color: "from-cyan-600/30 to-blue-700/30",
+    borderColor: "border-cyan-500/30",
+    icon: "fas fa-chart-pie",
+  },
+  {
+    course: "Human Anatomy & Physiology",
+    category: "Medical Sciences",
+    duration: 40,
+    tag: "Library Verify",
+    color: "from-emerald-600/30 to-teal-700/30",
+    borderColor: "border-emerald-500/30",
+    icon: "fas fa-brain",
+  },
+];
+
+// Live dynamic activity notifications simulating peer study sessions (pure icons, zero emojis)
+const liveActivities = [
+  { text: "Tunde A. verified 2.5h study pact with barcode", school: "UNILAG", icon: "fas fa-bolt", time: "just now" },
+  { text: "Chioma O. achieved a 15-day study streak", school: "UNN", icon: "fas fa-fire", time: "1m ago" },
+  { text: "Emmanuel K. locked in 3h Data Structures", school: "Covenant", icon: "fas fa-lock", time: "2m ago" },
+  { text: "Zainab M. verified GPA goal (+0.3)", school: "ABU Zaria", icon: "fas fa-graduation-cap", time: "3m ago" },
+  { text: "David O. completed Organic Chemistry session", school: "UI Ibadan", icon: "fas fa-check-circle", time: "4m ago" },
+];
+
 export default function LoginPage() {
   const [formData, setFormData] = useState({
     loginIdentifier: "",
@@ -20,7 +69,13 @@ export default function LoginPage() {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  // Live countdown timer for active pact in mockup
   const [secondsRemaining, setSecondsRemaining] = useState(2699); // 44:59
+  const [activeSessionIndex, setActiveSessionIndex] = useState(0);
+  const [activeActivityIndex, setActiveActivityIndex] = useState(0);
+  const [activeStudentsCount, setActiveStudentsCount] = useState(1428);
+
   const [confettiPieces, setConfettiPieces] = useState<
     Array<{
       id: number;
@@ -34,12 +89,39 @@ export default function LoginPage() {
     }>
   >([]);
 
-  // Ticking countdown timer for active pact in mockup
+  // Ticking countdown timer
   useEffect(() => {
     const timer = setInterval(() => {
       setSecondsRemaining((prev) => (prev > 10 ? prev - 1 : 2700));
     }, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  // Cycle active mock study session every 4.5s
+  useEffect(() => {
+    const sessionInterval = setInterval(() => {
+      setActiveSessionIndex((prev) => (prev + 1) % studySessions.length);
+    }, 4500);
+    return () => clearInterval(sessionInterval);
+  }, []);
+
+  // Cycle live activity stream every 3.5s
+  useEffect(() => {
+    const activityInterval = setInterval(() => {
+      setActiveActivityIndex((prev) => (prev + 1) % liveActivities.length);
+    }, 3500);
+    return () => clearInterval(activityInterval);
+  }, []);
+
+  // Subtle natural fluctuation for live students online counter
+  useEffect(() => {
+    const countInterval = setInterval(() => {
+      setActiveStudentsCount((prev) => {
+        const delta = Math.floor(Math.random() * 5) - 2;
+        return Math.max(1410, Math.min(1470, prev + delta));
+      });
+    }, 2800);
+    return () => clearInterval(countInterval);
   }, []);
 
   const formatMockupTimer = (totalSecs: number) => {
@@ -120,29 +202,32 @@ export default function LoginPage() {
     }, 1200);
   };
 
+  const currentSession = studySessions[activeSessionIndex];
+  const currentActivity = liveActivities[activeActivityIndex];
+
   return (
     <div className="relative min-h-screen w-full bg-[#f8faff] text-[#0b1a33] flex items-center justify-center font-sans overflow-x-hidden">
-      {/* Background Animated Floating Orbs */}
+      {/* Background Animated Floating Glow Orbs */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute w-[550px] h-[550px] bg-[#0a66ff] rounded-full blur-[120px] opacity-15 -top-[180px] -right-[120px] animate-pulse" />
-        <div className="absolute w-[450px] h-[450px] bg-[#7c3aed] rounded-full blur-[120px] opacity-10 -bottom-[120px] -left-[100px] animate-pulse delay-700" />
+        <div className="absolute w-[600px] h-[600px] bg-[#0a66ff] rounded-full blur-[130px] opacity-15 -top-[200px] -right-[150px] animate-pulse" />
+        <div className="absolute w-[500px] h-[500px] bg-[#7c3aed] rounded-full blur-[130px] opacity-12 -bottom-[150px] -left-[120px] animate-pulse delay-1000" />
+        <div className="absolute w-[400px] h-[400px] bg-[#06b6d4] rounded-full blur-[100px] opacity-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse delay-500" />
       </div>
 
-      {/* Main Responsive Layout:
-          - On Mobile (< lg): Centered modern card with quick header and footer trust marks. Mockup is hidden.
-          - On Desktop (>= lg): Split screen with live dashboard mockup on the left and form on the right.
-      */}
+      {/* Main Responsive Layout */}
       <div className="relative z-10 w-full min-h-screen lg:h-screen grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] bg-white lg:bg-white overflow-y-auto lg:overflow-hidden">
         
-        {/* ====== LEFT: DASHBOARD MOCKUP COLUMN (Desktop only: hidden on mobile) ====== */}
-        <div className="hidden lg:flex bg-gradient-to-br from-[#0b1a33] via-[#0d2242] to-[#142b4a] p-8 lg:p-12 flex-col items-center justify-center relative overflow-hidden text-white min-h-full select-none">
-          {/* Subtle Dynamic Radial Glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(10,102,255,0.25),transparent_70%)] pointer-events-none" />
+        {/* ====== LEFT: ULTRA-ANIMATED DASHBOARD MOCKUP COLUMN (Desktop only: hidden on mobile) ====== */}
+        <div className="hidden lg:flex bg-gradient-to-br from-[#0b1a33] via-[#0e2448] to-[#142b4a] p-8 lg:p-10 flex-col items-center justify-center relative overflow-hidden text-white min-h-full select-none">
+          
+          {/* Subtle Dynamic Radial Glow & Shimmering Grid */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(10,102,255,0.28),transparent_70%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
-          {/* Top Floating Header */}
-          <div className="absolute top-8 left-8 flex items-center gap-3">
+          {/* Top Header: Brand & Live Radar Indicator */}
+          <div className="absolute top-7 left-8 right-8 flex items-center justify-between z-20">
             <Link href="/" className="flex items-center gap-3 font-extrabold text-2xl tracking-tight text-white group">
-              <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-[#0a66ff] flex items-center justify-center shadow-md transition-transform group-hover:scale-105">
+              <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-[#0a66ff] flex items-center justify-center shadow-lg shadow-[#0a66ff]/40 transition-transform group-hover:scale-105">
                 <Image
                   src="/logo/mypact_icon.svg"
                   alt="MyPact Logo"
@@ -155,72 +240,111 @@ export default function LoginPage() {
                 My<span className="text-[#5b9aff]">Pact</span>
               </span>
             </Link>
+
+            {/* Live Students Active Indicator Pill */}
+            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-[0.68rem] font-bold text-white shadow-xs">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="tracking-wide">
+                <strong className="text-emerald-300 font-extrabold">{activeStudentsCount.toLocaleString()}</strong> studying live
+              </span>
+            </div>
           </div>
 
-          <div className="absolute top-8 right-8">
-            <span className="text-[0.68rem] font-bold uppercase tracking-wider text-white/90 bg-white/10 px-4 py-1.5 rounded-full border border-white/15 flex items-center gap-2 shadow-xs backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span>Live Dashboard</span>
-            </span>
-          </div>
-
-          {/* Dashboard Mockup Container */}
-          <div className="w-full max-w-[540px] flex flex-col gap-3.5 relative z-10 animate-mockup-entry">
+          {/* Dashboard Mockup Main Container */}
+          <div className="w-full max-w-[530px] flex flex-col gap-3.5 relative z-10 animate-mockup-entry mt-8">
             
-            {/* Welcome Row with Avatar */}
-            <div className="flex justify-between items-center bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xs">
+            {/* 1. Welcome Card with Animated Focus Waveform & Avatar */}
+            <div className="flex justify-between items-center bg-white/8 backdrop-blur-md p-4 rounded-2xl border border-white/15 shadow-lg relative overflow-hidden group">
+              {/* Subtle top shimmer highlight */}
+              <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+              
               <div>
-                <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                  <span>👋</span> Welcome back, Scholar
-                </h3>
-                <p className="text-xs text-slate-300 mt-0.5">Here is your semester progress & study streak</p>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg bg-[#0a66ff]/30 text-[#5b9aff] flex items-center justify-center text-xs">
+                    <i className="fas fa-user-graduate"></i>
+                  </div>
+                  <h3 className="text-base sm:text-lg font-extrabold text-white tracking-tight">
+                    Welcome back, Scholar
+                  </h3>
+                </div>
+                <p className="text-xs text-blue-200/80 mt-0.5 flex items-center gap-1.5">
+                  <span>Semester streak active</span>
+                  <span>•</span>
+                  <span className="text-emerald-400 font-semibold flex items-center gap-1">
+                    <i className="fas fa-shield-halved text-[0.6rem]"></i> Verified
+                  </span>
+                </p>
               </div>
-              <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#0a66ff] to-[#7c3aed] flex items-center justify-center font-bold text-sm text-white shadow-md border border-white/20">
-                MP
+
+              {/* Focus Equalizer Bars + Avatar */}
+              <div className="flex items-center gap-3">
+                {/* 5 Animated Focus Equalizer Bars */}
+                <div className="flex items-end gap-1 h-5 bg-white/5 px-2 py-1 rounded-lg border border-white/10" title="Active Focus Frequency">
+                  <span className="w-1 bg-[#5b9aff] rounded-full animate-[pulse_0.8s_ease-in-out_infinite] h-3" />
+                  <span className="w-1 bg-emerald-400 rounded-full animate-[pulse_1.2s_ease-in-out_infinite_0.2s] h-4.5" />
+                  <span className="w-1 bg-purple-400 rounded-full animate-[pulse_0.9s_ease-in-out_infinite_0.4s] h-2.5" />
+                  <span className="w-1 bg-amber-400 rounded-full animate-[pulse_1.1s_ease-in-out_infinite_0.1s] h-4" />
+                  <span className="w-1 bg-[#5b9aff] rounded-full animate-[pulse_0.7s_ease-in-out_infinite_0.3s] h-3.5" />
+                </div>
+
+                <div className="relative">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#0a66ff] via-[#4f46e5] to-[#7c3aed] flex items-center justify-center font-black text-sm text-white shadow-md border-2 border-white/20 animate-pulse">
+                    AR
+                  </div>
+                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-[#0b1a33]" />
+                </div>
               </div>
             </div>
 
-            {/* 4 Stats Badges Grid */}
+            {/* 2. Four Interactive Stat Cards Grid */}
             <div className="grid grid-cols-4 gap-2.5">
-              <div className="bg-white/5 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition-all">
-                <div className="text-base sm:text-lg font-black text-white">
+              {/* Card 1: Completion */}
+              <div className="bg-white/8 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center hover:bg-white/15 hover:-translate-y-0.5 transition-all duration-300 shadow-sm group">
+                <div className="text-base sm:text-lg font-black text-white group-hover:scale-105 transition-transform">
                   <span className="text-[#5b9aff]">98</span>%
                 </div>
                 <div className="text-[0.55rem] uppercase font-bold text-slate-300 tracking-wider">
                   Completion
                 </div>
                 <div className="text-[0.6rem] text-emerald-400 font-bold flex items-center justify-center gap-0.5 mt-0.5">
-                  <i className="fas fa-arrow-up text-[0.5rem]"></i> +12%
+                  <i className="fas fa-arrow-up text-[0.5rem] animate-bounce"></i> +12%
                 </div>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition-all">
-                <div className="text-base sm:text-lg font-black text-white">
-                  <span className="text-[#5b9aff]">14</span>d
+              {/* Card 2: Streak (Flaming) */}
+              <div className="bg-gradient-to-b from-amber-500/15 to-white/5 backdrop-blur-md rounded-xl p-3 border border-amber-400/25 text-center hover:bg-amber-500/20 hover:-translate-y-0.5 transition-all duration-300 shadow-sm relative overflow-hidden group">
+                <div className="text-base sm:text-lg font-black text-amber-300 group-hover:scale-105 transition-transform flex items-center justify-center gap-1">
+                  <span>14</span>d
                 </div>
-                <div className="text-[0.55rem] uppercase font-bold text-slate-300 tracking-wider">
+                <div className="text-[0.55rem] uppercase font-bold text-amber-200/90 tracking-wider">
                   Streak
                 </div>
-                <div className="text-[0.6rem] text-amber-300 font-bold flex items-center justify-center gap-0.5 mt-0.5">
-                  <i className="fas fa-fire text-[0.5rem]"></i> On fire!
+                <div className="text-[0.6rem] text-amber-400 font-bold flex items-center justify-center gap-1 mt-0.5">
+                  <i className="fas fa-fire text-amber-400 animate-pulse text-[0.55rem]"></i> Unbroken!
                 </div>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition-all">
-                <div className="text-base sm:text-lg font-black text-white">
+              {/* Card 3: Logged */}
+              <div className="bg-white/8 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center hover:bg-white/15 hover:-translate-y-0.5 transition-all duration-300 shadow-sm group">
+                <div className="text-base sm:text-lg font-black text-white group-hover:scale-105 transition-transform">
                   <span className="text-[#5b9aff]">92</span>h
                 </div>
                 <div className="text-[0.55rem] uppercase font-bold text-slate-300 tracking-wider">
                   Logged
                 </div>
                 <div className="text-[0.6rem] text-emerald-400 font-bold flex items-center justify-center gap-0.5 mt-0.5">
-                  <i className="fas fa-arrow-up text-[0.5rem]"></i> +10h
+                  <i className="fas fa-arrow-up text-[0.5rem] animate-bounce"></i> +10h
                 </div>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center hover:bg-white/10 transition-all">
-                <div className="text-base sm:text-lg font-black text-white">
-                  <span className="text-[#5b9aff]">4.9</span>★
+              {/* Card 4: Rating */}
+              <div className="bg-white/8 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center hover:bg-white/15 hover:-translate-y-0.5 transition-all duration-300 shadow-sm group">
+                <div className="text-base sm:text-lg font-black text-white group-hover:scale-105 transition-transform flex items-center justify-center gap-0.5">
+                  <span className="text-[#5b9aff]">4.9</span>
+                  <i className="fas fa-star text-amber-300 text-[0.65rem]"></i>
                 </div>
                 <div className="text-[0.55rem] uppercase font-bold text-slate-300 tracking-wider">
                   Rating
@@ -231,10 +355,10 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Progress Ring Gauge + Info Cards */}
+            {/* 3. Progress Ring Gauge + Info Cards */}
             <div className="grid grid-cols-[1fr_2fr] gap-2.5">
-              {/* Ring Card */}
-              <div className="bg-white/5 backdrop-blur-md rounded-xl p-3.5 border border-white/10 flex flex-col items-center justify-center">
+              {/* Circular Goal Gauge with Animated Gradient Stroke */}
+              <div className="bg-white/8 backdrop-blur-md rounded-xl p-3.5 border border-white/10 flex flex-col items-center justify-center relative overflow-hidden group">
                 <div className="relative w-16 h-16 flex items-center justify-center">
                   <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 70 70">
                     <circle
@@ -250,7 +374,7 @@ export default function LoginPage() {
                       cx="35"
                       cy="35"
                       r="28"
-                      className="text-[#5b9aff]"
+                      className="text-[#5b9aff] transition-all duration-1000"
                       strokeWidth="5"
                       strokeDasharray={175.9}
                       strokeDashoffset={175.9 * (1 - 0.9)}
@@ -259,30 +383,30 @@ export default function LoginPage() {
                       fill="transparent"
                     />
                   </svg>
-                  <span className="absolute text-xs font-black text-white">90%</span>
+                  <span className="absolute text-xs font-black text-white group-hover:scale-110 transition-transform">90%</span>
                 </div>
-                <span className="text-[0.55rem] uppercase tracking-wider text-slate-300 font-bold mt-1.5">
-                  Weekly Goal
+                <span className="text-[0.55rem] uppercase tracking-wider text-slate-300 font-bold mt-1.5 flex items-center gap-1">
+                  <i className="fas fa-bullseye text-[#5b9aff] text-[0.55rem]"></i> Weekly Goal
                 </span>
               </div>
 
-              {/* 2 Info Cards */}
+              {/* 2 Dynamic Info Cards */}
               <div className="grid grid-cols-2 gap-2">
-                <div className="bg-white/5 backdrop-blur-md rounded-xl p-3 border border-white/10 flex flex-col justify-center">
-                  <span className="text-[0.55rem] uppercase font-bold text-slate-400 tracking-wider">
-                    Current GPA
+                <div className="bg-white/8 backdrop-blur-md rounded-xl p-3 border border-white/10 flex flex-col justify-center hover:bg-white/12 transition-colors">
+                  <span className="text-[0.55rem] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1">
+                    <i className="fas fa-chart-line text-[#5b9aff]"></i> GPA Track
                   </span>
                   <div className="text-base sm:text-lg font-black text-white mt-0.5">
                     <span className="text-[#5b9aff]">4.82</span>/5.0
                   </div>
-                  <span className="text-[0.58rem] text-emerald-400 font-semibold mt-0.5">
-                    +0.3 this semester
+                  <span className="text-[0.58rem] text-emerald-400 font-semibold mt-0.5 flex items-center gap-0.5">
+                    <i className="fas fa-caret-up text-[0.6rem]"></i> +0.3 this semester
                   </span>
                 </div>
 
-                <div className="bg-white/5 backdrop-blur-md rounded-xl p-3 border border-white/10 flex flex-col justify-center">
-                  <span className="text-[0.55rem] uppercase font-bold text-slate-400 tracking-wider">
-                    Assignments
+                <div className="bg-white/8 backdrop-blur-md rounded-xl p-3 border border-white/10 flex flex-col justify-center hover:bg-white/12 transition-colors">
+                  <span className="text-[0.55rem] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1">
+                    <i className="fas fa-list-check text-purple-400"></i> Tasks
                   </span>
                   <div className="text-base sm:text-lg font-black text-white mt-0.5">
                     <span className="text-[#5b9aff]">4</span> due
@@ -294,25 +418,54 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Active Pact Banner */}
-            <div className="bg-gradient-to-r from-[#0a66ff]/30 via-[#084bc2]/30 to-[#0b1a33]/60 backdrop-blur-md rounded-xl p-3.5 border border-[#0a66ff]/30 flex items-center justify-between shadow-md">
-              <div>
-                <div className="text-[0.55rem] uppercase tracking-wider font-bold text-blue-300 flex items-center gap-1">
-                  <i className="fas fa-bolt text-amber-300"></i> Active Pact Session
+            {/* 4. Active Pact Banner with Live Countdown Timer & Auto-Cycling Subject */}
+            <div className={`bg-gradient-to-r ${currentSession.color} backdrop-blur-md rounded-xl p-3.5 border ${currentSession.borderColor} flex items-center justify-between shadow-md relative overflow-hidden transition-all duration-500`}>
+              {/* Animated Background Pulse Bar */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_3s_infinite]" />
+              
+              <div className="relative z-10">
+                <div className="text-[0.55rem] uppercase tracking-wider font-bold text-blue-300 flex items-center gap-1.5">
+                  <i className={`${currentSession.icon} text-amber-300`}></i>
+                  <span>Active Pact Session</span>
+                  <span className="text-white/40">•</span>
+                  <span className="text-slate-300">{currentSession.category}</span>
                 </div>
-                <div className="font-extrabold text-xs sm:text-sm text-white">
-                  Organic Chemistry · Ch.7
+                <div className="font-black text-xs sm:text-sm text-white mt-0.5 flex items-center gap-2">
+                  <span>{currentSession.course}</span>
                 </div>
                 <div className="text-[0.62rem] text-blue-200 flex items-center gap-1.5 mt-0.5">
-                  <span className="font-mono font-bold text-amber-300">
+                  <span className="font-mono font-black text-amber-300 bg-black/30 px-1.5 py-0.5 rounded border border-amber-300/30">
+                    <i className="far fa-clock text-[0.55rem] mr-1"></i>
                     {formatMockupTimer(secondsRemaining)}
                   </span>
-                  <span>· Strict Physical Barcode Verification</span>
+                  <span>· {currentSession.tag}</span>
                 </div>
               </div>
-              <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[0.6rem] font-extrabold uppercase tracking-wider border border-emerald-500/30 flex items-center gap-1.5 shadow-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                <span>Active</span>
+
+              <div className="relative z-10 flex flex-col items-end gap-1">
+                <span className="px-3 py-1 rounded-full bg-emerald-500/25 text-emerald-300 text-[0.6rem] font-extrabold uppercase tracking-wider border border-emerald-400/40 flex items-center gap-1.5 shadow-xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                  <span>Enforcing</span>
+                </span>
+                <span className="text-[0.55rem] text-slate-300 font-mono">No override</span>
+              </div>
+            </div>
+
+            {/* 5. Live Peer Activity Stream Ticker */}
+            <div className="bg-white/5 backdrop-blur-md rounded-xl px-3.5 py-2 border border-white/10 flex items-center justify-between text-[0.62rem] text-slate-300 shadow-inner">
+              <div className="flex items-center gap-2 truncate">
+                <div className="w-5 h-5 rounded-full bg-[#0a66ff]/30 text-[#5b9aff] flex items-center justify-center text-[0.55rem] shrink-0">
+                  <i className={currentActivity.icon}></i>
+                </div>
+                <span className="truncate text-white font-medium">
+                  {currentActivity.text}
+                </span>
+                <span className="px-1.5 py-0.2 rounded bg-white/10 text-[0.55rem] font-bold text-slate-300 shrink-0">
+                  {currentActivity.school}
+                </span>
+              </div>
+              <span className="text-[0.55rem] text-slate-400 shrink-0 font-mono ml-2">
+                {currentActivity.time}
               </span>
             </div>
 
@@ -322,7 +475,7 @@ export default function LoginPage() {
         {/* ====== RIGHT: MODERN, PROFESSIONAL LOGIN FORM ====== */}
         <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-6 sm:px-6 lg:p-10 relative overflow-y-auto bg-white">
           
-          {/* Mobile Top Navigation Bar */}
+          {/* Mobile Top Navigation Bar with Back to Home */}
           <div className="w-full max-w-[340px] sm:max-w-[380px] flex items-center justify-between lg:hidden mb-4">
             <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
               <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
@@ -340,16 +493,20 @@ export default function LoginPage() {
             </Link>
             <Link
               href="/"
-              className="text-xs font-bold text-[#0a66ff] bg-[#e8f0fe] px-3 py-1.5 rounded-full hover:bg-[#d5e4fc] transition-colors"
+              className="group/back inline-flex items-center gap-1.5 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-slate-200/80 hover:border-[#0a66ff] shadow-xs hover:shadow-[0_4px_16px_rgba(10,102,255,0.25)] transition-all duration-300 hover:-translate-x-0.5 active:scale-95"
             >
-              Back to Home
+              <span className="w-4.5 h-4.5 rounded-full bg-[#e8f0fe] group-hover/back:bg-white/20 text-[#0a66ff] group-hover/back:text-white flex items-center justify-center transition-colors">
+                <i className="fas fa-arrow-left text-[0.55rem] transition-transform group-hover/back:-translate-x-0.5"></i>
+              </span>
+              <span className="tracking-tight text-[0.72rem]">Back to Home</span>
             </Link>
           </div>
 
           <div className="w-full max-w-[340px] sm:max-w-[380px] my-auto flex flex-col justify-center">
-            {/* Desktop Brand Header */}
-            <div className="hidden lg:block mb-5 text-left">
-              <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight mb-2.5 group">
+            
+            {/* Desktop Brand & Back to Home Header */}
+            <div className="hidden lg:flex items-center justify-between mb-4">
+              <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight group">
                 <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                   <Image
                     src="/logo/mypact_icon.svg"
@@ -363,6 +520,19 @@ export default function LoginPage() {
                   My<span className="text-[#0a66ff]">Pact</span>
                 </span>
               </Link>
+              <Link
+                href="/"
+                className="group/back inline-flex items-center gap-2 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-slate-200 hover:border-[#0a66ff] shadow-xs hover:shadow-[0_4px_16px_rgba(10,102,255,0.25)] transition-all duration-300 hover:-translate-x-0.5 active:scale-95"
+              >
+                <span className="w-5 h-5 rounded-full bg-[#e8f0fe] group-hover/back:bg-white/20 text-[#0a66ff] group-hover/back:text-white flex items-center justify-center transition-colors">
+                  <i className="fas fa-arrow-left text-[0.6rem] transition-transform group-hover/back:-translate-x-0.5"></i>
+                </span>
+                <span className="tracking-tight text-[0.75rem]">Back to Home</span>
+              </Link>
+            </div>
+
+            {/* Desktop Title Header */}
+            <div className="hidden lg:block mb-5 text-left">
               <h1 className="text-2xl font-black text-[#0b1a33] tracking-tight">
                 Welcome back
               </h1>
@@ -527,7 +697,7 @@ export default function LoginPage() {
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl font-black text-[#0b1a33] tracking-tight mb-2">
-                  Welcome back! 🎉
+                  Welcome back!
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-sm mb-6 leading-relaxed">
                   You are logged in. Your academic streak and active pacts are synced and ready.
