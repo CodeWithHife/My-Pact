@@ -6,6 +6,11 @@ import FeaturesDeepDive from "@/components/FeaturesDeepDive";
 import TargetAudience from "@/components/TargetAudience";
 import Integrations from "@/components/Integrations";
 import HowItWorks from "@/components/HowItWorks";
+import Testimonials from "@/components/Testimonials";
+import Pricing from "@/components/Pricing";
+import FAQ from "@/components/FAQ";
+import Community from "@/components/Community";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -19,7 +24,12 @@ export default function Home() {
         <TargetAudience />
         <Integrations />
         <HowItWorks />
+        <Testimonials />
+        <Pricing />
+        <FAQ />
+        <Community />
       </main>
+      <Footer />
     </div>
   );
 }

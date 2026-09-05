@@ -11,10 +11,11 @@ interface NavLinkItem {
 
 const navLinks: NavLinkItem[] = [
   { label: "Features", href: "#features" },
+  { label: "How It Works", href: "#how" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
-  { label: "Insights", href: "#insights" },
+  { label: "Community", href: "#community" },
 ];
 
 export default function Navbar() {

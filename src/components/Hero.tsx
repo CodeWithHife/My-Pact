@@ -57,7 +57,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative pt-32 sm:pt-40 pb-0 overflow-hidden bg-white border-b border-slate-100">
+    <section id="hero" className="relative pt-32 sm:pt-40 pb-0 overflow-hidden bg-white border-b border-slate-100">
       {/* Background Styled Education & Study Icons with Geometric Tile Patterns */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
         {/* Subtle Geometric Background Dot Grid Pattern */}

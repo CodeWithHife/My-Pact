@@ -122,13 +122,22 @@ body {
   transform: translateY(0);
 }
 
-/* Infinite Marquee Animation for Ticker Ribbon */
+/* Infinite Marquee Animation for Ticker Ribbon & Testimonials */
 @keyframes tickerMarquee {
   0% {
     transform: translate3d(0, 0, 0);
   }
   100% {
     transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes tickerMarqueeReverse {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -140,5 +149,27 @@ body {
 }
 
 .animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: tickerMarquee 35s linear infinite;
+}
+
+.animate-marquee-left:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: tickerMarqueeReverse 35s linear infinite;
+}
+
+.animate-marquee-right:hover {
   animation-play-state: paused;
 }
