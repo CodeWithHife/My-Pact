@@ -389,10 +389,10 @@ export default function SignUpPage() {
         </div>
 
         {/* ====== RIGHT: MODERN, PROFESSIONAL SIGN UP FORM ====== */}
-        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-6 sm:px-6 lg:p-10 relative overflow-y-auto bg-white">
+        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-6 sm:px-6 lg:py-8 relative overflow-y-auto bg-white">
           
-          {/* Mobile Top Navigation Bar */}
-          <div className="w-full max-w-[340px] sm:max-w-[380px] flex items-center justify-between lg:hidden mb-4">
+          {/* Mobile Top Navigation Bar with Styled Back to Home */}
+          <div className="w-full max-w-[340px] sm:max-w-[380px] flex items-center justify-between lg:hidden mb-3">
             <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
               <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                 <Image
@@ -420,7 +420,7 @@ export default function SignUpPage() {
 
           <div className="w-full max-w-[340px] sm:max-w-[380px] my-auto flex flex-col justify-center">
             {/* Desktop Brand & Back to Home Header */}
-            <div className="hidden lg:flex items-center justify-between mb-4">
+            <div className="hidden lg:flex items-center justify-between mb-3">
               <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight group">
                 <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                   <Image
@@ -446,22 +446,22 @@ export default function SignUpPage() {
               </Link>
             </div>
 
-            <div className="hidden lg:block mb-5 text-left">
-              <h1 className="text-2xl font-black text-[#0b1a33] tracking-tight">
+            <div className="hidden lg:block mb-3.5 text-left">
+              <h1 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
                 Create your account
               </h1>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 mt-0.5">
                 Join thousands of students who never miss a beat.
               </p>
             </div>
 
             {/* Mobile Header */}
-            <div className="lg:hidden text-center mb-5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-2">
+            <div className="lg:hidden text-center mb-3.5">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
                 <i className="fas fa-bolt text-[0.6rem]"></i>
                 <span>Fast 1-Minute Setup</span>
               </div>
-              <h1 className="text-2xl font-black text-[#0b1a33] tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
                 Create your account
               </h1>
               <p className="text-xs text-slate-500 mt-0.5">
@@ -471,15 +471,15 @@ export default function SignUpPage() {
 
             {/* If Form is NOT Submitted */}
             {!isSuccess ? (
-              <form onSubmit={handleSubmit} noValidate className="space-y-3">
-                {/* Row 1: First & Last Name (Side by Side on Mobile & Desktop) */}
-                <div className="grid grid-cols-2 gap-2.5">
+              <form onSubmit={handleSubmit} noValidate className="space-y-2.5">
+                {/* Row 1: First & Last Name */}
+                <div className="grid grid-cols-2 gap-2">
                   <div className="relative">
-                    <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                    <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
                       First name <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <i className="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                      <i className="fas fa-user absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                       <input
                         type="text"
                         name="firstName"
@@ -487,7 +487,7 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("firstName")}
                         placeholder="David"
-                        className={`w-full pl-8 pr-2.5 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.firstName || hasSubmitted) && currentErrors.firstName
+                        className={`w-full pl-7 pr-2 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.firstName || hasSubmitted) && currentErrors.firstName
                           ? "border-red-500 ring-2 ring-red-500/10"
                           : touched.firstName && !currentErrors.firstName && formData.firstName
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -496,16 +496,16 @@ export default function SignUpPage() {
                       />
                     </div>
                     {(touched.firstName || hasSubmitted) && currentErrors.firstName && (
-                      <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.firstName}</p>
+                      <p className="text-[0.62rem] text-red-500 mt-0.5 font-medium leading-tight">{currentErrors.firstName}</p>
                     )}
                   </div>
 
                   <div className="relative">
-                    <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                    <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
                       Last name <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <i className="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                      <i className="fas fa-user absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                       <input
                         type="text"
                         name="lastName"
@@ -513,7 +513,7 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("lastName")}
                         placeholder="Okonkwo"
-                        className={`w-full pl-8 pr-2.5 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.lastName || hasSubmitted) && currentErrors.lastName
+                        className={`w-full pl-7 pr-2 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.lastName || hasSubmitted) && currentErrors.lastName
                           ? "border-red-500 ring-2 ring-red-500/10"
                           : touched.lastName && !currentErrors.lastName && formData.lastName
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -522,18 +522,18 @@ export default function SignUpPage() {
                       />
                     </div>
                     {(touched.lastName || hasSubmitted) && currentErrors.lastName && (
-                      <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.lastName}</p>
+                      <p className="text-[0.62rem] text-red-500 mt-0.5 font-medium leading-tight">{currentErrors.lastName}</p>
                     )}
                   </div>
                 </div>
 
                 {/* Row 2: Username */}
                 <div className="relative">
-                  <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
                     Username <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <i className="fas fa-at absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                    <i className="fas fa-at absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                     <input
                       type="text"
                       name="username"
@@ -541,7 +541,7 @@ export default function SignUpPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("username")}
                       placeholder="Username"
-                      className={`w-full pl-8 pr-3 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.username || hasSubmitted) && currentErrors.username
+                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.username || hasSubmitted) && currentErrors.username
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.username && !currentErrors.username && formData.username
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -550,17 +550,17 @@ export default function SignUpPage() {
                     />
                   </div>
                   {(touched.username || hasSubmitted) && currentErrors.username && (
-                    <p className="text-[0.65rem] text-red-500 mt-1 font-medium">{currentErrors.username}</p>
+                    <p className="text-[0.62rem] text-red-500 mt-0.5 font-medium">{currentErrors.username}</p>
                   )}
                 </div>
 
                 {/* Row 3: Email */}
                 <div className="relative">
-                  <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
                     Email <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <i className="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                    <i className="fas fa-envelope absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                     <input
                       type="email"
                       name="email"
@@ -568,7 +568,7 @@ export default function SignUpPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("email")}
                       placeholder="name@email.com"
-                      className={`w-full pl-8 pr-3 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.email || hasSubmitted) && currentErrors.email
+                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.email || hasSubmitted) && currentErrors.email
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.email && !currentErrors.email && formData.email
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -577,17 +577,17 @@ export default function SignUpPage() {
                     />
                   </div>
                   {(touched.email || hasSubmitted) && currentErrors.email && (
-                    <p className="text-[0.65rem] text-red-500 mt-1 font-medium">{currentErrors.email}</p>
+                    <p className="text-[0.62rem] text-red-500 mt-0.5 font-medium">{currentErrors.email}</p>
                   )}
                 </div>
 
                 {/* Password (Full Width Block) */}
                 <div className="relative">
-                  <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
                     Password <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <i className="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                    <i className="fas fa-lock absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                     <input
                       type={showPassword ? "text" : "password"}
                       name="password"
@@ -595,7 +595,7 @@ export default function SignUpPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("password")}
                       placeholder="Create a password"
-                      className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.password || hasSubmitted) && currentErrors.password
+                      className={`w-full pl-7 pr-8 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.password || hasSubmitted) && currentErrors.password
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.password && !currentErrors.password && formData.password
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -605,24 +605,24 @@ export default function SignUpPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-0.5"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-0.5"
                       aria-label={showPassword ? "Hide password" : "Show password"}
                     >
                       <i className={showPassword ? "fas fa-eye-slash text-[0.7rem]" : "fas fa-eye text-[0.7rem]"}></i>
                     </button>
                   </div>
                   {(touched.password || hasSubmitted) && currentErrors.password && (
-                    <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.password}</p>
+                    <p className="text-[0.62rem] text-red-500 mt-0.5 font-medium leading-tight">{currentErrors.password}</p>
                   )}
                 </div>
 
                 {/* Confirm Password (Full Width Block) */}
                 <div className="relative">
-                  <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
                     Confirm password <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <i className="fas fa-shield-check absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                    <i className="fas fa-shield-check absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                     <input
                       type={showConfirmPassword ? "text" : "password"}
                       name="confirmPassword"
@@ -630,7 +630,7 @@ export default function SignUpPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("confirmPassword")}
                       placeholder="Confirm your password"
-                      className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
+                      className={`w-full pl-7 pr-8 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.confirmPassword && !currentErrors.confirmPassword && formData.confirmPassword
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -640,28 +640,28 @@ export default function SignUpPage() {
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-0.5"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-0.5"
                       aria-label={showConfirmPassword ? "Hide password" : "Show password"}
                     >
                       <i className={showConfirmPassword ? "fas fa-eye-slash text-[0.7rem]" : "fas fa-eye text-[0.7rem]"}></i>
                     </button>
                   </div>
                   {(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword && (
-                    <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.confirmPassword}</p>
+                    <p className="text-[0.62rem] text-red-500 mt-0.5 font-medium leading-tight">{currentErrors.confirmPassword}</p>
                   )}
                 </div>
 
                 {/* Terms and Conditions Checkbox */}
-                <div className="pt-1">
-                  <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                <div className="pt-0.5">
+                  <label className="flex items-start gap-2 cursor-pointer select-none">
                     <input
                       type="checkbox"
                       name="termsAccepted"
                       checked={formData.termsAccepted}
                       onChange={handleInputChange}
-                      className="w-4 h-4 rounded mt-0.5 accent-[#0a66ff] cursor-pointer"
+                      className="w-3.5 h-3.5 rounded mt-0.5 accent-[#0a66ff] cursor-pointer shrink-0"
                     />
-                    <span className="text-xs text-slate-600 leading-snug">
+                    <span className="text-[0.68rem] text-slate-600 leading-tight">
                       I agree to the{" "}
                       <Link href="/terms" className="text-[#0a66ff] font-semibold hover:underline">
                         Terms of Service
@@ -674,7 +674,7 @@ export default function SignUpPage() {
                     </span>
                   </label>
                   {(touched.terms || hasSubmitted) && currentErrors.terms && (
-                    <p className="text-[0.68rem] text-red-500 mt-1 font-medium">{currentErrors.terms}</p>
+                    <p className="text-[0.62rem] text-red-500 mt-0.5 font-medium">{currentErrors.terms}</p>
                   )}
                 </div>
 
@@ -682,7 +682,7 @@ export default function SignUpPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] text-white font-bold text-sm shadow-[0_6px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_10px_32px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+                  className="w-full py-2.5 px-6 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] text-white font-bold text-sm shadow-[0_6px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_10px_32px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed mt-1.5"
                 >
                   {isLoading ? (
                     <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin inline-block" />
@@ -695,7 +695,7 @@ export default function SignUpPage() {
                 </button>
 
                 {/* Log In Link */}
-                <p className="text-center text-xs text-slate-500 pt-2">
+                <p className="text-center text-xs text-slate-500 pt-1">
                   Already have an account?{" "}
                   <Link href="/login" className="font-bold text-[#0a66ff] hover:underline">
                     Log in
