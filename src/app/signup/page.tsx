@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -194,7 +196,10 @@ export default function SignUpPage() {
       setIsLoading(false);
       setIsSuccess(true);
       triggerConfetti();
-    }, 1200);
+      setTimeout(() => {
+        router.push("/onboarding");
+      }, 1400);
+    }, 1000);
   };
 
   return (
@@ -738,10 +743,10 @@ export default function SignUpPage() {
                 </p>
 
                 <Link
-                  href="/"
+                  href="/onboarding"
                   className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#084bc2] text-white font-bold text-sm shadow-[0_8px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_12px_36px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 transition-all flex items-center gap-2"
                 >
-                  <span>Go to Dashboard</span>
+                  <span>Proceed to Onboarding</span>
                   <i className="fas fa-arrow-right text-xs"></i>
                 </Link>
               </div>

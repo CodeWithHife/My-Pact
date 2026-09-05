@@ -4,67 +4,129 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-// Nigerian & Global Universities list
+// Comprehensive list of Nigerian & Global Universities / Polytechnics
 const universities = [
+  // Federal Universities
   "University of Lagos (UNILAG)",
   "University of Ibadan (UI)",
-  "Obafemi Awolowo University (OAU)",
+  "Obafemi Awolowo University (OAU Ile-Ife)",
   "University of Nigeria, Nsukka (UNN)",
   "Ahmadu Bello University (ABU Zaria)",
-  "Covenant University",
   "Federal University of Technology, Akure (FUTA)",
   "University of Benin (UNIBEN)",
-  "Babcock University",
-  "Lagos State University (LASU)",
   "University of Ilorin (UNILORIN)",
   "Federal University of Technology, Minna (FUTMINNA)",
-  "Other Institution / Global Campus",
+  "Federal University of Technology, Owerri (FUTO)",
+  "University of Abuja (UniAbuja)",
+  "Bayero University Kano (BUK)",
+  "University of Port Harcourt (UNIPORT)",
+  "University of Jos (UNIJOS)",
+  "University of Calabar (UNICAL)",
+  "Federal University of Agriculture, Abeokuta (FUNAAB)",
+  "Nnamdi Azikiwe University (UNIZIK)",
+  "Usmanu Danfodiyo University (UDUS Sokoto)",
+  
+  // State Universities
+  "Lagos State University (LASU)",
+  "Delta State University (DELSU)",
+  "Rivers State University (RSU)",
+  "Olabisi Onabanjo University (OOU)",
+  "Adekunle Ajasin University (AAUA)",
+  "Ekiti State University (EKSU)",
+  "Kaduna State University (KASU)",
+  "Ambrose Alli University (AAU Ekpoma)",
+  "Enugu State University of Science and Tech (ESUT)",
+  
+  // Private Universities
+  "Covenant University (Ota)",
+  "Babcock University (Ilishan-Remo)",
+  "Pan-Atlantic University (PAU Lagos)",
+  "Landmark University (Omu-Aran)",
+  "Bowen University (Iwo)",
+  "Afe Babalola University (ABUAD)",
+  "Redeemer's University (RUN Ede)",
+  "Nile University of Nigeria (Abuja)",
+  "Baze University (Abuja)",
+  "Lead City University (Ibadan)",
+  "Bells University of Technology (Ota)",
+  "Al-Hikmah University (Ilorin)",
+  "Madonna University",
+  
+  // Polytechnics & Monotechnics
+  "Yaba College of Technology (YABATECH)",
+  "Federal Polytechnic, Ilaro",
+  "Federal Polytechnic, Nekede",
+  "Lagos State Polytechnic (LASPOTECH)",
+  
+  // Other / International
+  "Other Nigerian Institution",
+  "International / Foreign University",
+];
+
+const faculties = [
+  "Medicine, Dentistry & Health Sciences",
+  "Engineering & Technology",
+  "Computer Science, AI & Information Tech",
+  "Law & Jurisprudence",
+  "Business Administration & Accounting",
+  "Economics, Banking & Finance",
+  "Basic & Applied Biological Sciences",
+  "Physical & Chemical Sciences",
+  "Pharmacy & Pharmaceutical Sciences",
+  "Social & Behavioral Sciences",
+  "Arts, Humanities & Languages",
+  "Environmental Sciences & Architecture",
+  "Agriculture & Forestry",
+  "Education & Teacher Training",
 ];
 
 const academicLevels = [
-  "100 Level (Freshman)",
-  "200 Level (Sophomore)",
-  "300 Level (Penultimate)",
-  "400 Level (Final Year)",
-  "500 Level (Engineering / Med / Law)",
-  "Postgraduate / Master's / PhD",
-  "Professional Exam (ICAN, USMLE, Bar)",
+  "100 Level (Year 1 / Freshman)",
+  "200 Level (Year 2 / Sophomore)",
+  "300 Level (Year 3 / Penultimate)",
+  "400 Level (Year 4 / Final Year)",
+  "500 Level (Year 5 / Clinical / Engineering / Law)",
+  "Postgraduate (Master's / MBA / M.Sc)",
+  "Doctorate (PhD / Research)",
+  "Professional Exam (ICAN, ACCA, USMLE, Bar, PLAB)",
 ];
 
 const availableSubjects = [
-  { id: "chemistry", name: "Chemistry & Biochem", icon: "fas fa-flask" },
-  { id: "calculus", name: "Calculus & Mathematics", icon: "fas fa-calculator" },
+  { id: "chem", name: "Chemistry & Biochemistry", icon: "fas fa-flask" },
+  { id: "math", name: "Calculus & Higher Math", icon: "fas fa-calculator" },
   { id: "cs", name: "Computer Science & Coding", icon: "fas fa-code" },
-  { id: "physics", name: "Physics & Mechanics", icon: "fas fa-atom" },
-  { id: "biology", name: "Biology & Medicine", icon: "fas fa-dna" },
-  { id: "law", name: "Law & Jurisprudence", icon: "fas fa-scale-balanced" },
-  { id: "engineering", name: "Engineering & Design", icon: "fas fa-gears" },
-  { id: "economics", name: "Economics & Finance", icon: "fas fa-chart-line" },
-  { id: "psychology", name: "Psychology & Behavioral", icon: "fas fa-brain" },
+  { id: "phys", name: "Physics & Mechanics", icon: "fas fa-atom" },
+  { id: "bio", name: "Biology, Anatomy & Med", icon: "fas fa-dna" },
+  { id: "law", name: "Law, Cases & Jurisprudence", icon: "fas fa-scale-balanced" },
+  { id: "eng", name: "Engineering & Dynamics", icon: "fas fa-gears" },
+  { id: "econ", name: "Economics, Finance & Acct", icon: "fas fa-chart-line" },
+  { id: "psych", name: "Psychology & Behavioral", icon: "fas fa-brain" },
 ];
 
 export default function OnboardingPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 4;
 
-  // Step 1: Academic Profile
+  // Step 1: Academic Profile (NO Name needed - collected at sign up)
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     university: "",
+    faculty: "",
     level: "",
-    targetGpa: "4.50 - 5.00 (First Class / Distinction)",
+    targetGpa: "4.50 - 5.00 (First Class / Top 5%)",
   });
 
   const [step1Touched, setStep1Touched] = useState({
-    firstName: false,
-    lastName: false,
     university: false,
+    faculty: false,
     level: false,
   });
 
   // Step 2: Subjects
-  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([
+    "chem",
+    "math",
+    "cs",
+  ]);
   const [subjectError, setSubjectError] = useState("");
 
   // Step 3: Enforcement Tier & Rules
@@ -74,10 +136,10 @@ export default function OnboardingPage() {
     phone: "",
   });
 
-  // Step 4: First Pact Setup
+  // Step 4: First Pact Setup (Subject is a Dropdown)
   const [pactData, setPactData] = useState({
-    name: "",
-    subject: "",
+    name: "Daily Deep Focus Session",
+    subject: "Chemistry & Biochemistry",
     duration: 45,
     frequency: "weekdays",
   });
@@ -113,20 +175,16 @@ export default function OnboardingPage() {
   // Validation Helpers
   const getStep1Errors = () => {
     const errs = {
-      firstName: "",
-      lastName: "",
       university: "",
+      faculty: "",
       level: "",
     };
 
-    if (!formData.firstName.trim()) {
-      errs.firstName = "First name is required.";
-    }
-    if (!formData.lastName.trim()) {
-      errs.lastName = "Last name is required.";
-    }
     if (!formData.university) {
       errs.university = "Please select your institution.";
+    }
+    if (!formData.faculty) {
+      errs.faculty = "Please select your faculty or field of study.";
     }
     if (!formData.level) {
       errs.level = "Please select your academic level.";
@@ -145,8 +203,8 @@ export default function OnboardingPage() {
     if (!pactData.name.trim()) {
       errs.name = "Please provide a name for your first study pact.";
     }
-    if (!pactData.subject.trim()) {
-      errs.subject = "Please specify a subject or course.";
+    if (!pactData.subject) {
+      errs.subject = "Please select a study course.";
     }
     if (!pactData.duration || pactData.duration < 15 || pactData.duration > 240) {
       errs.duration = "Duration must be between 15 and 240 minutes.";
@@ -158,16 +216,18 @@ export default function OnboardingPage() {
   const step1Errors = getStep1Errors();
   const step4Errors = getStep4Errors();
 
-  const handleStep1Change = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleStep1Change = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const toggleSubject = (subjectId: string) => {
     if (subjectError) setSubjectError("");
-    setSelectedSubjects((prev) =>
-      prev.includes(subjectId) ? prev.filter((id) => id !== subjectId) : [...prev, subjectId]
-    );
+    setSelectedSubjects((prev) => {
+      const exists = prev.includes(subjectId);
+      if (exists && prev.length === 1) return prev; // keep at least 1
+      return exists ? prev.filter((id) => id !== subjectId) : [...prev, subjectId];
+    });
   };
 
   const triggerConfetti = () => {
@@ -191,9 +251,8 @@ export default function OnboardingPage() {
   const handleNext = () => {
     if (currentStep === 1) {
       setStep1Touched({
-        firstName: true,
-        lastName: true,
         university: true,
+        faculty: true,
         level: true,
       });
       const hasErrors = Object.values(step1Errors).some((msg) => msg.length > 0);
@@ -202,7 +261,7 @@ export default function OnboardingPage() {
 
     if (currentStep === 2) {
       if (selectedSubjects.length === 0) {
-        setSubjectError("Please select at least one study subject.");
+        setSubjectError("Please select at least one study course.");
         return;
       }
     }
@@ -245,7 +304,7 @@ export default function OnboardingPage() {
       <div className="relative z-10 w-full max-w-[780px] mx-auto">
         
         {/* Main Onboarding Card Container */}
-        <div className="bg-white/90 backdrop-blur-xl rounded-2xl sm:rounded-3xl border border-white/80 shadow-[0_24px_64px_rgba(10,102,255,0.12)] overflow-hidden">
+        <div className="bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl border border-white/80 shadow-[0_24px_64px_rgba(10,102,255,0.12)] overflow-hidden">
           
           {/* ====== HEADER ====== */}
           <div className="px-5 py-4 sm:px-8 sm:py-5 border-b border-[#0a66ff]/10 flex items-center justify-between flex-wrap gap-3">
@@ -303,85 +362,29 @@ export default function OnboardingPage() {
             
             {!isSuccess ? (
               <div>
-                {/* STEP 1: ACADEMIC PROFILE */}
+                {/* STEP 1: ACADEMIC PROFILE (NO Name needed - collected on signup) */}
                 {currentStep === 1 && (
-                  <div className="animate-fadeIn space-y-4">
+                  <div className="animate-fadeIn space-y-3.5">
                     <div className="mb-2">
                       <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
-                        <i className="fas fa-user-graduate text-[0.6rem]"></i>
-                        <span>Step 1: Academic Profile</span>
+                        <i className="fas fa-building-columns text-[0.6rem]"></i>
+                        <span>Step 1: Academic Institution & Goals</span>
                       </div>
                       <h2 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
-                        Tell us about your studies
+                        Configure your academic environment
                       </h2>
                       <p className="text-xs text-slate-500 mt-0.5">
-                        We configure your accountability schedule and coursework AI based on your campus & level.
+                        Select your institution and academic standing so MyPact can sync campus study schedules and calibrate your Coursework AI.
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {/* First Name */}
-                      <div className="relative">
-                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
-                          First name <span className="text-red-500">*</span>
-                        </label>
-                        <div className="relative">
-                          <i className="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
-                          <input
-                            type="text"
-                            name="firstName"
-                            value={formData.firstName}
-                            onChange={handleStep1Change}
-                            onBlur={() => setStep1Touched((prev) => ({ ...prev, firstName: true }))}
-                            placeholder="David"
-                            className={`w-full pl-8 pr-3 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(step1Touched.firstName) && step1Errors.firstName
-                              ? "border-red-500 ring-2 ring-red-500/10"
-                              : step1Touched.firstName && !step1Errors.firstName && formData.firstName
-                                ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                                : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                              }`}
-                          />
-                        </div>
-                        {step1Touched.firstName && step1Errors.firstName && (
-                          <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{step1Errors.firstName}</p>
-                        )}
-                      </div>
-
-                      {/* Last Name */}
-                      <div className="relative">
-                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
-                          Last name <span className="text-red-500">*</span>
-                        </label>
-                        <div className="relative">
-                          <i className="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
-                          <input
-                            type="text"
-                            name="lastName"
-                            value={formData.lastName}
-                            onChange={handleStep1Change}
-                            onBlur={() => setStep1Touched((prev) => ({ ...prev, lastName: true }))}
-                            placeholder="Okonkwo"
-                            className={`w-full pl-8 pr-3 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(step1Touched.lastName) && step1Errors.lastName
-                              ? "border-red-500 ring-2 ring-red-500/10"
-                              : step1Touched.lastName && !step1Errors.lastName && formData.lastName
-                                ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                                : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                              }`}
-                          />
-                        </div>
-                        {step1Touched.lastName && step1Errors.lastName && (
-                          <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{step1Errors.lastName}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* University / Institution Dropdown */}
+                    {/* Institution / University Dropdown */}
                     <div className="relative">
                       <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
                         Institution / University <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <i className="fas fa-building-columns absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                        <i className="fas fa-graduation-cap absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                         <select
                           name="university"
                           value={formData.university}
@@ -394,7 +397,7 @@ export default function OnboardingPage() {
                               : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                             }`}
                         >
-                          <option value="">Select your institution...</option>
+                          <option value="">Select your university or polytechnic...</option>
                           {universities.map((uni) => (
                             <option key={uni} value={uni}>
                               {uni}
@@ -408,12 +411,45 @@ export default function OnboardingPage() {
                       )}
                     </div>
 
+                    {/* Faculty / Field of Study Dropdown */}
+                    <div className="relative">
+                      <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                        Faculty / Field of Study <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <i className="fas fa-book-open-reader absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                        <select
+                          name="faculty"
+                          value={formData.faculty}
+                          onChange={handleStep1Change}
+                          onBlur={() => setStep1Touched((prev) => ({ ...prev, faculty: true }))}
+                          className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white appearance-none cursor-pointer ${(step1Touched.faculty) && step1Errors.faculty
+                            ? "border-red-500 ring-2 ring-red-500/10"
+                            : step1Touched.faculty && !step1Errors.faculty && formData.faculty
+                              ? "border-emerald-500 ring-2 ring-emerald-500/10"
+                              : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                            }`}
+                        >
+                          <option value="">Select your faculty / department...</option>
+                          {faculties.map((fac) => (
+                            <option key={fac} value={fac}>
+                              {fac}
+                            </option>
+                          ))}
+                        </select>
+                        <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                      </div>
+                      {step1Touched.faculty && step1Errors.faculty && (
+                        <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{step1Errors.faculty}</p>
+                      )}
+                    </div>
+
                     {/* Academic Level & Target GPA Row */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {/* Academic Level Dropdown */}
                       <div className="relative">
                         <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
-                          Current Level <span className="text-red-500">*</span>
+                          Current Academic Level <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
                           <i className="fas fa-layer-group absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
@@ -446,7 +482,7 @@ export default function OnboardingPage() {
                       {/* Target GPA Dropdown */}
                       <div className="relative">
                         <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
-                          Target Semester GPA Goal
+                          Semester GPA Target
                         </label>
                         <div className="relative">
                           <i className="fas fa-trophy absolute left-3 top-1/2 -translate-y-1/2 text-amber-500 text-xs pointer-events-none"></i>
@@ -474,13 +510,13 @@ export default function OnboardingPage() {
                     <div className="mb-2">
                       <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
                         <i className="fas fa-book-bookmark text-[0.6rem]"></i>
-                        <span>Step 2: Study Subjects</span>
+                        <span>Step 2: Study Courses</span>
                       </div>
                       <h2 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
                         Select your key courses
                       </h2>
                       <p className="text-xs text-slate-500 mt-0.5">
-                        Choose the subjects you need accountability for. You can add custom courses anytime.
+                        Choose the subjects you need strict study accountability for.
                       </p>
                     </div>
 
@@ -494,7 +530,7 @@ export default function OnboardingPage() {
                             onClick={() => toggleSubject(sub.id)}
                             className={`p-3 rounded-xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-2.5 select-none ${
                               isSelected
-                                ? "bg-[#e8f0fe] border-[#0a66ff] shadow-xs text-[#0a66ff] ring-2 ring-[#0a66ff]/20 font-bold"
+                                ? "bg-[#e8f0fe] border-[#0a66ff] shadow-2xs text-[#0a66ff] ring-2 ring-[#0a66ff]/20 font-bold"
                                 : "bg-slate-50/60 border-slate-200 hover:border-slate-300 text-slate-700 font-medium"
                             }`}
                           >
@@ -530,12 +566,12 @@ export default function OnboardingPage() {
 
                     {/* Coursework AI Helper Banner */}
                     <div className="bg-gradient-to-r from-[#0a66ff]/10 via-[#7c3aed]/10 to-transparent p-3.5 rounded-xl border border-[#0a66ff]/15 flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-[#0a66ff] text-white flex items-center justify-center text-sm shrink-0 shadow-xs">
+                      <div className="w-9 h-9 rounded-xl bg-[#0a66ff] text-white flex items-center justify-center text-sm shrink-0 shadow-2xs">
                         <i className="fas fa-microchip"></i>
                       </div>
                       <div className="text-xs text-slate-600">
                         <strong className="text-[#0b1a33] block font-bold">Coursework AI Integration</strong>
-                        <span>We will calibrate personalized flashcards and pact reminders for your selected courses.</span>
+                        <span>We will calibrate personalized pact reminders and study materials for your courses.</span>
                       </div>
                     </div>
                   </div>
@@ -553,7 +589,7 @@ export default function OnboardingPage() {
                         Choose your enforcement mode
                       </h2>
                       <p className="text-xs text-slate-500 mt-0.5">
-                        How strict should MyPact be when your scheduled study session begins?
+                        How strictly should MyPact hold you accountable during your study blocks?
                       </p>
                     </div>
 
@@ -598,7 +634,7 @@ export default function OnboardingPage() {
                             : "bg-slate-50/60 border-slate-200 hover:border-slate-300"
                         }`}
                       >
-                        <span className="absolute -top-2.5 right-4 bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] text-white text-[0.55rem] font-extrabold uppercase px-2.5 py-0.5 rounded-full tracking-wider shadow-xs">
+                        <span className="absolute -top-2.5 right-4 bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] text-white text-[0.55rem] font-extrabold uppercase px-2.5 py-0.5 rounded-full tracking-wider shadow-2xs">
                           Most Popular
                         </span>
                         <div>
@@ -679,7 +715,7 @@ export default function OnboardingPage() {
                   </div>
                 )}
 
-                {/* STEP 4: FIRST PACT SETUP */}
+                {/* STEP 4: FIRST PACT SETUP (Subject is a Dropdown) */}
                 {currentStep === 4 && (
                   <div className="animate-fadeIn space-y-3.5">
                     <div className="mb-2">
@@ -691,7 +727,7 @@ export default function OnboardingPage() {
                         Lock in your first commitment
                       </h2>
                       <p className="text-xs text-slate-500 mt-0.5">
-                        Create your initial daily pact session to establish your first accountability streak.
+                        Create your initial study block to establish your verified streak.
                       </p>
                     </div>
 
@@ -717,22 +753,33 @@ export default function OnboardingPage() {
                         )}
                       </div>
 
-                      {/* Subject */}
+                      {/* Subject Dropdown */}
                       <div className="relative">
                         <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
                           Subject / Course <span className="text-red-500">*</span>
                         </label>
-                        <input
-                          type="text"
-                          value={pactData.subject}
-                          onChange={(e) => setPactData((prev) => ({ ...prev, subject: e.target.value }))}
-                          onBlur={() => setStep4Touched((prev) => ({ ...prev, subject: true }))}
-                          placeholder="e.g. Organic Chemistry (CHM 201)"
-                          className={`w-full px-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(step4Touched.subject) && step4Errors.subject
-                            ? "border-red-500 ring-2 ring-red-500/10"
-                            : "border-slate-200 focus:border-[#0a66ff]"
-                            }`}
-                        />
+                        <div className="relative">
+                          <select
+                            value={pactData.subject}
+                            onChange={(e) => setPactData((prev) => ({ ...prev, subject: e.target.value }))}
+                            onBlur={() => setStep4Touched((prev) => ({ ...prev, subject: true }))}
+                            className={`w-full pl-3 pr-8 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white appearance-none cursor-pointer ${(step4Touched.subject) && step4Errors.subject
+                              ? "border-red-500 ring-2 ring-red-500/10"
+                              : "border-slate-200 focus:border-[#0a66ff]"
+                              }`}
+                          >
+                            <option value="">Select study course...</option>
+                            {availableSubjects.map((sub) => (
+                              <option key={sub.id} value={sub.name}>
+                                {sub.name}
+                              </option>
+                            ))}
+                            <option value="General Coursework & Research">General Coursework & Research</option>
+                            <option value="Exam Revision & Past Questions">Exam Revision & Past Questions</option>
+                            <option value="Term Paper & Project Writing">Term Paper & Project Writing</option>
+                          </select>
+                          <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                        </div>
                         {step4Touched.subject && step4Errors.subject && (
                           <p className="text-[0.65rem] text-red-500 mt-1 font-medium">{step4Errors.subject}</p>
                         )}
@@ -752,7 +799,7 @@ export default function OnboardingPage() {
                             max="240"
                             value={pactData.duration}
                             onChange={(e) => setPactData((prev) => ({ ...prev, duration: parseInt(e.target.value) || 0 }))}
-                            className="w-24 px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm font-bold text-[#0a66ff] outline-none bg-slate-50/50 focus:bg-white focus:border-[#0a66ff]"
+                            className="w-20 px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm font-bold text-[#0a66ff] outline-none bg-slate-50/50 focus:bg-white focus:border-[#0a66ff]"
                           />
                           {/* Quick Duration Chips */}
                           <div className="flex gap-1">
@@ -761,7 +808,7 @@ export default function OnboardingPage() {
                                 key={mins}
                                 type="button"
                                 onClick={() => setPactData((prev) => ({ ...prev, duration: mins }))}
-                                className={`px-2 py-1.5 rounded-lg text-[0.68rem] font-bold transition-colors ${
+                                className={`px-2 py-1.5 rounded-lg text-[0.68rem] font-bold transition-colors cursor-pointer ${
                                   pactData.duration === mins
                                     ? "bg-[#0a66ff] text-white"
                                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -779,16 +826,19 @@ export default function OnboardingPage() {
                         <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
                           Frequency
                         </label>
-                        <select
-                          value={pactData.frequency}
-                          onChange={(e) => setPactData((prev) => ({ ...prev, frequency: e.target.value }))}
-                          className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm font-medium outline-none bg-slate-50/50 focus:bg-white focus:border-[#0a66ff]"
-                        >
-                          <option value="weekdays">Weekdays (Mon - Fri)</option>
-                          <option value="daily">Daily (7 days / week)</option>
-                          <option value="weekends">Weekends Only</option>
-                          <option value="3x">3 Times per Week</option>
-                        </select>
+                        <div className="relative">
+                          <select
+                            value={pactData.frequency}
+                            onChange={(e) => setPactData((prev) => ({ ...prev, frequency: e.target.value }))}
+                            className="w-full pl-3 pr-8 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm font-medium outline-none bg-slate-50/50 focus:bg-white focus:border-[#0a66ff] appearance-none cursor-pointer"
+                          >
+                            <option value="weekdays">Weekdays (Mon - Fri)</option>
+                            <option value="daily">Daily (7 days / week)</option>
+                            <option value="weekends">Weekends Only</option>
+                            <option value="3x">3 Times per Week</option>
+                          </select>
+                          <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                        </div>
                       </div>
                     </div>
 
@@ -885,7 +935,7 @@ export default function OnboardingPage() {
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl font-black text-[#0b1a33] tracking-tight mb-1">
-                  You are all set, {formData.firstName || "Scholar"}!
+                  You are all set, Scholar!
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto mb-6 leading-relaxed">
                   Your MyPact student account and accountability engine have been configured. Your study streak begins today.
