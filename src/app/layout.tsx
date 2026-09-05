@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -8,12 +8,17 @@ const inter = Inter({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#0a66ff",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "MyPact — Uncompromising Student Accountability",
   description:
     "The only student platform that enforces your commitments with scheduled verification, active proof-of-work, and escalating consequences for missed tasks.",
   manifest: "/manifest.json",
-  themeColor: "#0a66ff",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
