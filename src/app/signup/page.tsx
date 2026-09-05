@@ -210,7 +210,7 @@ export default function SignUpPage() {
           - On Desktop (>= lg): Ultra-sleek split screen with animated dashboard mockup on the left and form on the right.
       */}
       <div className="relative z-10 w-full min-h-screen lg:h-screen grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] bg-white lg:bg-white overflow-y-auto lg:overflow-hidden">
-        
+
         {/* ====== LEFT: ANIMATED MOCKUP COLUMN (Desktop only: hidden on mobile) ====== */}
         <div className="hidden lg:flex bg-gradient-to-br from-[#0b1a33] via-[#0d2242] to-[#142b4a] p-8 lg:p-12 flex-col items-center justify-center relative overflow-hidden text-white min-h-full select-none">
           {/* Subtle Dynamic Radial Glow */}
@@ -319,16 +319,14 @@ export default function SignUpPage() {
                     <div
                       key={sub.name}
                       onClick={() => setActiveSubject(idx)}
-                      className={`rounded-xl p-2.5 border transition-all duration-300 cursor-pointer flex items-center gap-2.5 ${
-                        activeSubject === idx
-                          ? "bg-[#eef5ff] border-[#0a66ff] shadow-xs ring-2 ring-[#0a66ff]/25 scale-[1.02]"
-                          : "bg-white border-slate-200/90 hover:border-slate-300"
-                      }`}
+                      className={`rounded-xl p-2.5 border transition-all duration-300 cursor-pointer flex items-center gap-2.5 ${activeSubject === idx
+                        ? "bg-[#eef5ff] border-[#0a66ff] shadow-xs ring-2 ring-[#0a66ff]/25 scale-[1.02]"
+                        : "bg-white border-slate-200/90 hover:border-slate-300"
+                        }`}
                     >
                       <div
-                        className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs flex-shrink-0 transition-colors ${
-                          activeSubject === idx ? "bg-[#0a66ff] text-white shadow-xs" : "bg-[#e8f0fe] text-[#0a66ff]"
-                        }`}
+                        className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs flex-shrink-0 transition-colors ${activeSubject === idx ? "bg-[#0a66ff] text-white shadow-xs" : "bg-[#e8f0fe] text-[#0a66ff]"
+                          }`}
                       >
                         <i className={sub.icon}></i>
                       </div>
@@ -391,10 +389,10 @@ export default function SignUpPage() {
         </div>
 
         {/* ====== RIGHT: MODERN, PROFESSIONAL SIGN UP FORM ====== */}
-        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-8 sm:p-8 lg:p-12 relative overflow-y-auto bg-white">
-          
+        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:p-10 relative overflow-y-auto bg-white">
+
           {/* Mobile Top Navigation Bar */}
-          <div className="w-full max-w-[440px] flex items-center justify-between lg:hidden mb-5">
+          <div className="w-full max-w-[380px] flex items-center justify-between lg:hidden mb-5">
             <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
               <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                 <Image
@@ -417,10 +415,10 @@ export default function SignUpPage() {
             </Link>
           </div>
 
-          <div className="w-full max-w-[440px] my-auto flex flex-col justify-center">
+          <div className="w-full max-w-[380px] my-auto flex flex-col justify-center">
             {/* Desktop Brand Header */}
-            <div className="hidden lg:block mb-6 text-left">
-              <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight mb-3 group">
+            <div className="hidden lg:block mb-5 text-left">
+              <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight mb-2.5 group">
                 <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                   <Image
                     src="/logo/mypact_icon.svg"
@@ -434,10 +432,10 @@ export default function SignUpPage() {
                   My<span className="text-[#0a66ff]">Pact</span>
                 </span>
               </Link>
-              <h1 className="text-2xl sm:text-3xl font-black text-[#0b1a33] tracking-tight">
+              <h1 className="text-2xl font-black text-[#0b1a33] tracking-tight">
                 Create your account
               </h1>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 mt-1">
                 Join thousands of students who never miss a beat.
               </p>
             </div>
@@ -474,13 +472,12 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("firstName")}
                         placeholder="David"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          (touched.firstName || hasSubmitted) && currentErrors.firstName
-                            ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.firstName && !currentErrors.firstName && formData.firstName
+                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.firstName || hasSubmitted) && currentErrors.firstName
+                          ? "border-red-500 ring-2 ring-red-500/10"
+                          : touched.firstName && !currentErrors.firstName && formData.firstName
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                        }`}
+                          }`}
                       />
                     </div>
                     {(touched.firstName || hasSubmitted) && currentErrors.firstName && (
@@ -501,13 +498,12 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("lastName")}
                         placeholder="Okonkwo"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          (touched.lastName || hasSubmitted) && currentErrors.lastName
-                            ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.lastName && !currentErrors.lastName && formData.lastName
+                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.lastName || hasSubmitted) && currentErrors.lastName
+                          ? "border-red-500 ring-2 ring-red-500/10"
+                          : touched.lastName && !currentErrors.lastName && formData.lastName
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                        }`}
+                          }`}
                       />
                     </div>
                     {(touched.lastName || hasSubmitted) && currentErrors.lastName && (
@@ -531,13 +527,12 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("username")}
                         placeholder="Username"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          (touched.username || hasSubmitted) && currentErrors.username
-                            ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.username && !currentErrors.username && formData.username
+                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.username || hasSubmitted) && currentErrors.username
+                          ? "border-red-500 ring-2 ring-red-500/10"
+                          : touched.username && !currentErrors.username && formData.username
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                        }`}
+                          }`}
                       />
                     </div>
                     {(touched.username || hasSubmitted) && currentErrors.username && (
@@ -558,13 +553,12 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("email")}
                         placeholder="name@email.com"
-                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          (touched.email || hasSubmitted) && currentErrors.email
-                            ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.email && !currentErrors.email && formData.email
+                        className={`w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.email || hasSubmitted) && currentErrors.email
+                          ? "border-red-500 ring-2 ring-red-500/10"
+                          : touched.email && !currentErrors.email && formData.email
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                        }`}
+                          }`}
                       />
                     </div>
                     {(touched.email || hasSubmitted) && currentErrors.email && (
@@ -588,13 +582,12 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("password")}
                         placeholder="Password"
-                        className={`w-full pl-9 pr-10 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          (touched.password || hasSubmitted) && currentErrors.password
-                            ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.password && !currentErrors.password && formData.password
+                        className={`w-full pl-9 pr-10 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.password || hasSubmitted) && currentErrors.password
+                          ? "border-red-500 ring-2 ring-red-500/10"
+                          : touched.password && !currentErrors.password && formData.password
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                        }`}
+                          }`}
                       />
                       <button
                         type="button"
@@ -623,13 +616,12 @@ export default function SignUpPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("confirmPassword")}
                         placeholder="Confirm password"
-                        className={`w-full pl-9 pr-10 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${
-                          (touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
-                            ? "border-red-500 ring-2 ring-red-500/10"
-                            : touched.confirmPassword && !currentErrors.confirmPassword && formData.confirmPassword
+                        className={`w-full pl-9 pr-10 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
+                          ? "border-red-500 ring-2 ring-red-500/10"
+                          : touched.confirmPassword && !currentErrors.confirmPassword && formData.confirmPassword
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
                             : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                        }`}
+                          }`}
                       />
                       <button
                         type="button"
