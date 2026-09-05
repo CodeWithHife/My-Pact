@@ -27,13 +27,13 @@ export default function Footer() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3.5 items-center justify-center">
-            <a
-              href="#get-started"
+            <Link
+              href="/signup"
               className="w-full sm:w-auto px-9 py-4 rounded-full bg-white text-[#0a66ff] hover:bg-[#e8f0fe] font-bold text-base shadow-[0_12px_36px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2.5 cursor-pointer"
             >
               <i className="fas fa-rocket text-sm"></i>
               <span>Start Your Free Trial</span>
-            </a>
+            </Link>
             <a
               href="#pricing"
               className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-base border border-white/20 backdrop-blur-sm transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"

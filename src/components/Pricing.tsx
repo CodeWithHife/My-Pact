@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 
 interface PricingPlan {
   id: string;
@@ -196,8 +197,8 @@ export default function Pricing() {
 
               {/* Action Button */}
               <div>
-                <a
-                  href="#get-started"
+                <Link
+                  href="/signup"
                   className={`w-full py-3 rounded-full font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer ${
                     plan.popular
                       ? "bg-[#0a66ff] hover:bg-[#084bc2] text-white shadow-md shadow-[#0a66ff]/25 hover:shadow-lg hover:shadow-[#0a66ff]/35 hover:-translate-y-0.5"
@@ -206,7 +207,7 @@ export default function Pricing() {
                 >
                   <span>{plan.buttonText}</span>
                   <i className="fas fa-arrow-right text-[10px]"></i>
-                </a>
+                </Link>
               </div>
             </div>
           ))}

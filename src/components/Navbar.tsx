@@ -96,13 +96,13 @@ export default function Navbar() {
             </a>
 
             {/* Get Started Button (Desktop only) */}
-            <a
-              href="#get-started"
+            <Link
+              href="/signup"
               className="btn-mypact-primary hidden md:inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold tracking-tight cursor-pointer"
             >
               <i className="fas fa-user-plus text-xs"></i>
               <span>Get Started</span>
-            </a>
+            </Link>
 
             {/* Mobile Hamburger Menu Toggle Button */}
             <button
@@ -157,22 +157,22 @@ export default function Navbar() {
           </div>
 
           <div className="flex flex-col gap-2.5 pt-2">
-            <a
-              href="#login"
+            <Link
+              href="/signup"
               onClick={closeMobileMenu}
               className="btn-mypact-outline flex items-center justify-center gap-2 w-full py-2.5 rounded-full text-sm font-semibold"
             >
               <i className="fas fa-sign-in-alt text-xs"></i>
               <span>Log In</span>
-            </a>
-            <a
-              href="#get-started"
+            </Link>
+            <Link
+              href="/signup"
               onClick={closeMobileMenu}
-              className="btn-mypact-primary flex items-center justify-center gap-2 w-full py-2.5 rounded-full text-sm font-semibold"
+              className="btn-mypact-primary flex items-center justify-center gap-2 w-full py-2.5 rounded-full text-sm font-semibold shadow-md"
             >
               <i className="fas fa-user-plus text-xs"></i>
               <span>Get Started</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

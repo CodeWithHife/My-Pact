@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 
 const tickerItems = [
   { icon: "fas fa-arrow-trend-up", text: "97% Task Completion Rate", color: "text-emerald-300" },
@@ -112,14 +113,14 @@ export default function Hero() {
             {/* Highly Styled Professional Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-4 items-center justify-center lg:justify-start w-full sm:w-auto">
               {/* Primary High-Impact CTA Button */}
-              <a
-                href="#get-started"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-semibold text-base text-white bg-gradient-to-r from-[#0a66ff] to-[#084bc2] hover:from-[#084bc2] hover:to-[#063896] shadow-[0_8px_28px_rgba(10,102,255,0.38)] hover:shadow-[0_12px_36px_rgba(10,102,255,0.5)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
+              <Link
+                href="/signup"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full font-bold text-base text-white bg-gradient-to-r from-[#0a66ff] to-[#084bc2] hover:from-[#084bc2] hover:to-[#063999] shadow-[0_10px_30px_rgba(10,102,255,0.35)] hover:shadow-[0_14px_40px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
               >
-                <i className="fas fa-rocket text-sm transition-transform duration-200 group-hover:scale-110"></i>
+                <i className="fas fa-rocket text-sm"></i>
                 <span>Get Started Free</span>
                 <i className="fas fa-arrow-right text-xs opacity-75 transition-transform duration-200 group-hover:translate-x-1"></i>
-              </a>
+              </Link>
 
               {/* Secondary Sleek Glass Button */}
               <a
