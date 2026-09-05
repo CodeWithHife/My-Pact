@@ -192,66 +192,8 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Live Academic Momentum & Focus Graph with Animated SVG Drawing Line */}
-              <div className="bg-[#f8faff] rounded-2xl p-3.5 border border-[#e6edf5] my-3.5">
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#0b1a33]">
-                    <i className="fas fa-chart-line text-[#0a66ff]"></i>
-                    <span>Discipline Momentum</span>
-                  </div>
-                  <span className="text-[10px] font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60 flex items-center gap-1">
-                    <i className="fas fa-arrow-trend-up text-[9px]"></i> +28% Peak Focus
-                  </span>
-                </div>
-
-                {/* Animated SVG Path Canvas */}
-                <div className="relative w-full h-11 overflow-hidden">
-                  <svg
-                    viewBox="0 0 380 44"
-                    className="w-full h-full overflow-visible"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      <linearGradient id="momentumGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#0a66ff" />
-                        <stop offset="50%" stopColor="#38bdf8" />
-                        <stop offset="100%" stopColor="#10b981" />
-                      </linearGradient>
-                      <linearGradient id="momentumArea" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#0a66ff" stopOpacity="0.18" />
-                        <stop offset="100%" stopColor="#0a66ff" stopOpacity="0.0" />
-                      </linearGradient>
-                    </defs>
-
-                    {/* Subtle Grid Guidelines */}
-                    <line x1="0" y1="12" x2="380" y2="12" stroke="#e2e8f0" strokeDasharray="3 3" strokeWidth="1" />
-                    <line x1="0" y1="32" x2="380" y2="32" stroke="#e2e8f0" strokeDasharray="3 3" strokeWidth="1" />
-
-                    {/* Under-Glow Fill Area */}
-                    <path
-                      d="M 0,36 C 45,34 75,20 120,24 C 165,28 200,12 250,16 C 300,20 335,6 380,4 L 380,44 L 0,44 Z"
-                      fill="url(#momentumArea)"
-                    />
-
-                    {/* Main Animated Drawing Line */}
-                    <path
-                      d="M 0,36 C 45,34 75,20 120,24 C 165,28 200,12 250,16 C 300,20 335,6 380,4"
-                      stroke="url(#momentumGradient)"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      className="animate-draw-line"
-                    />
-
-                    {/* Live Target Endpoint Ping */}
-                    <circle cx="380" cy="4" r="5" fill="#10b981" className="animate-ping opacity-75" />
-                    <circle cx="380" cy="4" r="3.5" fill="#10b981" stroke="#ffffff" strokeWidth="1.5" />
-                  </svg>
-                </div>
-              </div>
-
               {/* Task Cards List */}
-              <div className="space-y-3 my-3.5">
+              <div className="space-y-3 my-4">
                 {/* Task 1: Organic Chemistry (Active) */}
                 <div
                   onClick={() => setActiveTask(1)}
