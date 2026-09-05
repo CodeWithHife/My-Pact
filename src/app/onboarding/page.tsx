@@ -282,6 +282,22 @@ export default function OnboardingPage() {
       if (hasErrors) return;
 
       setIsSuccess(true);
+      // Save onboarding config to localStorage for dashboard personalization
+      try {
+        const onboardingPayload = {
+          university: formData.university,
+          faculty: formData.faculty,
+          level: formData.level,
+          targetGpa: formData.targetGpa,
+          courses: selectedSubjects.length > 0 ? selectedSubjects : ["Organic Chemistry", "Calculus III", "Data Structures"],
+          tier: selectedTier,
+          firstPact: pactData,
+          completedAt: new Date().toISOString(),
+        };
+        localStorage.setItem("mypact_onboarding_data", JSON.stringify(onboardingPayload));
+      } catch (err) {
+        console.error("Failed to save onboarding data:", err);
+      }
       triggerConfetti();
       return;
     }
@@ -968,7 +984,7 @@ export default function OnboardingPage() {
                 </div>
 
                 <Link
-                  href="/"
+                  href="/dashboard"
                   className="w-full max-w-xs py-3 px-6 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#084bc2] text-white font-bold text-sm shadow-[0_8px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_12px_36px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
                 >
                   <span>Go to My Dashboard</span>
