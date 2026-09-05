@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -36,6 +36,8 @@ export default function SignUpPage() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [activeSubject, setActiveSubject] = useState(0);
+  const [secondsRemaining, setSecondsRemaining] = useState(2699); // 44:59
   const [confettiPieces, setConfettiPieces] = useState<
     Array<{
       id: number;
@@ -48,6 +50,20 @@ export default function SignUpPage() {
       isCircle: boolean;
     }>
   >([]);
+
+  // Ticking countdown timer for the mockup
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSecondsRemaining((prev) => (prev > 10 ? prev - 1 : 2700));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatMockupTimer = (totalSecs: number) => {
+    const mins = Math.floor(totalSecs / 60);
+    const secs = totalSecs % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+  };
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -141,13 +157,20 @@ export default function SignUpPage() {
     }, 1400);
   };
 
+  const subjects = [
+    { name: "Organic Chemistry", desc: "Ch.7 · 45 min", grade: "A-", icon: "fas fa-flask" },
+    { name: "Calculus III", desc: "Problem Set 5", grade: "B+", icon: "fas fa-calculator" },
+    { name: "Data Structures", desc: "Project due Fri", grade: "A", icon: "fas fa-code" },
+    { name: "English Literature", desc: "Essay draft", grade: "B", icon: "fas fa-book" },
+  ];
+
   return (
     <div className="relative min-h-screen w-full bg-[#f0f5fe] text-[#0b1a33] flex items-center justify-center overflow-hidden font-sans">
-      {/* Background Animated Orbs */}
+      {/* Background Animated Floating Orbs */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute w-[600px] h-[600px] bg-[#0a66ff] rounded-full blur-[100px] opacity-25 -top-[200px] -right-[150px] animate-pulse" />
-        <div className="absolute w-[500px] h-[500px] bg-[#7c3aed] rounded-full blur-[100px] opacity-15 -bottom-[150px] -left-[120px] animate-pulse delay-700" />
-        <div className="absolute w-[400px] h-[400px] bg-[#06b6d4] rounded-full blur-[100px] opacity-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute w-[600px] h-[600px] bg-[#0a66ff] rounded-full blur-[110px] opacity-25 -top-[200px] -right-[150px] animate-pulse" />
+        <div className="absolute w-[500px] h-[500px] bg-[#7c3aed] rounded-full blur-[110px] opacity-15 -bottom-[150px] -left-[120px] animate-pulse delay-700" />
+        <div className="absolute w-[400px] h-[400px] bg-[#06b6d4] rounded-full blur-[100px] opacity-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-spin [animation-duration:30s]" />
       </div>
 
       {/* Main Container */}
@@ -155,12 +178,12 @@ export default function SignUpPage() {
         {/* ====== LEFT: MOCKUP COLUMN ====== */}
         <div className="bg-gradient-to-br from-[#0b1a33] via-[#0d2242] to-[#142b4a] p-6 sm:p-10 lg:p-12 flex flex-col items-center justify-center relative overflow-hidden text-white min-h-[460px] lg:min-h-full">
           {/* Subtle Radial Glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(10,102,255,0.18),transparent_65%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(10,102,255,0.22),transparent_70%)] pointer-events-none" />
 
           {/* Header */}
           <div className="w-full flex justify-between items-center mb-6 lg:mb-8 relative z-10">
             <Link href="/" className="flex items-center gap-3 font-extrabold text-2xl tracking-tight text-white group">
-              <div className="relative w-8 h-8 rounded-xl overflow-hidden bg-[#0a66ff] flex items-center justify-center shadow-md">
+              <div className="relative w-8 h-8 rounded-xl overflow-hidden bg-[#0a66ff] flex items-center justify-center shadow-md transition-transform group-hover:scale-105">
                 <Image
                   src="/logo/mypact_icon.svg"
                   alt="MyPact Logo"
@@ -173,26 +196,31 @@ export default function SignUpPage() {
                 My<span className="text-[#5b9aff]">Pact</span>
               </span>
             </Link>
-            <span className="text-[0.65rem] font-bold uppercase tracking-wider text-white/70 bg-white/10 px-4 py-1.5 rounded-full border border-white/10 flex items-center gap-1.5 animate-pulse">
-              <i className="fas fa-laptop text-[#5b9aff]"></i> Live Preview
+            <span className="text-[0.65rem] font-bold uppercase tracking-wider text-white/80 bg-white/10 px-4 py-1.5 rounded-full border border-white/10 flex items-center gap-2 shadow-xs backdrop-blur-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span>Live Student Dashboard</span>
             </span>
           </div>
 
-          {/* Device Frame */}
-          <div className="w-full max-w-[560px] bg-[#0d1f2e] rounded-2xl p-3.5 pb-0 shadow-[0_24px_60px_rgba(0,0,0,0.45)] border border-white/10 relative z-10 hover:-translate-y-1 transition-transform duration-300">
+          {/* Device Frame with Subtle Floating Animation */}
+          <div className="w-full max-w-[560px] bg-[#0d1f2e] rounded-2xl p-3.5 pb-0 shadow-[0_24px_60px_rgba(0,0,0,0.50)] border border-white/10 relative z-10 transition-all duration-300 hover:shadow-[0_32px_80px_rgba(10,102,255,0.25)] hover:-translate-y-1">
             <div className="bg-[#f8faff] text-[#0b1a33] rounded-t-xl overflow-hidden">
-              {/* Browser Chrome Bar */}
+              {/* Browser Chrome Bar with .site URL */}
               <div className="bg-[#eef2f7] px-4 py-2.5 flex items-center gap-2.5 border-b border-slate-200/80">
                 <div className="flex gap-1.5">
                   <span className="w-3 h-3 rounded-full bg-[#ff5f56] block" />
                   <span className="w-3 h-3 rounded-full bg-[#ffbd2e] block" />
                   <span className="w-3 h-3 rounded-full bg-[#27c93f] block" />
                 </div>
-                <div className="flex-1 text-center text-[0.7rem] text-slate-500 bg-white/80 py-0.5 px-3.5 rounded-full font-medium shadow-2xs flex items-center justify-center gap-1.5 mx-auto max-w-[240px]">
+                <div className="flex-1 text-center text-[0.7rem] text-slate-600 bg-white/90 py-1 px-4 rounded-full font-medium shadow-2xs flex items-center justify-center gap-1.5 mx-auto max-w-[260px] border border-slate-200/60">
                   <i className="fas fa-lock text-[#0a66ff] text-[0.65rem]"></i>
-                  <span>mypact.app/dashboard</span>
+                  <span className="font-mono text-[0.68rem] tracking-tight text-slate-700">
+                    app.mypact.site/dashboard
+                  </span>
                 </div>
-                <div className="w-8" />
+                <div className="w-8 flex justify-end">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                </div>
               </div>
 
               {/* Mockup Dashboard Content */}
@@ -201,14 +229,15 @@ export default function SignUpPage() {
                   <h4 className="text-sm sm:text-base font-bold text-[#0b1a33] flex items-center gap-1.5">
                     <span>📊</span> Dashboard Overview
                   </h4>
-                  <span className="text-xs text-[#0a66ff] font-semibold cursor-pointer hover:underline">
-                    View all →
+                  <span className="text-xs text-[#0a66ff] font-semibold flex items-center gap-1">
+                    <span>1,420 studying</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                   </span>
                 </div>
 
-                {/* 3 Stat Badges */}
+                {/* 3 Animated Stat Badges */}
                 <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
-                  <div className="bg-white rounded-xl p-2.5 sm:p-3 border border-slate-200/90 shadow-xs">
+                  <div className="bg-white rounded-xl p-2.5 sm:p-3 border border-slate-200/90 shadow-xs hover:border-[#0a66ff]/40 transition-all">
                     <div className="text-[0.55rem] uppercase font-bold text-slate-400 tracking-wider">
                       Completion
                     </div>
@@ -216,11 +245,11 @@ export default function SignUpPage() {
                       <span className="text-[#0a66ff]">97%</span>
                     </div>
                     <div className="text-[0.6rem] text-emerald-600 font-bold flex items-center gap-1 mt-0.5">
-                      <i className="fas fa-arrow-up text-[0.55rem]"></i> +12%
+                      <i className="fas fa-arrow-up text-[0.55rem]"></i> +12% GPA
                     </div>
                   </div>
 
-                  <div className="bg-white rounded-xl p-2.5 sm:p-3 border border-slate-200/90 shadow-xs">
+                  <div className="bg-white rounded-xl p-2.5 sm:p-3 border border-slate-200/90 shadow-xs hover:border-[#0a66ff]/40 transition-all">
                     <div className="text-[0.55rem] uppercase font-bold text-slate-400 tracking-wider">
                       Study Streak
                     </div>
@@ -232,7 +261,7 @@ export default function SignUpPage() {
                     </div>
                   </div>
 
-                  <div className="bg-white rounded-xl p-2.5 sm:p-3 border border-slate-200/90 shadow-xs">
+                  <div className="bg-white rounded-xl p-2.5 sm:p-3 border border-slate-200/90 shadow-xs hover:border-[#0a66ff]/40 transition-all">
                     <div className="text-[0.55rem] uppercase font-bold text-slate-400 tracking-wider">
                       Hours Logged
                     </div>
@@ -245,67 +274,61 @@ export default function SignUpPage() {
                   </div>
                 </div>
 
-                {/* 4 Subjects Grid */}
+                {/* 4 Interactive Subjects Grid */}
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="bg-white rounded-xl p-2 sm:p-2.5 border border-slate-200/90 shadow-xs flex items-center gap-2 hover:border-[#0a66ff] transition-all">
-                    <div className="w-7 h-7 rounded-lg bg-[#e8f0fe] text-[#0a66ff] flex items-center justify-center text-xs flex-shrink-0">
-                      <i className="fas fa-flask"></i>
+                  {subjects.map((sub, idx) => (
+                    <div
+                      key={sub.name}
+                      onClick={() => setActiveSubject(idx)}
+                      className={`rounded-xl p-2 sm:p-2.5 border transition-all cursor-pointer flex items-center gap-2 ${
+                        activeSubject === idx
+                          ? "bg-[#eef5ff] border-[#0a66ff] shadow-xs ring-1 ring-[#0a66ff]/30"
+                          : "bg-white border-slate-200/90 hover:border-slate-300"
+                      }`}
+                    >
+                      <div
+                        className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs flex-shrink-0 transition-colors ${
+                          activeSubject === idx ? "bg-[#0a66ff] text-white" : "bg-[#e8f0fe] text-[#0a66ff]"
+                        }`}
+                      >
+                        <i className={sub.icon}></i>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h5 className="text-[0.7rem] font-bold text-[#0b1a33] truncate">{sub.name}</h5>
+                        <p className="text-[0.55rem] text-slate-400 truncate">{sub.desc}</p>
+                      </div>
+                      <span className="font-bold text-xs text-[#0a66ff]">{sub.grade}</span>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h5 className="text-[0.7rem] font-bold text-[#0b1a33] truncate">Organic Chem</h5>
-                      <p className="text-[0.55rem] text-slate-400 truncate">Ch.7 · 45 min</p>
-                    </div>
-                    <span className="font-bold text-xs text-[#0a66ff]">A-</span>
-                  </div>
-
-                  <div className="bg-white rounded-xl p-2 sm:p-2.5 border border-slate-200/90 shadow-xs flex items-center gap-2 hover:border-[#0a66ff] transition-all">
-                    <div className="w-7 h-7 rounded-lg bg-[#e8f0fe] text-[#0a66ff] flex items-center justify-center text-xs flex-shrink-0">
-                      <i className="fas fa-calculator"></i>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h5 className="text-[0.7rem] font-bold text-[#0b1a33] truncate">Calculus III</h5>
-                      <p className="text-[0.55rem] text-slate-400 truncate">Problem Set 5</p>
-                    </div>
-                    <span className="font-bold text-xs text-[#0a66ff]">B+</span>
-                  </div>
-
-                  <div className="bg-white rounded-xl p-2 sm:p-2.5 border border-slate-200/90 shadow-xs flex items-center gap-2 hover:border-[#0a66ff] transition-all">
-                    <div className="w-7 h-7 rounded-lg bg-[#e8f0fe] text-[#0a66ff] flex items-center justify-center text-xs flex-shrink-0">
-                      <i className="fas fa-code"></i>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h5 className="text-[0.7rem] font-bold text-[#0b1a33] truncate">Data Structures</h5>
-                      <p className="text-[0.55rem] text-slate-400 truncate">Project due Fri</p>
-                    </div>
-                    <span className="font-bold text-xs text-[#0a66ff]">A</span>
-                  </div>
-
-                  <div className="bg-white rounded-xl p-2 sm:p-2.5 border border-slate-200/90 shadow-xs flex items-center gap-2 hover:border-[#0a66ff] transition-all">
-                    <div className="w-7 h-7 rounded-lg bg-[#e8f0fe] text-[#0a66ff] flex items-center justify-center text-xs flex-shrink-0">
-                      <i className="fas fa-book"></i>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h5 className="text-[0.7rem] font-bold text-[#0b1a33] truncate">English Lit</h5>
-                      <p className="text-[0.55rem] text-slate-400 truncate">Essay draft</p>
-                    </div>
-                    <span className="font-bold text-xs text-[#0a66ff]">B</span>
-                  </div>
+                  ))}
                 </div>
 
-                {/* Active Pact Banner */}
-                <div className="bg-gradient-to-r from-[#0a66ff] to-[#084bc2] rounded-xl p-3 text-white flex items-center justify-between shadow-md">
-                  <div>
-                    <div className="text-[0.55rem] uppercase tracking-wider font-bold opacity-80 flex items-center gap-1">
-                      <i className="fas fa-bolt text-amber-300"></i> Active Pact
+                {/* Animated Active Pact Banner with Live Countdown Clock */}
+                <div className="bg-gradient-to-r from-[#0a66ff] via-[#084bc2] to-[#0b1a33] rounded-xl p-3.5 text-white flex items-center justify-between shadow-md relative overflow-hidden">
+                  <div className="relative z-10">
+                    <div className="text-[0.55rem] uppercase tracking-wider font-bold text-blue-200 flex items-center gap-1">
+                      <i className="fas fa-bolt text-amber-300"></i> Active Pact Session
                     </div>
-                    <div className="font-extrabold text-xs sm:text-sm">Organic Chemistry · Ch.7</div>
-                    <div className="text-[0.6rem] opacity-80 flex items-center gap-1 mt-0.5">
-                      <i className="far fa-clock"></i> 45 min · Strict Enforcement
+                    <div className="font-extrabold text-xs sm:text-sm text-white">
+                      {subjects[activeSubject].name}
+                    </div>
+                    <div className="text-[0.6rem] text-blue-200 flex items-center gap-1.5 mt-0.5">
+                      <span className="font-mono font-bold text-amber-300">
+                        {formatMockupTimer(secondsRemaining)}
+                      </span>
+                      <span>· Strict Physical Barcode Verification</span>
                     </div>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-white/20 text-[0.6rem] font-extrabold uppercase tracking-wider backdrop-blur-xs flex items-center gap-1 animate-pulse">
-                    <i className="fas fa-play text-[0.5rem]"></i> Active
-                  </span>
+
+                  {/* Pulsing Status Pill */}
+                  <div className="relative z-10 flex flex-col items-end gap-1">
+                    <span className="px-3 py-1 rounded-full bg-white/20 text-[0.6rem] font-extrabold uppercase tracking-wider backdrop-blur-xs flex items-center gap-1.5 shadow-xs">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                      <span>Enforcing</span>
+                    </span>
+                  </div>
+
+                  {/* Subtle Shimmer Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-[shimmer_3s_infinite]" />
                 </div>
 
                 {/* Footer Highlights */}
@@ -317,7 +340,7 @@ export default function SignUpPage() {
                     <i className="fas fa-check-circle text-emerald-500"></i> 87% completion
                   </span>
                   <span className="flex items-center gap-1">
-                    <i className="fas fa-shield-alt text-[#0a66ff]"></i> Strict mode
+                    <i className="fas fa-shield-alt text-[#0a66ff]"></i> Zero override
                   </span>
                   <span className="flex items-center gap-1">
                     <i className="fas fa-trophy text-amber-400"></i> Top 5%
