@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface ComparisonFeature {
   name: string;
@@ -50,16 +50,43 @@ const comparisonFeatures: ComparisonFeature[] = [
 
 export default function WhyMyPact() {
   const [selectedFeature, setSelectedFeature] = useState<number>(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="why-mypact" className="py-24 bg-[#f8faff] border-b border-slate-100 relative overflow-hidden">
+    <section
+      id="why-mypact"
+      ref={sectionRef}
+      className="py-24 bg-[#f8faff] border-b border-slate-100 relative overflow-hidden"
+    >
       {/* Subtle Background Glows */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div
+          className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-4 border border-[#0a66ff]/20 shadow-xs">
             <i className="fas fa-balance-scale text-[#0a66ff]"></i>
             <span>Why MyPact</span>
@@ -75,7 +102,11 @@ export default function WhyMyPact() {
         {/* 2-Column Comparison Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
           {/* Left Column: Value Proposition & Core Pillars */}
-          <div className="lg:col-span-5 flex flex-col items-start">
+          <div
+            className={`lg:col-span-5 flex flex-col items-start transition-all duration-700 delay-150 ease-out ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
             <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0b1a33] tracking-tight mb-4">
               Accountability that actually works.
             </h3>

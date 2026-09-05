@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const problemSlides = [
   {
@@ -52,42 +52,88 @@ const problemSlides = [
 
 export default function ProblemSection() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
-  // Auto slide cycle every 4 seconds
+  // Scroll detection via IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto slide cycle every 4.5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveSlide((prev) => (prev + 1) % problemSlides.length);
-    }, 4200);
+    }, 4500);
     return () => clearInterval(timer);
   }, []);
 
   const currentSlide = problemSlides[activeSlide];
 
   return (
-    <section id="problem" className="py-24 bg-white border-b border-slate-100">
+    <section
+      id="problem"
+      ref={sectionRef}
+      className="py-24 bg-white border-b border-slate-100 overflow-hidden"
+    >
       <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* Left Column: Problem Copy & Interactive Problem Selectors */}
           <div className="lg:col-span-6 flex flex-col items-start">
             {/* Tag Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-5 border border-[#0a66ff]/20 shadow-sm shadow-[#0a66ff]/10">
+            <div
+              className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-5 border border-[#0a66ff]/20 shadow-xs transition-all duration-700 ease-out ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
               <i className="fas fa-exclamation-circle text-[#0a66ff]"></i>
               <span>The Problem</span>
             </div>
 
             {/* Main Section Heading */}
-            <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] tracking-tight leading-[1.15] mb-5">
-              Conventional tools make it <span className="text-[#0a66ff]">too easy to fail</span>.
+            <h2
+              className={`text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] tracking-tight leading-[1.15] mb-5 transition-all duration-700 delay-100 ease-out ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
+              Conventional tools make it{" "}
+              <span className="text-[#0a66ff]">too easy to fail</span>.
             </h2>
 
             {/* Lead Description */}
-            <p className="text-base sm:text-lg text-[#3d4e6b] leading-relaxed mb-8">
+            <p
+              className={`text-base sm:text-lg text-[#3d4e6b] leading-relaxed mb-8 transition-all duration-700 delay-150 ease-out ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
               To-do lists and calendar apps rely entirely on voluntary self-discipline.
               When motivation dips, you snooze, ignore, and push back—with{" "}
-              <strong className="text-[#0b1a33] font-semibold">zero immediate consequences</strong>.
+              <strong className="text-[#0b1a33] font-semibold">
+                zero immediate consequences
+              </strong>
+              .
             </p>
 
-            {/* The 3 Interactive Problem Cards (Click to switch slides) */}
+            {/* The 3 Interactive Problem Cards */}
             <div className="w-full space-y-3.5">
               {problemSlides.map((slide, index) => {
                 const isActive = activeSlide === index;
@@ -96,7 +142,12 @@ export default function ProblemSection() {
                     key={slide.id}
                     type="button"
                     onClick={() => setActiveSlide(index)}
-                    className={`w-full text-left p-4 sm:p-4.5 rounded-2xl border transition-all duration-300 cursor-pointer ${
+                    style={{ transitionDelay: `${200 + index * 100}ms` }}
+                    className={`w-full text-left p-4 sm:p-4.5 rounded-2xl border transition-all duration-500 ease-out cursor-pointer ${
+                      isVisible
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-5"
+                    } ${
                       isActive
                         ? "bg-[#f8faff] border-[#0a66ff] shadow-md shadow-[#0a66ff]/8 ring-1 ring-[#0a66ff]/30 translate-x-1"
                         : "bg-slate-50/70 border-slate-200/80 hover:bg-slate-50 hover:border-slate-300"
@@ -105,7 +156,7 @@ export default function ProblemSection() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3.5">
                         <div
-                          className={`w-10 h-10 rounded-xl flex items-center justify-center text-base transition-colors ${
+                          className={`w-10 h-10 rounded-xl flex items-center justify-center text-base transition-colors duration-300 ${
                             isActive
                               ? "bg-[#0a66ff] text-white shadow-sm shadow-[#0a66ff]/30"
                               : "bg-[#e8f0fe] text-[#0a66ff]"
@@ -124,7 +175,7 @@ export default function ProblemSection() {
                       </div>
                       <div className="hidden sm:flex items-center">
                         <span
-                          className={`w-2 h-2 rounded-full transition-all ${
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
                             isActive ? "bg-[#0a66ff] scale-125" : "bg-slate-300"
                           }`}
                         />
@@ -138,7 +189,13 @@ export default function ProblemSection() {
 
           {/* Right Column: Animated Sliding Failure Mockup */}
           <div className="lg:col-span-6 flex justify-center">
-            <div className="w-full max-w-[480px] bg-white rounded-3xl p-6 sm:p-7 shadow-[0_24px_70px_rgba(10,102,255,0.12)] border border-[#0a66ff]/15 relative overflow-hidden">
+            <div
+              className={`w-full max-w-[480px] bg-white rounded-3xl p-6 sm:p-7 shadow-[0_24px_70px_rgba(10,102,255,0.12)] border border-[#0a66ff]/15 relative overflow-hidden transition-all duration-800 delay-200 ease-out ${
+                isVisible
+                  ? "opacity-100 translate-y-0 scale-100"
+                  : "opacity-0 translate-y-8 scale-[0.97]"
+              }`}
+            >
               {/* Mockup Header */}
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div className="flex items-center gap-2.5">
@@ -159,8 +216,11 @@ export default function ProblemSection() {
 
               {/* Animated Sliding Content Container with smooth transition */}
               <div className="my-6 min-h-[220px] flex flex-col justify-between transition-all duration-500 ease-in-out">
-                {/* Active Slide Card */}
-                <div className="p-5 rounded-2xl bg-[#f8faff] border border-slate-200/90 shadow-sm relative animate-fadeIn">
+                {/* Active Slide Card with Snappy Transition */}
+                <div
+                  key={currentSlide.id}
+                  className="p-5 rounded-2xl bg-[#f8faff] border border-slate-200/90 shadow-xs relative transition-all duration-300"
+                >
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <span className="text-xs font-bold text-[#0a66ff] uppercase tracking-wider">
                       {currentSlide.tag}

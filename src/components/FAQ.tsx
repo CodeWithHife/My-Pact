@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface FAQItem {
   id: number;
@@ -56,34 +56,65 @@ const faqs: FAQItem[] = [
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
   };
 
   return (
-    <section id="faq" className="py-24 bg-white border-b border-slate-100 relative overflow-hidden">
+    <section
+      id="faq"
+      ref={sectionRef}
+      className="py-24 bg-white border-b border-slate-100 relative overflow-hidden"
+    >
       {/* Subtle Background Glows */}
       <div className="absolute top-1/3 left-0 w-96 h-96 bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-[1000px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div
+          className={`text-center max-w-2xl mx-auto mb-16 transition-all duration-700 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-4 border border-[#0a66ff]/20 shadow-xs">
             <i className="fas fa-question-circle text-[#0a66ff]"></i>
             <span>FAQ</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] tracking-tight leading-tight mb-4">
-            Frequently Asked <span className="text-[#0a66ff]">Questions</span>.
+            Frequently Asked <span className="text-[#0a66ff]">Questions</span>
           </h2>
           <p className="text-base sm:text-lg text-[#3d4e6b] leading-relaxed">
-            Everything you need to know about how MyPact enforces accountability and helps you succeed.
+            Everything you need to know about MyPact's accountability engine, AI syllabus extraction, and app lockouts.
           </p>
         </div>
 
-        {/* Accordion FAQ List */}
-        <div className="space-y-4 mb-14">
+        {/* FAQ Accordion List */}
+        <div
+          className={`space-y-3.5 transition-all duration-800 delay-150 ease-out mb-14 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (

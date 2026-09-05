@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface PricingPlan {
   id: string;
@@ -26,10 +26,12 @@ const mainPlans: PricingPlan[] = [
     icon: "fas fa-shield-halved",
     iconColor: "text-slate-600 bg-slate-100",
     buttonText: "Get Started Free",
+    popular: false,
     features: [
-      "Unstoppable Alarms (Barcode/Math)",
-      "Basic Course Task Scheduling",
-      "Weekly Discipline Summary",
+      "Basic Task Scheduling",
+      "Unstoppable Physical Alarms",
+      "Weekly Discipline Audit",
+      "AI Assistant (10 prompts/day)",
     ],
   },
   {
@@ -45,9 +47,9 @@ const mainPlans: PricingPlan[] = [
     buttonText: "Start Weekly Pass",
     features: [
       "Everything in Starter",
-      "AI Syllabus PDF Extractor",
-      "Adaptive Micro-Study Scheduler",
-      "Level 2 Device App Lockouts",
+      "Syllabus Auto-Extractor",
+      "Level 2 & 3 App Lockouts",
+      "Coursework AI Assistant",
       "Grade Goal Calculator",
     ],
   },
@@ -60,26 +62,53 @@ const mainPlans: PricingPlan[] = [
     description: "Full AI & zero-tolerance accountability suite.",
     icon: "fas fa-crown",
     iconColor: "text-purple-600 bg-purple-50",
-    buttonText: "Get Semester Pro",
+    buttonText: "Start Pro Plan",
+    popular: false,
     features: [
       "Everything in Weekly Sprint",
-      "Unlimited Syllabus AI Extractions",
-      "Coursework AI Tutor on Lecture Slides",
-      "Accountability Circle (SMS to Mentors)",
-      "Priority Tutoring & Export Reports",
+      "Unlimited AI Syllabus Extractions",
+      "Unlimited Coursework Assistant",
+      "Accountability Partner Circle",
+      "Priority WhatsApp & Email Support",
     ],
   },
 ];
 
 export default function Pricing() {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="pricing" className="py-20 sm:py-24 bg-[#ffffff] border-b border-slate-100 relative overflow-hidden">
+    <section 
+      id="pricing" 
+      ref={sectionRef}
+      className="py-20 sm:py-24 bg-[#ffffff] border-b border-slate-100 relative overflow-hidden"
+    >
       {/* Background Accent Gradients */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className={`text-center max-w-2xl mx-auto mb-14 transition-all duration-700 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-3.5 border border-[#0a66ff]/20 shadow-xs">
             <i className="fas fa-tag text-[#0a66ff]"></i>
             <span>Pricing</span>
@@ -93,7 +122,9 @@ export default function Pricing() {
         </div>
 
         {/* 3 Main Compact, Highly-Styled Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-7 items-stretch max-w-5xl mx-auto mb-10">
+        <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-7 items-stretch max-w-5xl mx-auto mb-10 transition-all duration-800 delay-150 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}>
           {mainPlans.map((plan) => (
             <div
               key={plan.id}
