@@ -155,19 +155,19 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="#privacy" className="hover:text-white transition-colors">
+                  <Link href="/privacy" className="hover:text-white transition-colors">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#terms" className="hover:text-white transition-colors">
+                  <Link href="/terms" className="hover:text-white transition-colors">
                     Terms of Service
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#security" className="hover:text-white transition-colors">
+                  <Link href="/security" className="hover:text-white transition-colors">
                     Security Architecture
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
