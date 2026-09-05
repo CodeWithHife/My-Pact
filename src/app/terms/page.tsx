@@ -114,9 +114,14 @@ export default function TermsOfServicePage() {
               7. Contact Us
             </h2>
             <p>
-              For legal inquiries or questions regarding these Terms, contact our legal team at{" "}
-              <a href="mailto:support@mypact.app" className="text-[#0a66ff] font-semibold underline">
-                support@mypact.app
+              For legal inquiries or questions regarding these Terms, contact our team via WhatsApp or call at{" "}
+              <a
+                href="https://wa.me/2349027874036?text=Hello%20MyPact%20Support,%20I%20have%20a%20legal/terms%20inquiry"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#0a66ff] font-semibold underline"
+              >
+                +234 902 787 4036
               </a>.
             </p>
           </section>

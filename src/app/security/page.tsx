@@ -104,10 +104,12 @@ export default function SecurityPage() {
             We take student data security seriously and welcome responsible disclosure reports from security researchers.
           </p>
           <a
-            href="mailto:security@mypact.app"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0a66ff] hover:bg-[#084bc2] text-white text-xs font-bold transition-all shadow-md"
+            href="https://wa.me/2349027874036?text=Hello%20MyPact%20Security%20Team,%20I%20have%20a%20security%20question"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-2.5 rounded-full bg-[#0a66ff] hover:bg-[#084bc2] text-white font-semibold text-xs shadow-xs transition-all whitespace-nowrap flex items-center gap-2 cursor-pointer"
           >
-            <i className="fas fa-envelope text-xs"></i>
+            <i className="fab fa-whatsapp text-xs"></i>
             <span>Contact Security Team</span>
           </a>
         </div>

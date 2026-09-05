@@ -105,9 +105,14 @@ export default function PrivacyPolicyPage() {
               5. Contact Us
             </h2>
             <p>
-              If you have any privacy questions or requests, please reach out to us at{" "}
-              <a href="mailto:privacy@mypact.app" className="text-[#0a66ff] font-semibold underline">
-                privacy@mypact.app
+              If you have any privacy questions or requests, please reach out to us via WhatsApp at{" "}
+              <a
+                href="https://wa.me/2349027874036?text=Hello%20MyPact%20Support,%20I%20have%20a%20privacy%20inquiry"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#0a66ff] font-semibold underline"
+              >
+                +234 902 787 4036
               </a>.
             </p>
           </section>
