@@ -216,10 +216,10 @@ export default function LoginPage() {
 
       {/* Main Responsive Layout */}
       <div className="relative z-10 w-full min-h-screen lg:h-screen grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] bg-white lg:bg-white overflow-y-auto lg:overflow-hidden">
-        
+
         {/* ====== LEFT: ULTRA-ANIMATED DASHBOARD MOCKUP COLUMN (Desktop only: hidden on mobile) ====== */}
         <div className="hidden lg:flex bg-gradient-to-br from-[#0b1a33] via-[#0e2448] to-[#142b4a] p-8 lg:p-10 flex-col items-center justify-center relative overflow-hidden text-white min-h-full select-none">
-          
+
           {/* Subtle Dynamic Radial Glow & Shimmering Grid */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(10,102,255,0.28),transparent_70%)] pointer-events-none" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
@@ -255,12 +255,12 @@ export default function LoginPage() {
 
           {/* Dashboard Mockup Main Container */}
           <div className="w-full max-w-[530px] flex flex-col gap-3.5 relative z-10 animate-mockup-entry mt-8">
-            
+
             {/* 1. Welcome Card with Animated Focus Waveform & Avatar */}
             <div className="flex justify-between items-center bg-white/8 backdrop-blur-md p-4 rounded-2xl border border-white/15 shadow-lg relative overflow-hidden group">
               {/* Subtle top shimmer highlight */}
               <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-              
+
               <div>
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-lg bg-[#0a66ff]/30 text-[#5b9aff] flex items-center justify-center text-xs">
@@ -422,7 +422,7 @@ export default function LoginPage() {
             <div className={`bg-gradient-to-r ${currentSession.color} backdrop-blur-md rounded-xl p-3.5 border ${currentSession.borderColor} flex items-center justify-between shadow-md relative overflow-hidden transition-all duration-500`}>
               {/* Animated Background Pulse Bar */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_3s_infinite]" />
-              
+
               <div className="relative z-10">
                 <div className="text-[0.55rem] uppercase tracking-wider font-bold text-blue-300 flex items-center gap-1.5">
                   <i className={`${currentSession.icon} text-amber-300`}></i>
@@ -474,7 +474,7 @@ export default function LoginPage() {
 
         {/* ====== RIGHT: MODERN, PROFESSIONAL LOGIN FORM ====== */}
         <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-6 sm:px-6 lg:p-10 relative overflow-y-auto bg-white">
-          
+
           {/* Mobile Top Navigation Bar with Back to Home */}
           <div className="w-full max-w-[340px] sm:max-w-[380px] flex items-center justify-between lg:hidden mb-4">
             <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
@@ -503,7 +503,7 @@ export default function LoginPage() {
           </div>
 
           <div className="w-full max-w-[340px] sm:max-w-[380px] my-auto flex flex-col justify-center">
-            
+
             {/* Desktop Brand & Back to Home Header */}
             <div className="hidden lg:flex items-center justify-between mb-4">
               <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight group">

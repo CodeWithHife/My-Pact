@@ -581,75 +581,74 @@ export default function SignUpPage() {
                   )}
                 </div>
 
-                {/* Row 4: Password & Confirm Password (Side by Side on Mobile & Desktop) */}
-                <div className="grid grid-cols-2 gap-2.5">
+                {/* Password (Full Width Block) */}
+                <div className="relative">
+                  <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                    Password <span className="text-red-500">*</span>
+                  </label>
                   <div className="relative">
-                    <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
-                      Password <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative">
-                      <i className="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        value={formData.password}
-                        onChange={handleInputChange}
-                        onBlur={() => handleBlur("password")}
-                        placeholder="Password"
-                        className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.password || hasSubmitted) && currentErrors.password
-                          ? "border-red-500 ring-2 ring-red-500/10"
-                          : touched.password && !currentErrors.password && formData.password
-                            ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                            : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                          }`}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-0.5"
-                        aria-label={showPassword ? "Hide password" : "Show password"}
-                      >
-                        <i className={showPassword ? "fas fa-eye-slash text-[0.7rem]" : "fas fa-eye text-[0.7rem]"}></i>
-                      </button>
-                    </div>
-                    {(touched.password || hasSubmitted) && currentErrors.password && (
-                      <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.password}</p>
-                    )}
+                    <i className="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      onBlur={() => handleBlur("password")}
+                      placeholder="Create a password"
+                      className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.password || hasSubmitted) && currentErrors.password
+                        ? "border-red-500 ring-2 ring-red-500/10"
+                        : touched.password && !currentErrors.password && formData.password
+                          ? "border-emerald-500 ring-2 ring-emerald-500/10"
+                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                        }`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-0.5"
+                      aria-label={showPassword ? "Hide password" : "Show password"}
+                    >
+                      <i className={showPassword ? "fas fa-eye-slash text-[0.7rem]" : "fas fa-eye text-[0.7rem]"}></i>
+                    </button>
                   </div>
+                  {(touched.password || hasSubmitted) && currentErrors.password && (
+                    <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.password}</p>
+                  )}
+                </div>
 
+                {/* Confirm Password (Full Width Block) */}
+                <div className="relative">
+                  <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                    Confirm password <span className="text-red-500">*</span>
+                  </label>
                   <div className="relative">
-                    <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
-                      Confirm <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative">
-                      <i className="fas fa-check-circle absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
-                      <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleInputChange}
-                        onBlur={() => handleBlur("confirmPassword")}
-                        placeholder="Confirm"
-                        className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
-                          ? "border-red-500 ring-2 ring-red-500/10"
-                          : touched.confirmPassword && !currentErrors.confirmPassword && formData.confirmPassword
-                            ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                            : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
-                          }`}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-0.5"
-                        aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                      >
-                        <i className={showConfirmPassword ? "fas fa-eye-slash text-[0.7rem]" : "fas fa-eye text-[0.7rem]"}></i>
-                      </button>
-                    </div>
-                    {(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword && (
-                      <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.confirmPassword}</p>
-                    )}
+                    <i className="fas fa-shield-check absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleInputChange}
+                      onBlur={() => handleBlur("confirmPassword")}
+                      placeholder="Confirm your password"
+                      className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
+                        ? "border-red-500 ring-2 ring-red-500/10"
+                        : touched.confirmPassword && !currentErrors.confirmPassword && formData.confirmPassword
+                          ? "border-emerald-500 ring-2 ring-emerald-500/10"
+                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                        }`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#0a66ff] text-xs focus:outline-none cursor-pointer p-0.5"
+                      aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                    >
+                      <i className={showConfirmPassword ? "fas fa-eye-slash text-[0.7rem]" : "fas fa-eye text-[0.7rem]"}></i>
+                    </button>
                   </div>
+                  {(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword && (
+                    <p className="text-[0.65rem] text-red-500 mt-1 font-medium leading-tight">{currentErrors.confirmPassword}</p>
+                  )}
                 </div>
 
                 {/* Terms and Conditions Checkbox */}
