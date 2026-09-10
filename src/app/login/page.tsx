@@ -195,11 +195,50 @@ export default function LoginPage() {
 
     setIsLoading(true);
 
+    try {
+      const identifier = formData.loginIdentifier.trim();
+      let username = identifier;
+      let firstName = identifier;
+
+      if (identifier.includes("@")) {
+        const prefix = identifier.split("@")[0];
+        username = prefix;
+        firstName = prefix.charAt(0).toUpperCase() + prefix.slice(1);
+      } else {
+        firstName = identifier.charAt(0).toUpperCase() + identifier.slice(1);
+      }
+
+      // Preserve existing user info if present or create new
+      const existing = localStorage.getItem("mypact_user");
+      let userObj: any = {
+        firstName,
+        username,
+        email: identifier.includes("@") ? identifier : `${username}@student.mypact.site`,
+        name: firstName,
+      };
+
+      if (existing) {
+        try {
+          const parsed = JSON.parse(existing);
+          userObj = {
+            ...parsed,
+            username: parsed.username || username,
+            firstName: parsed.firstName || firstName,
+            name: parsed.name || firstName,
+          };
+        } catch (e) {}
+      }
+
+      localStorage.setItem("mypact_user", JSON.stringify(userObj));
+    } catch (e) {
+      console.error("Failed to save login user:", e);
+    }
+
     setTimeout(() => {
       setIsLoading(false);
       setIsSuccess(true);
       triggerConfetti();
-    }, 1200);
+    }, 1000);
   };
 
   const currentSession = studySessions[activeSessionIndex];
@@ -473,10 +512,10 @@ export default function LoginPage() {
         </div>
 
         {/* ====== RIGHT: MODERN, PROFESSIONAL LOGIN FORM ====== */}
-        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-6 sm:px-6 lg:p-10 relative overflow-y-auto bg-white">
+        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:p-10 relative overflow-y-auto bg-slate-50/60 lg:bg-white">
 
           {/* Mobile Top Navigation Bar with Back to Home */}
-          <div className="w-full max-w-[340px] sm:max-w-[380px] flex items-center justify-between lg:hidden mb-4">
+          <div className="w-full max-w-[360px] sm:max-w-[400px] flex items-center justify-between lg:hidden mb-4">
             <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
               <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                 <Image
@@ -493,7 +532,7 @@ export default function LoginPage() {
             </Link>
             <Link
               href="/"
-              className="group/back inline-flex items-center gap-1.5 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-slate-200/80 hover:border-[#0a66ff] shadow-xs hover:shadow-[0_4px_16px_rgba(10,102,255,0.25)] transition-all duration-300 hover:-translate-x-0.5 active:scale-95"
+              className="group/back inline-flex items-center gap-1.5 text-xs font-bold text-[#0b1a33] bg-white hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-slate-200/90 hover:border-[#0a66ff] shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-x-0.5 active:scale-95"
             >
               <span className="w-4.5 h-4.5 rounded-full bg-[#e8f0fe] group-hover/back:bg-white/20 text-[#0a66ff] group-hover/back:text-white flex items-center justify-center transition-colors">
                 <i className="fas fa-arrow-left text-[0.55rem] transition-transform group-hover/back:-translate-x-0.5"></i>
@@ -502,10 +541,10 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          <div className="w-full max-w-[340px] sm:max-w-[380px] my-auto flex flex-col justify-center">
+          <div className="w-full max-w-[360px] sm:max-w-[400px] my-auto flex flex-col justify-center bg-white lg:bg-transparent p-6 sm:p-7 rounded-3xl border border-slate-200/90 lg:border-none shadow-[0_8px_30px_rgba(0,0,0,0.04)] lg:shadow-none">
 
             {/* Desktop Brand & Back to Home Header */}
-            <div className="hidden lg:flex items-center justify-between mb-4">
+            <div className="hidden lg:flex items-center justify-between mb-5">
               <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight group">
                 <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                   <Image
@@ -522,7 +561,7 @@ export default function LoginPage() {
               </Link>
               <Link
                 href="/"
-                className="group/back inline-flex items-center gap-2 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-slate-200 hover:border-[#0a66ff] shadow-xs hover:shadow-[0_4px_16px_rgba(10,102,255,0.25)] transition-all duration-300 hover:-translate-x-0.5 active:scale-95"
+                className="group/back inline-flex items-center gap-2 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-slate-200 hover:border-[#0a66ff] shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-x-0.5 active:scale-95"
               >
                 <span className="w-5 h-5 rounded-full bg-[#e8f0fe] group-hover/back:bg-white/20 text-[#0a66ff] group-hover/back:text-white flex items-center justify-center transition-colors">
                   <i className="fas fa-arrow-left text-[0.6rem] transition-transform group-hover/back:-translate-x-0.5"></i>
@@ -536,28 +575,28 @@ export default function LoginPage() {
               <h1 className="text-2xl font-black text-[#0b1a33] tracking-tight">
                 Welcome back
               </h1>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                 Log in to continue your academic accountability journey.
               </p>
             </div>
 
             {/* Mobile Header */}
             <div className="lg:hidden text-center mb-5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-2 border border-[#0a66ff]/20">
                 <i className="fas fa-lock text-[0.6rem]"></i>
                 <span>Student Portal</span>
               </div>
-              <h1 className="text-2xl font-black text-[#0b1a33] tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
                 Welcome back
               </h1>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                 Log in to continue your accountability journey.
               </p>
             </div>
 
             {/* If Form is NOT Submitted */}
             {!isSuccess ? (
-              <form onSubmit={handleSubmit} noValidate className="space-y-3.5">
+              <form onSubmit={handleSubmit} noValidate className="space-y-4">
                 {/* Email or Username */}
                 <div className="relative">
                   <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
@@ -646,7 +685,7 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-3 px-6 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] text-white font-bold text-sm shadow-[0_6px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_10px_32px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+                  className="w-full py-3 px-6 rounded-full bg-[#0a66ff] hover:bg-[#084bc2] text-white font-bold text-sm shadow-md shadow-[#0a66ff]/25 hover:shadow-lg hover:shadow-[#0a66ff]/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed mt-2"
                 >
                   {isLoading ? (
                     <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin inline-block" />
@@ -702,8 +741,8 @@ export default function LoginPage() {
                 </p>
 
                 <Link
-                  href="/"
-                  className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#084bc2] text-white font-bold text-sm shadow-[0_8px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_12px_36px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 transition-all flex items-center gap-2"
+                  href="/dashboard"
+                  className="px-8 py-3.5 rounded-full bg-[#0a66ff] hover:bg-[#084bc2] text-white font-bold text-sm shadow-[0_8px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_12px_36px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 transition-all flex items-center gap-2"
                 >
                   <span>Go to Dashboard</span>
                   <i className="fas fa-arrow-right text-xs"></i>

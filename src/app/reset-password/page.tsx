@@ -217,10 +217,10 @@ export default function ResetPasswordPage() {
         </div>
 
         {/* ====== RIGHT: RESET PASSWORD FORM ====== */}
-        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-6 sm:px-6 lg:py-8 relative overflow-y-auto bg-white">
+        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:py-10 relative overflow-y-auto bg-slate-50/60 lg:bg-white">
           
           {/* Mobile Top Navigation Bar */}
-          <div className="w-full max-w-[340px] sm:max-w-[380px] flex items-center justify-between lg:hidden mb-4">
+          <div className="w-full max-w-[360px] sm:max-w-[400px] flex items-center justify-between lg:hidden mb-4">
             <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
               <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                 <Image
@@ -237,7 +237,7 @@ export default function ResetPasswordPage() {
             </Link>
             <Link
               href="/"
-              className="group/back inline-flex items-center gap-1.5 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-slate-200/80 hover:border-[#0a66ff] shadow-xs hover:shadow-[0_4px_16px_rgba(10,102,255,0.25)] transition-all duration-300 hover:-translate-x-0.5 active:scale-95"
+              className="group/back inline-flex items-center gap-1.5 text-xs font-bold text-[#0b1a33] bg-white hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-slate-200/90 hover:border-[#0a66ff] shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-x-0.5 active:scale-95"
             >
               <span className="w-4.5 h-4.5 rounded-full bg-[#e8f0fe] group-hover/back:bg-white/20 text-[#0a66ff] group-hover/back:text-white flex items-center justify-center transition-colors">
                 <i className="fas fa-arrow-left text-[0.55rem] transition-transform group-hover/back:-translate-x-0.5"></i>
@@ -246,10 +246,10 @@ export default function ResetPasswordPage() {
             </Link>
           </div>
 
-          <div className="w-full max-w-[340px] sm:max-w-[380px] my-auto flex flex-col justify-center">
+          <div className="w-full max-w-[360px] sm:max-w-[400px] my-auto flex flex-col justify-center bg-white lg:bg-transparent p-6 sm:p-7 rounded-3xl border border-slate-200/90 lg:border-none shadow-[0_8px_30px_rgba(0,0,0,0.04)] lg:shadow-none">
             
             {/* Desktop Brand & Back to Home Header */}
-            <div className="hidden lg:flex items-center justify-between mb-4">
+            <div className="hidden lg:flex items-center justify-between mb-5">
               <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight group">
                 <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                   <Image
@@ -266,7 +266,7 @@ export default function ResetPasswordPage() {
               </Link>
               <Link
                 href="/"
-                className="group/back inline-flex items-center gap-2 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-slate-200 hover:border-[#0a66ff] shadow-xs hover:shadow-[0_4px_16px_rgba(10,102,255,0.25)] transition-all duration-300 hover:-translate-x-0.5 active:scale-95"
+                className="group/back inline-flex items-center gap-2 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-slate-200 hover:border-[#0a66ff] shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-x-0.5 active:scale-95"
               >
                 <span className="w-5 h-5 rounded-full bg-[#e8f0fe] group-hover/back:bg-white/20 text-[#0a66ff] group-hover/back:text-white flex items-center justify-center transition-colors">
                   <i className="fas fa-arrow-left text-[0.6rem] transition-transform group-hover/back:-translate-x-0.5"></i>
@@ -278,20 +278,20 @@ export default function ResetPasswordPage() {
             {/* If Form NOT Submitted Successfully */}
             {!isSuccess ? (
               <>
-                <div className="mb-4 text-left">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-2">
+                <div className="mb-5 text-left">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-2.5 border border-[#0a66ff]/20">
                     <i className="fas fa-shield-keyhole text-[0.6rem]"></i>
                     <span>Secure Reset</span>
                   </div>
                   <h1 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
                     Reset your password
                   </h1>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                     Choose a strong, unique password to secure your MyPact study account.
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} noValidate className="space-y-3">
+                <form onSubmit={handleSubmit} noValidate className="space-y-3.5">
                   {/* New Password (Full Width Block) */}
                   <div className="relative">
                     <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
@@ -306,7 +306,7 @@ export default function ResetPasswordPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("newPassword")}
                         placeholder="Enter new password"
-                        className={`w-full pl-7 pr-8 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.newPassword || hasSubmitted) && currentErrors.newPassword
+                        className={`w-full pl-7 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.newPassword || hasSubmitted) && currentErrors.newPassword
                           ? "border-red-500 ring-2 ring-red-500/10"
                           : touched.newPassword && !currentErrors.newPassword && formData.newPassword
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -349,7 +349,7 @@ export default function ResetPasswordPage() {
                       Confirm new password <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <i className="fas fa-shield-check absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                      <i className="fas fa-lock absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                       <input
                         type={showConfirmPassword ? "text" : "password"}
                         name="confirmPassword"
@@ -357,7 +357,7 @@ export default function ResetPasswordPage() {
                         onChange={handleInputChange}
                         onBlur={() => handleBlur("confirmPassword")}
                         placeholder="Confirm new password"
-                        className={`w-full pl-7 pr-8 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
+                        className={`w-full pl-7 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
                           ? "border-red-500 ring-2 ring-red-500/10"
                           : touched.confirmPassword && !currentErrors.confirmPassword && formData.confirmPassword
                             ? "border-emerald-500 ring-2 ring-emerald-500/10"
@@ -381,7 +381,7 @@ export default function ResetPasswordPage() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full py-2.5 px-6 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] text-white font-bold text-sm shadow-[0_6px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_10px_32px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+                    className="w-full py-3 px-6 rounded-full bg-[#0a66ff] hover:bg-[#084bc2] text-white font-bold text-sm shadow-md shadow-[#0a66ff]/25 hover:shadow-lg hover:shadow-[#0a66ff]/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed mt-2"
                   >
                     {isLoading ? (
                       <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin inline-block" />

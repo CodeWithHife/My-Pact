@@ -98,7 +98,7 @@ export default function Hero() {
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-[3.9rem] font-black tracking-[-0.035em] text-[#0b1a33] leading-[1.06] mb-6">
               Stop Snoozing. <br />
-              <span className="bg-gradient-to-r from-[#0a66ff] via-[#1d63ff] to-[#3b82f6] bg-clip-text text-transparent">
+              <span className="text-[#0a66ff]">
                 Start Achieving.
               </span>
             </h1>
@@ -115,7 +115,7 @@ export default function Hero() {
               {/* Primary High-Impact CTA Button */}
               <Link
                 href="/signup"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full font-bold text-base text-white bg-gradient-to-r from-[#0a66ff] to-[#084bc2] hover:from-[#084bc2] hover:to-[#063999] shadow-[0_10px_30px_rgba(10,102,255,0.35)] hover:shadow-[0_14px_40px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full font-bold text-base text-white bg-[#0a66ff] hover:bg-[#084bc2] shadow-lg shadow-[#0a66ff]/25 hover:shadow-xl hover:shadow-[#0a66ff]/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
               >
                 <i className="fas fa-rocket text-sm"></i>
                 <span>Get Started Free</span>

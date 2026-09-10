@@ -1,190 +1,193 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
+import Link from "next/link";
 
-interface StepItem {
-  number: string;
-  title: string;
-  description: string;
-  icon: string;
-  badge: string;
-  details: string;
-}
-
-const steps: StepItem[] = [
+const steps = [
   {
     number: "01",
-    title: "Schedule & Commit",
-    description: "Set your study sessions, tasks, and deadlines. Choose your enforcement tier during onboarding.",
-    icon: "fas fa-calendar-plus",
-    badge: "Smart Onboarding",
-    details: "AI parses your uploaded syllabus and automatically inserts micro-study blocks into open slots.",
+    phase: "Setup & Syllabus",
+    title: "Upload & Auto-Schedule",
+    description: "Drop your course syllabus PDF or connect Google/Apple Calendar. MyPact parses exam dates, weighting, and auto-inserts micro-study blocks.",
+    icon: "fas fa-file-arrow-up",
+    badge: "AI Onboarding",
+    actionTip: "AI parses 40-page course PDFs in under 10 seconds.",
+    preview: {
+      type: "schedule",
+      title: "Syllabus Parsed: BIO_301",
+      subtitle: "14 study blocks created",
+      stat: "100% Scheduled",
+    },
   },
   {
     number: "02",
-    title: "Verify & Prove",
-    description: "Complete tasks with barcode scans, voice quizzes, or math verification to prove your work.",
-    icon: "fas fa-qrcode",
-    badge: "Proof-of-Work",
-    details: "No more honor system checkmarks. Deactivate alarms only by scanning textbook ISBN or solving equations.",
+    phase: "Enforce & Ring",
+    title: "Unstoppable Alarm Rings",
+    description: "When a study block arrives, your device triggers an unstoppable alarm that cannot be snoozed with a simple swipe.",
+    icon: "fas fa-bell",
+    badge: "Physical Alarm",
+    actionTip: "Continuous alarm sound with zero voluntary snooze button.",
+    preview: {
+      type: "alarm",
+      title: "Alarm Triggered · 08:00 AM",
+      subtitle: "Organic Chemistry Revision",
+      stat: "Proof Required",
+    },
   },
   {
     number: "03",
-    title: "Enforce & Escalate",
-    description: "Miss a task? Unstoppable alarms, app lockouts, and alerts to accountability partners kick in.",
-    icon: "fas fa-gavel",
-    badge: "Escalation Ladder",
-    details: "Level 1 audio warnings escalate into Level 2 distraction app lockouts and Level 3 partner SMS dispatches.",
+    phase: "Proof of Work",
+    title: "Verify With Physical Action",
+    description: "Scan your course textbook ISBN barcode, solve calculus problems, or speak key concepts to prove you are actively studying.",
+    icon: "fas fa-qrcode",
+    badge: "Verification",
+    actionTip: "Guarantees you are out of bed and at your desk.",
+    preview: {
+      type: "verify",
+      title: "Scan ISBN: 978-013407",
+      subtitle: "Textbook matched successfully",
+      stat: "Verified ✓",
+    },
   },
   {
     number: "04",
-    title: "Review & Optimize",
-    description: "Weekly discipline audits show your streaks, completion rates, and areas for improvement.",
+    phase: "Discipline Growth",
+    title: "Audit & Guardrails",
+    description: "Miss a task? Level 2 app lockouts and guardian SMS alerts kick in. Complete tasks to build your weekly Discipline Audit report.",
     icon: "fas fa-chart-line",
-    badge: "Discipline Analytics",
-    details: "Export comprehensive PDF/CSV audit reports for personal GPA growth or advisor review.",
+    badge: "Audit & Streaks",
+    actionTip: "Weekly exportable PDF discipline reports.",
+    preview: {
+      type: "audit",
+      title: "Discipline Report: Grade A+",
+      subtitle: "97.4% commitment streak",
+      stat: "14-Day Streak",
+    },
   },
 ];
 
 export default function HowItWorks() {
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement | null>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.12 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const currentStep = steps[activeStep];
 
   return (
-    <section
-      id="how"
-      ref={sectionRef}
-      className="py-24 bg-[#f8faff] border-b border-slate-100 relative overflow-hidden"
-    >
-      {/* Subtle Background Glows */}
-      <div className="absolute top-1/3 left-0 w-96 h-96 bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
+    <section id="how" className="py-24 bg-[#f8faff] border-b border-slate-100 relative overflow-hidden">
+      {/* Background Subtle Accent */}
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div
-          className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 ease-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-4 border border-[#0a66ff]/20 shadow-xs">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-4 border border-[#0a66ff]/20">
             <i className="fas fa-route text-[#0a66ff]"></i>
-            <span>Process</span>
+            <span>The 4-Step Process</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] tracking-tight leading-tight mb-4">
-            How MyPact keeps you <span className="text-[#0a66ff]">accountable</span>.
+            How MyPact turns intentions into <span className="text-[#0a66ff]">daily execution</span>.
           </h2>
           <p className="text-base sm:text-lg text-[#3d4e6b] leading-relaxed">
-            From scheduling to verification, every step is designed to ensure you follow through without compromises.
+            A frictionless 4-step loop designed to make procrastinating more uncomfortable than getting to work.
           </p>
         </div>
 
-        {/* 4 Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {steps.map((step, index) => {
-            const isSelected = activeStep === index;
+        {/* Interactive Step Runway Bar */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-10 max-w-5xl mx-auto">
+          {steps.map((step, idx) => {
+            const isSelected = activeStep === idx;
             return (
-              <div
+              <button
                 key={step.number}
-                onClick={() => setActiveStep(index)}
-                className={`p-6 sm:p-7 rounded-3xl border transition-all duration-300 flex flex-col justify-between cursor-pointer group ${
+                type="button"
+                onClick={() => setActiveStep(idx)}
+                className={`p-4 sm:p-5 rounded-2xl text-left border transition-all duration-300 cursor-pointer flex flex-col justify-between ${
                   isSelected
-                    ? "bg-white border-[#0a66ff] shadow-[0_16px_40px_rgba(10,102,255,0.12)] ring-1 ring-[#0a66ff]/30 -translate-y-1"
-                    : "bg-white/80 border-slate-200/90 hover:bg-white hover:border-slate-300 hover:shadow-xs"
+                    ? "bg-[#0a66ff] text-white border-[#0a66ff] shadow-lg shadow-[#0a66ff]/25 scale-102"
+                    : "bg-white text-slate-700 border-slate-200/90 hover:border-slate-300 hover:bg-slate-50"
                 }`}
               >
-                <div>
-                  {/* Top Step Number & Icon */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div
-                      className={`w-13 h-13 rounded-2xl flex items-center justify-center text-xl font-black transition-all ${
-                        isSelected
-                          ? "bg-[#0a66ff] text-white shadow-md shadow-[#0a66ff]/30 scale-105"
-                          : "bg-[#e8f0fe] text-[#0a66ff] group-hover:scale-105"
-                      }`}
-                    >
-                      <i className={step.icon}></i>
-                    </div>
-                    <span className="font-mono text-2xl font-black text-slate-300 group-hover:text-[#0a66ff]/40 transition-colors">
-                      {step.number}
-                    </span>
-                  </div>
-
-                  <h3 className="text-lg font-extrabold text-[#0b1a33] tracking-tight mb-2.5">
-                    {step.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#3d4e6b] leading-relaxed mb-4">
-                    {step.description}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                  <span
-                    className={`font-extrabold text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
-                      isSelected
-                        ? "bg-[#e8f0fe] text-[#0a66ff]"
-                        : "bg-slate-100 text-slate-500"
-                    }`}
-                  >
-                    {step.badge}
+                <div className="flex items-center justify-between mb-3">
+                  <span className={`text-xs font-black font-mono px-2 py-0.5 rounded-md ${
+                    isSelected ? "bg-white/20 text-white" : "bg-slate-100 text-[#0a66ff]"
+                  }`}>
+                    Step {step.number}
                   </span>
-                  <i
-                    className={`fas fa-arrow-right text-[10px] transition-transform duration-200 ${
-                      isSelected ? "text-[#0a66ff] translate-x-1" : "text-slate-300"
-                    }`}
-                  ></i>
+                  <i className={`${step.icon} text-sm ${isSelected ? "text-white" : "text-[#0a66ff]"}`}></i>
                 </div>
-              </div>
+                <div className="font-extrabold text-sm sm:text-base leading-snug">
+                  {step.title}
+                </div>
+              </button>
             );
           })}
         </div>
 
-        {/* Active Step Deep Dive Callout Card */}
-        <div className="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-7 border border-[#0a66ff]/20 shadow-[0_16px_40px_rgba(10,102,255,0.06)] flex flex-col sm:flex-row items-center justify-between gap-5">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#0a66ff] text-white flex items-center justify-center text-xl font-bold flex-shrink-0 shadow-xs">
-              <i className={steps[activeStep].icon}></i>
-            </div>
-            <div>
-              <div className="flex items-center gap-2 mb-0.5">
-                <span className="text-xs font-bold text-[#0a66ff] uppercase tracking-wider">
-                  Step {steps[activeStep].number} Spotlight
-                </span>
-                <span className="text-xs text-slate-400">·</span>
-                <h4 className="font-extrabold text-sm text-[#0b1a33]">
-                  {steps[activeStep].title}
-                </h4>
+        {/* Runway Active Spotlight Stage */}
+        <div className="max-w-5xl mx-auto bg-white rounded-3xl p-7 sm:p-10 border border-slate-200/90 shadow-[0_20px_50px_rgba(10,102,255,0.08)]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left: Step Details */}
+            <div className="lg:col-span-7 flex flex-col items-start">
+              <div className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#0a66ff] bg-[#e8f0fe] px-3 py-1 rounded-full mb-3">
+                <span>Phase: {currentStep.phase}</span>
               </div>
-              <p className="text-xs sm:text-sm text-[#3d4e6b] leading-relaxed">
-                {steps[activeStep].details}
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0b1a33] tracking-tight mb-3">
+                {currentStep.title}
+              </h3>
+              <p className="text-sm sm:text-base text-[#3d4e6b] leading-relaxed mb-6">
+                {currentStep.description}
               </p>
+
+              <div className="p-3.5 rounded-2xl bg-[#f8faff] border border-slate-200/80 flex items-center gap-3 w-full mb-6">
+                <i className="fas fa-lightbulb text-amber-500 text-sm flex-shrink-0"></i>
+                <span className="text-xs text-[#3d4e6b] font-medium">
+                  {currentStep.actionTip}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <Link
+                  href="/signup"
+                  className="px-6 py-3 rounded-full bg-[#0a66ff] hover:bg-[#084bc2] text-white font-bold text-xs sm:text-sm shadow-md shadow-[#0a66ff]/25 transition-all flex items-center gap-2"
+                >
+                  <span>Experience Step {currentStep.number}</span>
+                  <i className="fas fa-arrow-right text-xs"></i>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Interactive Step Simulated Preview */}
+            <div className="lg:col-span-5 bg-[#f8faff] rounded-3xl p-6 border border-[#0a66ff]/20 shadow-sm">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+                <span className="text-xs font-black text-[#0a66ff] uppercase tracking-wider">
+                  Live Stage Simulator
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                  {currentStep.preview.stat}
+                </span>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2 mb-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#0a66ff] text-white flex items-center justify-center text-xs">
+                    <i className={currentStep.icon}></i>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-[#0b1a33]">
+                      {currentStep.preview.title}
+                    </h4>
+                    <p className="text-[11px] text-slate-500">
+                      {currentStep.preview.subtitle}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between text-[11px] text-slate-500 pt-2 border-t border-slate-200/80">
+                <span>Autonomous Execution</span>
+                <span className="text-[#0a66ff] font-bold">100% Guaranteed</span>
+              </div>
             </div>
           </div>
-          <a
-            href="#get-started"
-            className="whitespace-nowrap px-6 py-2.5 rounded-full bg-[#0a66ff] hover:bg-[#084bc2] text-white font-semibold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
-          >
-            <span>Start Step {steps[activeStep].number}</span>
-            <i className="fas fa-arrow-right text-[10px]"></i>
-          </a>
         </div>
       </div>
     </section>

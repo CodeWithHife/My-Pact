@@ -6,50 +6,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <>
-      {/* Call To Action Banner Section */}
-      <section id="get-started" className="py-20 bg-gradient-to-r from-[#0a66ff] via-[#084bc2] to-[#0b1a33] text-white relative overflow-hidden">
-        {/* Subtle Radial Lights */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#0a66ff]/20 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-[1000px] mx-auto px-5 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 text-white text-xs font-bold uppercase tracking-wider mb-5 backdrop-blur-sm border border-white/15">
-            <i className="fas fa-bolt text-amber-300"></i>
-            <span>Own Your Semester</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-5 leading-tight">
-            Ready to stop snoozing?
-          </h2>
-          <p className="text-base sm:text-lg text-blue-100 max-w-xl mx-auto mb-9 leading-relaxed">
-            Join thousands of students who have transformed their study discipline and GPA with uncompromising accountability.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3.5 items-center justify-center">
-            <Link
-              href="/signup"
-              className="w-full sm:w-auto px-9 py-4 rounded-full bg-white text-[#0a66ff] hover:bg-[#e8f0fe] font-bold text-base shadow-[0_12px_36px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2.5 cursor-pointer"
-            >
-              <i className="fas fa-rocket text-sm"></i>
-              <span>Start Your Free Trial</span>
-            </Link>
-            <a
-              href="#pricing"
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-base border border-white/20 backdrop-blur-sm transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <span>View Pricing</span>
-            </a>
-          </div>
-
-          <div className="mt-6 text-xs text-blue-200 font-medium">
-            No credit card required for Starter tier · Switch or cancel anytime
-          </div>
-        </div>
-      </section>
-
-      {/* Main Footer */}
-      <footer className="bg-[#0b1a33] text-slate-400 pt-16 pb-12 border-t border-slate-800">
+    <footer className="bg-[#0b1a33] text-slate-400 pt-16 pb-12 border-t border-slate-800">
         <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-slate-800">
             {/* Brand Column */}
@@ -201,6 +158,5 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-    </>
   );
 }

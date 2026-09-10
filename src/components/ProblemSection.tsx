@@ -2,60 +2,50 @@
 
 import React, { useState, useEffect, useRef } from "react";
 
-const problemSlides = [
+const problems = [
   {
-    id: 1,
-    tag: "Problem 01",
-    title: "Snooze Culture",
-    subtitle: "Alarms are too easy to dismiss, leading to endless delays.",
-    icon: "fas fa-stopwatch",
-    badge: "Endless Delay",
-    badgeColor: "bg-amber-100 text-amber-800",
-    taskName: "Organic Chemistry · Chapter 7",
-    scheduledTime: "Scheduled: 8:00 AM",
-    failureState: "Snoozed 5 times (120 mins wasted)",
-    impact: "Brain trains itself that alarms don't matter.",
-    actionIcon: "fas fa-bell-slash",
-    statBadge: "+2 hrs lost",
+    id: "snooze",
+    number: "01",
+    title: "Snooze Addiction",
+    headline: "Alarms designed to be dismissed",
+    cause: "Traditional alarms allow effortless 1-tap snoozing with zero physical commitment required.",
+    effect: "Average 115 minutes lost every morning. The brain conditions itself that scheduled commitments don't matter.",
+    statNumber: "115 min",
+    statLabel: "Average daily delay",
+    dangerLevel: "High Risk",
+    icon: "fas fa-bed",
   },
   {
-    id: 2,
-    tag: "Problem 02",
-    title: "No Verification",
-    subtitle: "Marking 'complete' without actual work or proof.",
-    icon: "fas fa-clipboard-check",
-    badge: "Zero Proof",
-    badgeColor: "bg-rose-100 text-rose-800",
-    taskName: "Calc III · Problem Set #4",
-    scheduledTime: "Due: Tonight 11:59 PM",
-    failureState: "Checked off with 0 pages completed",
-    impact: "Creates a false sense of security until exam day.",
-    actionIcon: "fas fa-xmark",
-    statBadge: "0% actual work",
+    id: "fake",
+    number: "02",
+    title: "Honor-System Checkboxes",
+    headline: "Checking off without doing work",
+    cause: "Standard to-do lists ask for zero verification. A quick tap marks the hardest assignment 'Done'.",
+    effect: "Fosters false confidence and habit decay until exam week reveals unprepared coursework.",
+    statNumber: "0% Proof",
+    statLabel: "Accountability factor",
+    dangerLevel: "Critical",
+    icon: "fas fa-clipboard-question",
   },
   {
-    id: 3,
-    tag: "Problem 03",
-    title: "Zero Consequences",
-    subtitle: "Missed tasks vanish without a trace, reinforcing bad habits.",
-    icon: "fas fa-calendar-xmark",
-    badge: "Zero Penalty",
-    badgeColor: "bg-slate-200 text-slate-800",
-    taskName: "Final Exam Prep · Micro-Block",
-    scheduledTime: "Yesterday 4:00 PM",
-    failureState: "Missed session vanished into archive",
-    impact: "No lockouts, no alerts, zero habit improvement.",
-    actionIcon: "fas fa-ban",
-    statBadge: "Vanished task",
+    id: "disappear",
+    number: "03",
+    title: "Vanishing Deadlines",
+    headline: "Missed tasks simply disappear",
+    cause: "When you skip a calendar block, other apps simply archive it without penalties or social alerts.",
+    effect: "Social media and distractions remain accessible with no lockouts, reinforcing procrastination loops.",
+    statNumber: "3.2x",
+    statLabel: "Distraction increase",
+    dangerLevel: "Compounding",
+    icon: "fas fa-ghost",
   },
 ];
 
 export default function ProblemSection() {
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [activeTab, setActiveTab] = useState<number>(0);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
 
-  // Scroll detection via IntersectionObserver
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -63,7 +53,7 @@ export default function ProblemSection() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
 
     if (sectionRef.current) {
@@ -73,226 +63,173 @@ export default function ProblemSection() {
     return () => observer.disconnect();
   }, []);
 
-  // Auto slide cycle every 4.5 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % problemSlides.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, []);
-
-  const currentSlide = problemSlides[activeSlide];
+  const activeProblem = problems[activeTab];
 
   return (
     <section
       id="problem"
       ref={sectionRef}
-      className="py-24 bg-white border-b border-slate-100 overflow-hidden"
+      className="py-24 bg-[#08111e] text-white relative overflow-hidden"
     >
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Left Column: Problem Copy & Interactive Problem Selectors */}
-          <div className="lg:col-span-6 flex flex-col items-start">
-            {/* Tag Badge */}
-            <div
-              className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-5 border border-[#0a66ff]/20 shadow-xs transition-all duration-700 ease-out ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4"
-              }`}
-            >
-              <i className="fas fa-exclamation-circle text-[#0a66ff]"></i>
-              <span>The Problem</span>
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
+        <div
+          className={`flex flex-col md:flex-row md:items-end justify-between mb-14 pb-8 border-b border-slate-800 transition-all duration-700 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800 text-slate-300 text-xs font-bold uppercase tracking-wider mb-4 border border-slate-700">
+              <i className="fas fa-triangle-exclamation text-rose-400"></i>
+              <span>The Broken Cycle</span>
             </div>
-
-            {/* Main Section Heading */}
-            <h2
-              className={`text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] tracking-tight leading-[1.15] mb-5 transition-all duration-700 delay-100 ease-out ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4"
-              }`}
-            >
-              Conventional tools make it{" "}
-              <span className="text-[#0a66ff]">too easy to fail</span>.
-            </h2>
-
-            {/* Lead Description */}
-            <p
-              className={`text-base sm:text-lg text-[#3d4e6b] leading-relaxed mb-8 transition-all duration-700 delay-150 ease-out ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4"
-              }`}
-            >
-              To-do lists and calendar apps rely entirely on voluntary self-discipline.
-              When motivation dips, you snooze, ignore, and push back—with{" "}
-              <strong className="text-[#0b1a33] font-semibold">
-                zero immediate consequences
-              </strong>
+            <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-tight leading-[1.15] text-white">
+              Why traditional productivity apps{" "}
+              <span className="text-[#0a66ff]">
+                fail university students
+              </span>
               .
-            </p>
+            </h2>
+          </div>
+          <p className="text-slate-400 text-sm sm:text-base max-w-md mt-4 md:mt-0 leading-relaxed">
+            Standard apps rely 100% on voluntary willpower. When motivation dips, there are zero immediate friction points or consequences.
+          </p>
+        </div>
 
-            {/* The 3 Interactive Problem Cards */}
-            <div className="w-full space-y-3.5">
-              {problemSlides.map((slide, index) => {
-                const isActive = activeSlide === index;
-                return (
-                  <button
-                    key={slide.id}
-                    type="button"
-                    onClick={() => setActiveSlide(index)}
-                    style={{ transitionDelay: `${200 + index * 100}ms` }}
-                    className={`w-full text-left p-4 sm:p-4.5 rounded-2xl border transition-all duration-500 ease-out cursor-pointer ${
-                      isVisible
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-5"
-                    } ${
-                      isActive
-                        ? "bg-[#f8faff] border-[#0a66ff] shadow-md shadow-[#0a66ff]/8 ring-1 ring-[#0a66ff]/30 translate-x-1"
-                        : "bg-slate-50/70 border-slate-200/80 hover:bg-slate-50 hover:border-slate-300"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3.5">
-                        <div
-                          className={`w-10 h-10 rounded-xl flex items-center justify-center text-base transition-colors duration-300 ${
-                            isActive
-                              ? "bg-[#0a66ff] text-white shadow-sm shadow-[#0a66ff]/30"
-                              : "bg-[#e8f0fe] text-[#0a66ff]"
-                          }`}
-                        >
-                          <i className={slide.icon}></i>
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-sm sm:text-base text-[#0b1a33]">
-                            {slide.title}
-                          </h3>
-                          <p className="text-xs sm:text-sm text-[#3d4e6b]">
-                            {slide.subtitle}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="hidden sm:flex items-center">
-                        <span
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            isActive ? "bg-[#0a66ff] scale-125" : "bg-slate-300"
-                          }`}
-                        />
-                      </div>
+        {/* 3-Pillar Interactive Failure Matrix */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          {/* Left Column: Interactive Problem Selector Deck */}
+          <div className="lg:col-span-5 flex flex-col gap-3.5 justify-center">
+            {problems.map((item, idx) => {
+              const isSelected = activeTab === idx;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setActiveTab(idx)}
+                  className={`w-full p-5 rounded-2xl text-left border transition-all duration-200 cursor-pointer flex items-center justify-between ${
+                    isSelected
+                      ? "bg-[#0f1d32] border-[#0a66ff] shadow-lg ring-1 ring-[#0a66ff]/40 -translate-x-1"
+                      : "bg-[#0b1626] border-slate-800 hover:bg-[#0f1d32] hover:border-slate-700 text-slate-300"
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div
+                      className={`w-11 h-11 rounded-xl flex items-center justify-center text-sm font-black transition-colors ${
+                        isSelected
+                          ? "bg-[#0a66ff] text-white shadow-sm"
+                          : "bg-slate-800 text-slate-400"
+                      }`}
+                    >
+                      {item.number}
                     </div>
-                  </button>
-                );
-              })}
-            </div>
+                    <div>
+                      <h3 className="font-extrabold text-base text-white">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-slate-400 mt-0.5 line-clamp-1">
+                        {item.headline}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full border ${
+                        isSelected
+                          ? "bg-rose-950/60 text-rose-300 border-rose-800/80"
+                          : "bg-slate-800 text-slate-400 border-slate-700"
+                      }`}
+                    >
+                      {item.dangerLevel}
+                    </span>
+                    <i
+                      className={`fas fa-chevron-right text-xs transition-transform ${
+                        isSelected ? "text-[#0a66ff] translate-x-0.5" : "text-slate-600"
+                      }`}
+                    ></i>
+                  </div>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Right Column: Animated Sliding Failure Mockup */}
-          <div className="lg:col-span-6 flex justify-center">
-            <div
-              className={`w-full max-w-[480px] bg-white rounded-3xl p-6 sm:p-7 shadow-[0_24px_70px_rgba(10,102,255,0.12)] border border-[#0a66ff]/15 relative overflow-hidden transition-all duration-800 delay-200 ease-out ${
-                isVisible
-                  ? "opacity-100 translate-y-0 scale-100"
-                  : "opacity-0 translate-y-8 scale-[0.97]"
-              }`}
-            >
-              {/* Mockup Header */}
-              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                <div className="flex items-center gap-2.5">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
-                  </div>
-                  <div className="h-4 w-[1px] bg-slate-200"></div>
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    Traditional App Simulator
-                  </span>
-                </div>
-                <span className="px-3 py-1 rounded-full bg-rose-50 text-rose-600 text-[11px] font-bold uppercase tracking-wider border border-rose-200/50">
-                  <i className="fas fa-triangle-exclamation text-[10px] mr-1"></i> Failing In Real Time
-                </span>
-              </div>
-
-              {/* Animated Sliding Content Container with smooth transition */}
-              <div className="my-6 min-h-[220px] flex flex-col justify-between transition-all duration-500 ease-in-out">
-                {/* Active Slide Card with Snappy Transition */}
-                <div
-                  key={currentSlide.id}
-                  className="p-5 rounded-2xl bg-[#f8faff] border border-slate-200/90 shadow-xs relative transition-all duration-300"
-                >
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <span className="text-xs font-bold text-[#0a66ff] uppercase tracking-wider">
-                      {currentSlide.tag}
-                    </span>
-                    <span
-                      className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${currentSlide.badgeColor}`}
-                    >
-                      {currentSlide.badge}
-                    </span>
-                  </div>
-
-                  <h4 className="font-extrabold text-base text-[#0b1a33] mb-1">
-                    {currentSlide.taskName}
-                  </h4>
-                  <p className="text-xs text-[#7a8aa3] mb-3">
-                    {currentSlide.scheduledTime}
-                  </p>
-
-                  <div className="p-3 rounded-xl bg-white border border-slate-200 flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-xs font-bold text-rose-600">
-                      <i className={currentSlide.actionIcon}></i>
-                      <span>{currentSlide.failureState}</span>
+          {/* Right Column: Deep Breakdown Stage */}
+          <div className="lg:col-span-7">
+            <div className="h-full rounded-3xl bg-[#0b1626] border border-slate-800 p-7 sm:p-9 shadow-xl relative overflow-hidden flex flex-col justify-between">
+              {/* Header inside stage */}
+              <div>
+                <div className="flex items-center justify-between pb-5 border-b border-slate-800">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 text-[#0a66ff] flex items-center justify-center text-lg">
+                      <i className={activeProblem.icon}></i>
                     </div>
-                    <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-rose-50 text-rose-700 border border-rose-200">
-                      {currentSlide.statBadge}
-                    </span>
+                    <div>
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        Vicious Habit Breakdown
+                      </span>
+                      <h4 className="text-lg font-bold text-white">
+                        {activeProblem.headline}
+                      </h4>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-black text-white">
+                      {activeProblem.statNumber}
+                    </div>
+                    <div className="text-[10px] uppercase font-bold text-slate-400">
+                      {activeProblem.statLabel}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Cause vs Result Flow Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+                  {/* The Root Cause */}
+                  <div className="p-4 rounded-2xl bg-[#08111e] border border-slate-800">
+                    <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+                      <i className="fas fa-circle-dot text-[10px] text-amber-400"></i>
+                      <span>The Structural Flaw</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                      {activeProblem.cause}
+                    </p>
                   </div>
 
-                  <p className="text-xs text-[#3d4e6b] mt-3 italic">
-                    "{currentSlide.impact}"
-                  </p>
+                  {/* The Unintended Result */}
+                  <div className="p-4 rounded-2xl bg-[#08111e] border border-slate-800">
+                    <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+                      <i className="fas fa-arrow-trend-down text-[10px] text-rose-400"></i>
+                      <span>The Academic Consequence</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                      {activeProblem.effect}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* Slider Controls & Progress Dots */}
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  {problemSlides.map((_, index) => (
-                    <button
-                      key={`dot-${index}`}
-                      type="button"
-                      onClick={() => setActiveSlide(index)}
-                      className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                        activeSlide === index
-                          ? "w-8 bg-[#0a66ff]"
-                          : "w-2 bg-slate-200 hover:bg-slate-300"
-                      }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
+              {/* MyPact Breakthrough Solution Bar */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#0f1d32] border border-slate-700/80 flex flex-col sm:flex-row items-center justify-between gap-4 mt-auto">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-[#0a66ff] text-white flex items-center justify-center text-sm font-bold flex-shrink-0 shadow-sm">
+                    <i className="fas fa-shield-halved"></i>
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-white">
+                      The MyPact Antidote
+                    </div>
+                    <div className="text-[11px] text-slate-300">
+                      Physical verification challenges + escalating lockouts eliminate voluntary dismissals.
+                    </div>
+                  </div>
                 </div>
-
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setActiveSlide((prev) => (prev === 0 ? problemSlides.length - 1 : prev - 1))
-                    }
-                    className="w-8 h-8 rounded-full border border-slate-200 text-slate-600 hover:text-[#0a66ff] hover:border-[#0a66ff]/40 flex items-center justify-center text-xs transition-colors cursor-pointer"
-                    aria-label="Previous problem"
-                  >
-                    <i className="fas fa-chevron-left"></i>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveSlide((prev) => (prev + 1) % problemSlides.length)}
-                    className="w-8 h-8 rounded-full border border-slate-200 text-slate-600 hover:text-[#0a66ff] hover:border-[#0a66ff]/40 flex items-center justify-center text-xs transition-colors cursor-pointer"
-                    aria-label="Next problem"
-                  >
-                    <i className="fas fa-chevron-right"></i>
-                  </button>
-                </div>
+                <a
+                  href="#why-mypact"
+                  className="whitespace-nowrap text-xs font-bold text-white bg-[#0a66ff] hover:bg-[#084bc2] px-5 py-2.5 rounded-full transition-all flex items-center gap-1.5"
+                >
+                  <span>See How It Works</span>
+                  <i className="fas fa-arrow-right text-[10px]"></i>
+                </a>
               </div>
             </div>
           </div>
