@@ -514,7 +514,7 @@ export default function LoginPage() {
         {/* ====== RIGHT: MODERN, PROFESSIONAL LOGIN FORM ====== */}
         <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:p-10 relative overflow-y-auto bg-slate-50/60 lg:bg-white">
 
-          {/* Mobile Top Navigation Bar with Back to Home */}
+          {/* Mobile Top Navigation Bar */}
           <div className="w-full max-w-[360px] sm:max-w-[400px] flex items-center justify-between lg:hidden mb-4">
             <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
               <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
@@ -531,19 +531,17 @@ export default function LoginPage() {
               </span>
             </Link>
             <Link
-              href="/"
-              className="group/back inline-flex items-center gap-1.5 text-xs font-bold text-[#0b1a33] bg-white hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-slate-200/90 hover:border-[#0a66ff] shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-x-0.5 active:scale-95"
+              href="/signup"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0a66ff] bg-blue-50 hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-blue-200/60 shadow-xs transition-all active:scale-95"
             >
-              <span className="w-4.5 h-4.5 rounded-full bg-[#e8f0fe] group-hover/back:bg-white/20 text-[#0a66ff] group-hover/back:text-white flex items-center justify-center transition-colors">
-                <i className="fas fa-arrow-left text-[0.55rem] transition-transform group-hover/back:-translate-x-0.5"></i>
-              </span>
-              <span className="tracking-tight text-[0.72rem]">Back to Home</span>
+              <span>Sign Up</span>
+              <i className="fas fa-arrow-right text-[0.55rem]"></i>
             </Link>
           </div>
 
           <div className="w-full max-w-[360px] sm:max-w-[400px] my-auto flex flex-col justify-center bg-white lg:bg-transparent p-6 sm:p-7 rounded-3xl border border-slate-200/90 lg:border-none shadow-[0_8px_30px_rgba(0,0,0,0.04)] lg:shadow-none">
 
-            {/* Desktop Brand & Back to Home Header */}
+            {/* Desktop Brand Header */}
             <div className="hidden lg:flex items-center justify-between mb-5">
               <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight group">
                 <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
@@ -560,13 +558,11 @@ export default function LoginPage() {
                 </span>
               </Link>
               <Link
-                href="/"
-                className="group/back inline-flex items-center gap-2 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-slate-200 hover:border-[#0a66ff] shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-x-0.5 active:scale-95"
+                href="/signup"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0a66ff] bg-blue-50 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-blue-200/60 shadow-xs transition-all active:scale-95"
               >
-                <span className="w-5 h-5 rounded-full bg-[#e8f0fe] group-hover/back:bg-white/20 text-[#0a66ff] group-hover/back:text-white flex items-center justify-center transition-colors">
-                  <i className="fas fa-arrow-left text-[0.6rem] transition-transform group-hover/back:-translate-x-0.5"></i>
-                </span>
-                <span className="tracking-tight text-[0.75rem]">Back to Home</span>
+                <span>Create Account</span>
+                <i className="fas fa-arrow-right text-[0.6rem]"></i>
               </Link>
             </div>
 

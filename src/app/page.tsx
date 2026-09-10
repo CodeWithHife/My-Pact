@@ -24,15 +24,16 @@ export default function Home() {
   const [isPwaMode, setIsPwaMode] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Check if app is running in standalone PWA mode (downloaded on phone / desktop)
-    const isStandalone =
+    // Check if app is running in standalone PWA mode or marked as installed
+    const isInstalled =
       window.matchMedia("(display-mode: standalone)").matches ||
       (window.navigator as any).standalone === true ||
       window.location.search.includes("source=pwa") ||
       window.location.search.includes("mode=pwa") ||
-      document.referrer.includes("android-app://");
+      document.referrer.includes("android-app://") ||
+      localStorage.getItem("mypact_pwa_installed") === "true";
 
-    if (isStandalone) {
+    if (isInstalled) {
       // Check if user already exists
       const existingUser = localStorage.getItem("mypact_user");
       if (existingUser) {

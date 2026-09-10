@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 // Interfaces
 interface TaskItem {
@@ -46,6 +47,16 @@ interface Partner {
 }
 
 export default function DashboardPage() {
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    try {
+      localStorage.removeItem("mypact_user");
+      localStorage.removeItem("mypact_onboarding_data");
+    } catch (e) {}
+    router.push("/");
+  };
+
   // Navigation View State
   const [activeTab, setActiveTab] = useState<
     "overview" | "tasks" | "courses" | "focus" | "audit" | "network" | "settings"
@@ -2157,13 +2168,14 @@ export default function DashboardPage() {
                   <h4 className="text-xs font-bold text-[#0b1a33]">Account Session</h4>
                   <p className="text-[0.68rem] text-slate-500">Log out of your current study session on this device.</p>
                 </div>
-                <Link
-                  href="/login"
-                  className="px-5 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="px-5 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
                 >
                   <i className="fas fa-arrow-right-from-bracket text-xs"></i>
                   <span>Sign Out</span>
-                </Link>
+                </button>
               </div>
 
             </div>
@@ -3101,7 +3113,7 @@ export default function DashboardPage() {
           <span>Real-time Anti-Procrastination Kernel Active</span>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/" className="hover:text-[#0a66ff] transition-colors">Platform Home</Link>
+          <span className="text-slate-500 font-semibold">MyPact Security Kernel</span>
           <span>·</span>
           <a
             href="https://wa.me/2349027874036"
