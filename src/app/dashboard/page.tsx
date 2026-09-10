@@ -56,6 +56,8 @@ export default function DashboardPage() {
     name: "Scholar",
     firstName: "Scholar",
     username: "",
+    email: "scholar@university.edu.ng",
+    phone: "+234 902 787 4036",
     university: "Institution not set",
     faculty: "Field of study not set",
     level: "Undergraduate",
@@ -183,6 +185,9 @@ export default function DashboardPage() {
       let currentFirstName = "Scholar";
       let currentUsername = "";
 
+      let currentEmail = "scholar@university.edu.ng";
+      let currentPhone = "+234 902 787 4036";
+
       if (savedUser) {
         try {
           const parsedUser = JSON.parse(savedUser);
@@ -196,6 +201,12 @@ export default function DashboardPage() {
           if (parsedUser.username) {
             currentUsername = parsedUser.username;
           }
+          if (parsedUser.email) {
+            currentEmail = parsedUser.email;
+          }
+          if (parsedUser.phone) {
+            currentPhone = parsedUser.phone;
+          }
         } catch (e) {}
       }
 
@@ -208,7 +219,9 @@ export default function DashboardPage() {
         setUserProfile({
           name: currentUserName,
           firstName: currentFirstName,
-          username: currentUsername,
+          username: currentUsername || parsed.username || "",
+          email: currentEmail || parsed.email || "scholar@university.edu.ng",
+          phone: currentPhone || parsed.phone || parsed.partnerPhone || "+234 902 787 4036",
           university: parsed.university || "Institution not set",
           faculty: parsed.faculty || "Field of study not set",
           level: parsed.level || "Undergraduate",
@@ -241,7 +254,14 @@ export default function DashboardPage() {
           });
         }
       } else {
-        setUserProfile((prev) => ({ ...prev, name: currentUserName }));
+        setUserProfile((prev) => ({
+          ...prev,
+          name: currentUserName,
+          firstName: currentFirstName,
+          username: currentUsername,
+          email: currentEmail,
+          phone: currentPhone,
+        }));
       }
 
       const savedCustomTasks = localStorage.getItem("mypact_tasks_list");
@@ -754,50 +774,48 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#f0f5fe] text-[#0b1a33] font-sans antialiased selection:bg-[#0a66ff] selection:text-white pb-28 md:pb-12">
-      
-      {/* Toast */}
-      {toastMessage && (
-        <div className="fixed top-4 right-4 sm:top-5 sm:right-5 z-50 animate-fadeIn bg-[#0b1a33] text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl shadow-2xl border border-emerald-500/40 flex items-center gap-2.5 text-xs">
-          <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[0.65rem]">
-            <i className="fas fa-check"></i>
-          </div>
-          <span className="font-bold">{toastMessage}</span>
-          <button onClick={() => setToastMessage(null)} className="ml-1 text-slate-400 hover:text-white cursor-pointer">
-            <i className="fas fa-xmark text-xs"></i>
-          </button>
-        </div>
-      )}
-
-      {/* Main Responsive Wrapper */}
       <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pt-4 sm:pt-6 space-y-4 sm:space-y-6">
 
+        {/* Toast */}
+        {toastMessage && (
+          <div className="fixed top-4 right-4 sm:top-5 sm:right-5 z-50 animate-fadeIn bg-[#0b1a33] text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl shadow-2xl border border-emerald-500/40 flex items-center gap-2.5 text-xs">
+            <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[0.65rem]">
+              <i className="fas fa-check"></i>
+            </div>
+            <span className="font-bold">{toastMessage}</span>
+            <button onClick={() => setToastMessage(null)} className="ml-1 text-slate-400 hover:text-white cursor-pointer">
+              <i className="fas fa-xmark text-xs"></i>
+            </button>
+          </div>
+        )}
+
         {/* ========================================================================= */}
-        {/* HEADER: Dynamic Profile Greeting (Only on Overview Landing Page)          */}
+        {/* CARDED HEADER: Rounded floating top card                                  */}
         {/* ========================================================================= */}
         {activeTab === "overview" ? (
-          <header className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200/80 shadow-[0_4px_24px_rgba(10,102,255,0.06)] flex flex-col md:flex-row md:items-center md:justify-between gap-4 animate-fadeIn">
+          <header className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_4px_20px_rgba(10,102,255,0.04)] p-4 sm:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 animate-fadeIn">
             {/* Left: Branding & Responsive Profile Block */}
             <div className="flex items-center gap-3.5 w-full md:w-auto">
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-[#0a66ff] flex items-center justify-center text-white shadow-md shadow-[#0a66ff]/20 shrink-0">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#0a66ff] flex items-center justify-center text-white shadow-md shadow-[#0a66ff]/20 shrink-0">
                 <Image
                   src="/logo/mypact_icon.svg"
                   alt="MyPact"
-                  width={26}
-                  height={26}
-                  className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
+                  width={24}
+                  height={24}
+                  className="w-5 h-5 sm:w-6 sm:h-6 object-contain"
                 />
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-base sm:text-xl font-black text-[#0b1a33] tracking-tight leading-tight">
+                  <h1 className="text-base sm:text-lg font-black text-[#0b1a33] tracking-tight leading-tight">
                     Good evening, <span className="text-[#0a66ff]">{userProfile.name || userProfile.firstName || "Scholar"}</span>
                   </h1>
-                  <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500/15 to-orange-500/15 border border-amber-500/30 text-amber-600 text-[0.68rem] sm:text-xs font-black shrink-0">
+                  <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-600 text-[0.68rem] sm:text-xs font-black shrink-0">
                     <i className="fas fa-fire text-amber-500 animate-pulse text-[0.65rem]"></i>
                     <span>{streakDays} Day Streak</span>
                   </div>
                 </div>
-                <div className="text-[0.7rem] sm:text-xs text-slate-500 font-medium flex items-center gap-1.5 mt-1 flex-wrap">
+                <div className="text-[0.7rem] sm:text-xs text-slate-500 font-medium flex items-center gap-1.5 mt-0.5 flex-wrap">
                   <span className="inline-flex items-center gap-1 font-semibold text-slate-700">
                     <i className="fas fa-building-columns text-[#0a66ff] text-[0.65rem]"></i>
                     <span>{userProfile.university}</span>
@@ -812,7 +830,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between md:justify-end gap-2.5 w-full md:w-auto">
               <button
                 onClick={() => setIsCreateTaskOpen(true)}
-                className="flex-1 md:flex-initial px-4 py-2.5 rounded-full bg-[#0a66ff] hover:bg-[#084bc2] text-white text-xs font-bold shadow-md shadow-[#0a66ff]/25 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                className="flex-1 md:flex-initial px-4 py-2 rounded-xl bg-[#0a66ff] hover:bg-[#084bc2] text-white text-xs font-bold shadow-md shadow-[#0a66ff]/20 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <i className="fas fa-plus text-xs"></i>
                 <span>New Task</span>
@@ -820,7 +838,7 @@ export default function DashboardPage() {
 
               <button
                 onClick={() => setIsAlarmActive(true)}
-                className="px-3.5 py-2.5 rounded-full bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <i className="fas fa-bell text-xs animate-pulse"></i>
                 <span>Test Alarm</span>
@@ -828,8 +846,8 @@ export default function DashboardPage() {
             </div>
           </header>
         ) : (
-          /* Sleek Minimal Top Navigation Bar for Sub-Pages (Tasks, Courses, Focus, Settings, Audit, Network) */
-          <header className="bg-white rounded-2xl p-3 sm:p-4 border border-slate-200/80 shadow-2xs flex items-center justify-between gap-3 animate-fadeIn">
+          /* Sleek Minimal Top Navigation Bar for Sub-Pages */
+          <header className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_4px_20px_rgba(10,102,255,0.04)] px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3 animate-fadeIn">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setActiveTab("overview")}
@@ -844,10 +862,10 @@ export default function DashboardPage() {
                 <span className="text-xs sm:text-sm font-black text-[#0b1a33] capitalize">
                   {activeTab === "tasks" && "Tasks & Schedule Hub"}
                   {activeTab === "courses" && "Course Vault"}
-                  {activeTab === "focus" && "Focus Room"}
+                  {activeTab === "focus" && "Focus Sanctuary"}
                   {activeTab === "audit" && "Audit Ledger"}
                   {activeTab === "network" && "Accountability Partners"}
-                  {activeTab === "settings" && "Settings & Preferences"}
+                  {activeTab === "settings" && "Account & Settings"}
                 </span>
               </div>
             </div>
@@ -855,14 +873,14 @@ export default function DashboardPage() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setIsCreateTaskOpen(true)}
-                className="px-3.5 py-1.5 rounded-full bg-[#0a66ff] hover:bg-[#084bc2] text-white text-xs font-bold shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                className="px-3.5 py-1.5 rounded-xl bg-[#0a66ff] hover:bg-[#084bc2] text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
               >
                 <i className="fas fa-plus text-xs"></i>
                 <span className="hidden sm:inline">New Pact</span>
               </button>
               <button
                 onClick={() => setIsAlarmActive(true)}
-                className="px-3 py-1.5 rounded-full bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
+                className="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
               >
                 <i className="fas fa-bell text-xs"></i>
                 <span className="hidden sm:inline">Test Alarm</span>
@@ -872,9 +890,9 @@ export default function DashboardPage() {
         )}
 
         {/* ========================================================================= */}
-        {/* DESKTOP NAVIGATION TAB BAR (Hidden on mobile; mobile uses bottom navbar)   */}
+        {/* DESKTOP NAVIGATION TAB BAR: Carded horizontal tab bar                     */}
         {/* ========================================================================= */}
-        <nav className="hidden md:flex bg-white rounded-2xl p-1.5 border border-slate-200/70 shadow-2xs overflow-x-auto items-center gap-1 scrollbar-none">
+        <nav className="hidden md:flex bg-white rounded-2xl border border-slate-200/80 p-1.5 shadow-xs items-center gap-1 overflow-x-auto scrollbar-none">
           {[
             { id: "overview", label: "Dashboard", icon: "fa-chart-pie" },
             { id: "tasks", label: "Tasks Hub", icon: "fa-calendar-check", count: tasks.length },
@@ -887,10 +905,11 @@ export default function DashboardPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shrink-0 ${activeTab === tab.id
-                ? "bg-[#0a66ff] text-white shadow-sm shadow-[#0a66ff]/30"
-                : "text-slate-600 hover:text-[#0a66ff] hover:bg-slate-100"
-                }`}
+              className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shrink-0 ${
+                activeTab === tab.id
+                  ? "bg-[#0a66ff] text-white shadow-xs"
+                  : "text-slate-600 hover:text-[#0a66ff] hover:bg-slate-50"
+              }`}
             >
               <i className={`fas ${tab.icon} text-xs`}></i>
               <span>{tab.label}</span>
@@ -904,89 +923,354 @@ export default function DashboardPage() {
         </nav>
 
         {/* ========================================================================= */}
-        {/* VIEW 1: REDESIGNED CLEAN DASHBOARD OVERVIEW                               */}
+        {/* MAIN CANVAS: Carded view containers                                      */}
         {/* ========================================================================= */}
-        {activeTab === "overview" && (
-          <div className="space-y-4 sm:space-y-6 animate-fadeIn">
-            
-            {/* Top 4 Dynamic Stat Cards */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <main className="space-y-6">
+
+          {/* ========================================================================= */}
+          {/* VIEW 1: CLEAN CARDED DASHBOARD OVERVIEW                                   */}
+          {/* ========================================================================= */}
+          {activeTab === "overview" && (
+            <div className="space-y-4 sm:space-y-6 animate-fadeIn">
               
-              {/* Stat 1: Completion Rate */}
-              <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-2xs hover:border-[#0a66ff]/40 transition-colors">
-                <div className="flex items-center justify-between mb-1.5 sm:mb-2">
-                  <span className="text-[0.68rem] sm:text-[0.72rem] uppercase font-bold tracking-wider text-slate-400">Completion</span>
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#0a66ff] text-white flex items-center justify-center text-xs">
-                    <i className="fas fa-circle-check"></i>
+              {/* Top 4 Dynamic Stat Cards Grid */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+                
+                {/* Stat 1: Completion Rate */}
+                <div className="bg-white rounded-3xl border border-slate-200/80 p-3.5 sm:p-5 shadow-xs hover:border-[#0a66ff]/30 transition-all flex flex-col justify-between">
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                    <span className="text-[0.62rem] sm:text-[0.72rem] uppercase font-bold tracking-wider text-slate-400">Completion</span>
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#0a66ff] text-white flex items-center justify-center text-xs shadow-xs">
+                      <i className="fas fa-circle-check"></i>
+                    </div>
+                  </div>
+                  <div className="text-xl sm:text-3xl font-black text-[#0b1a33]">
+                    <span className="text-[#0a66ff]">{completionRate}</span>%
+                  </div>
+                  <div className="text-[0.62rem] sm:text-[0.72rem] font-bold text-slate-500 mt-0.5 sm:mt-1 truncate">
+                    {completedTasksCount} of {totalTasksCount} verified
                   </div>
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-[#0b1a33]">
-                  <span className="text-[#0a66ff]">{completionRate}</span>%
+
+                {/* Stat 2: Tasks Completed */}
+                <div className="bg-white rounded-3xl border border-slate-200/80 p-3.5 sm:p-5 shadow-xs hover:border-emerald-500/30 transition-all flex flex-col justify-between">
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                    <span className="text-[0.62rem] sm:text-[0.72rem] uppercase font-bold tracking-wider text-slate-400">Completed</span>
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xs shadow-xs">
+                      <i className="fas fa-list-check"></i>
+                    </div>
+                  </div>
+                  <div className="text-xl sm:text-3xl font-black text-[#0b1a33]">{completedTasksCount}</div>
+                  <div className="text-[0.62rem] sm:text-[0.72rem] font-bold text-emerald-600 mt-0.5 sm:mt-1 truncate">
+                    {activeTasksCount} active remaining
+                  </div>
                 </div>
-                <div className="text-[0.68rem] sm:text-[0.72rem] font-bold text-slate-500 mt-1 truncate">
-                  {completedTasksCount} of {totalTasksCount} verified
+
+                {/* Stat 3: Study Hours */}
+                <div className="bg-white rounded-3xl border border-slate-200/80 p-3.5 sm:p-5 shadow-xs hover:border-amber-500/30 transition-all flex flex-col justify-between">
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                    <span className="text-[0.62rem] sm:text-[0.72rem] uppercase font-bold tracking-wider text-slate-400">Study Time</span>
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xs shadow-xs">
+                      <i className="fas fa-clock"></i>
+                    </div>
+                  </div>
+                  <div className="text-xl sm:text-3xl font-black text-[#0b1a33]">{studyHoursDisplay}h</div>
+                  <div className="text-[0.62rem] sm:text-[0.72rem] font-bold text-amber-600 mt-0.5 sm:mt-1 truncate">
+                    {focusSessionsCompleted} sprints logged
+                  </div>
+                </div>
+
+                {/* Stat 4: Overdue Tasks */}
+                <div className="bg-white rounded-3xl border border-slate-200/80 p-3.5 sm:p-5 shadow-xs hover:border-red-500/30 transition-all flex flex-col justify-between">
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                    <span className="text-[0.62rem] sm:text-[0.72rem] uppercase font-bold tracking-wider text-slate-400">Overdue</span>
+                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl text-white flex items-center justify-center text-xs shadow-xs ${overdueTasksCount > 0 ? "bg-red-500" : "bg-slate-300"}`}>
+                      <i className="fas fa-triangle-exclamation"></i>
+                    </div>
+                  </div>
+                  <div className={`text-xl sm:text-3xl font-black ${overdueTasksCount > 0 ? "text-red-500" : "text-[#0b1a33]"}`}>
+                    {overdueTasksCount}
+                  </div>
+                  <div className={`text-[0.62rem] sm:text-[0.72rem] font-bold mt-0.5 sm:mt-1 truncate ${overdueTasksCount > 0 ? "text-red-500" : "text-emerald-600"}`}>
+                    {overdueTasksCount > 0 ? "Penalty pending" : "All clean"}
+                  </div>
+                </div>
+
+              </div>
+
+              {/* ========================================================================= */}
+              {/* SECTION 1: QUICK ACTION CONTROLS LAUNCHPAD                                */}
+              {/* ========================================================================= */}
+              <div className="bg-white rounded-3xl border border-slate-200/80 p-4 sm:p-6 shadow-xs space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-[#e8f0fe] text-[#0a66ff] flex items-center justify-center text-sm font-bold shadow-xs">
+                      <i className="fas fa-bolt"></i>
+                    </div>
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-extrabold text-[#0b1a33]">Quick Action Controls</h3>
+                      <p className="text-[0.65rem] sm:text-[0.68rem] text-slate-400">Instant shortcuts & study utilities</p>
+                    </div>
+                  </div>
+                  <span className="text-[0.62rem] sm:text-[0.65rem] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-[#0a66ff] border border-blue-200/60">
+                    5 Actions
+                  </span>
+                </div>
+
+                {/* Responsive Touch-Friendly Grid (2 cols on mobile, 5 on desktop) */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
+                  {/* 1. AI Syllabus */}
+                  <button
+                    type="button"
+                    onClick={() => setIsPdfTimetableOpen(true)}
+                    className="p-3 sm:p-3.5 rounded-2xl bg-gradient-to-br from-[#0a66ff]/10 via-[#7c3aed]/10 to-transparent hover:from-[#0a66ff]/20 hover:to-[#7c3aed]/20 border border-[#0a66ff]/30 text-left transition-all cursor-pointer active:scale-95 group flex flex-col justify-between"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#0a66ff] to-[#7c3aed] text-white flex items-center justify-center text-xs shadow-xs group-hover:scale-105 transition-transform">
+                        <i className="fas fa-file-pdf"></i>
+                      </div>
+                      <span className="text-[0.55rem] font-extrabold px-1.5 py-0.5 rounded bg-[#0a66ff] text-white">AI</span>
+                    </div>
+                    <div>
+                      <span className="text-xs font-black text-[#0b1a33] block leading-tight">AI Syllabus</span>
+                      <span className="text-[0.62rem] text-slate-500 mt-0.5 block">Upload & Timetable</span>
+                    </div>
+                  </button>
+
+                  {/* 2. Schedule Pact */}
+                  <button
+                    type="button"
+                    onClick={() => setIsCreateTaskOpen(true)}
+                    className="p-3 sm:p-3.5 rounded-2xl bg-slate-50 hover:bg-[#e8f0fe] border border-slate-200/80 text-left transition-all cursor-pointer active:scale-95 group flex flex-col justify-between"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="w-8 h-8 rounded-xl bg-[#0a66ff] text-white flex items-center justify-center text-xs shadow-xs group-hover:scale-105 transition-transform">
+                        <i className="fas fa-plus"></i>
+                      </div>
+                      <kbd className="hidden sm:inline text-[0.55rem] text-slate-400 font-mono">⌘N</kbd>
+                    </div>
+                    <div>
+                      <span className="text-xs font-black text-[#0b1a33] block leading-tight">New Pact</span>
+                      <span className="text-[0.62rem] text-slate-500 mt-0.5 block">Schedule study alarm</span>
+                    </div>
+                  </button>
+
+                  {/* 3. Focus Room */}
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("focus")}
+                    className="p-3 sm:p-3.5 rounded-2xl bg-slate-50 hover:bg-emerald-50 border border-slate-200/80 hover:border-emerald-200 text-left transition-all cursor-pointer active:scale-95 group flex flex-col justify-between"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xs shadow-xs group-hover:scale-105 transition-transform">
+                        <i className="fas fa-play"></i>
+                      </div>
+                      <kbd className="hidden sm:inline text-[0.55rem] text-slate-400 font-mono">⌘F</kbd>
+                    </div>
+                    <div>
+                      <span className="text-xs font-black text-[#0b1a33] block leading-tight">Focus Room</span>
+                      <span className="text-[0.62rem] text-slate-500 mt-0.5 block">25m sprint & sounds</span>
+                    </div>
+                  </button>
+
+                  {/* 4. Link Partner */}
+                  <button
+                    type="button"
+                    onClick={() => setIsAddPartnerOpen(true)}
+                    className="p-3 sm:p-3.5 rounded-2xl bg-slate-50 hover:bg-amber-50 border border-slate-200/80 hover:border-amber-200 text-left transition-all cursor-pointer active:scale-95 group flex flex-col justify-between"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xs shadow-xs group-hover:scale-105 transition-transform">
+                        <i className="fas fa-user-plus"></i>
+                      </div>
+                      <span className="text-[0.55rem] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800">Alert</span>
+                    </div>
+                    <div>
+                      <span className="text-xs font-black text-[#0b1a33] block leading-tight">Add Partner</span>
+                      <span className="text-[0.62rem] text-slate-500 mt-0.5 block">WhatsApp escalation</span>
+                    </div>
+                  </button>
+
+                  {/* 5. Simulate Alarm */}
+                  <button
+                    type="button"
+                    onClick={() => setIsAlarmActive(true)}
+                    className="p-3 sm:p-3.5 rounded-2xl bg-red-50/70 hover:bg-red-100 border border-red-200 text-left transition-all cursor-pointer active:scale-95 group flex flex-col justify-between col-span-2 sm:col-span-1"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="w-8 h-8 rounded-xl bg-red-500 text-white flex items-center justify-center text-xs shadow-xs group-hover:scale-105 transition-transform">
+                        <i className="fas fa-bell animate-pulse"></i>
+                      </div>
+                      <span className="text-[0.55rem] font-bold px-1.5 py-0.5 rounded bg-red-100 text-red-700">Test</span>
+                    </div>
+                    <div>
+                      <span className="text-xs font-black text-[#0b1a33] block leading-tight">Test Alarm</span>
+                      <span className="text-[0.62rem] text-red-600 mt-0.5 block">Math challenge proof</span>
+                    </div>
+                  </button>
+                </div>
+
+                <div className="pt-2 text-center border-t border-slate-100">
+                  <span className="text-[0.62rem] sm:text-[0.65rem] text-slate-400 flex items-center justify-center gap-1 font-medium">
+                    <i className="fas fa-shield-halved text-[#0a66ff]"></i>
+                    <span>Hardware Anti-Bypass Kernel Active · Zero Deviations</span>
+                  </span>
                 </div>
               </div>
 
-              {/* Stat 2: Tasks Completed */}
-              <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-2xs hover:border-emerald-500/40 transition-colors">
-                <div className="flex items-center justify-between mb-1.5 sm:mb-2">
-                  <span className="text-[0.68rem] sm:text-[0.72rem] uppercase font-bold tracking-wider text-slate-400">Completed</span>
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs">
-                    <i className="fas fa-list-check"></i>
+              {/* ========================================================================= */}
+              {/* SECTION 2: ENFORCED STUDY TIMELINE & HIGH-STAKES PRIORITY TARGET          */}
+              {/* ========================================================================= */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+
+                {/* Enforced Study Timeline (Span 2) */}
+                <div className="lg:col-span-2 bg-white rounded-3xl border border-slate-200/80 p-4 sm:p-6 shadow-xs space-y-4">
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-[#e8f0fe] text-[#0a66ff] flex items-center justify-center text-sm font-bold">
+                        <i className="fas fa-list-ul"></i>
+                      </div>
+                      <div>
+                        <h3 className="text-xs sm:text-sm font-extrabold text-[#0b1a33]">Enforced Study Timeline</h3>
+                        <p className="text-[0.65rem] sm:text-[0.68rem] text-slate-400">Pacts scheduled for today</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setActiveTab("tasks")}
+                      className="text-xs text-[#0a66ff] font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>Hub</span>
+                      <i className="fas fa-arrow-right text-[0.62rem]"></i>
+                    </button>
                   </div>
+
+                  {tasks.length === 0 ? (
+                    <div className="p-5 sm:p-8 text-center rounded-2xl bg-slate-50 border border-dashed border-slate-200 space-y-3">
+                      <div className="w-10 h-10 rounded-full bg-blue-100 text-[#0a66ff] flex items-center justify-center text-base mx-auto">
+                        <i className="fas fa-plus"></i>
+                      </div>
+                      <div>
+                        <h4 className="text-xs font-bold text-[#0b1a33]">No Pacts Scheduled Yet</h4>
+                        <p className="text-[0.68rem] sm:text-[0.7rem] text-slate-500 max-w-sm mx-auto mt-0.5">
+                          Schedule your first study sprint or assignment to build your streak.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setIsCreateTaskOpen(true)}
+                        className="px-4 py-2 rounded-xl bg-[#0a66ff] text-white text-xs font-bold shadow-sm hover:bg-[#084bc2] transition-colors cursor-pointer"
+                      >
+                        + Create First Pact
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {tasks.map((task) => (
+                        <div
+                          key={task.id}
+                          className={`p-3 sm:p-3.5 rounded-2xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 ${
+                            task.status === "completed"
+                              ? "bg-slate-50/60 border-slate-200/60 opacity-60"
+                              : "bg-white border-slate-200 hover:border-[#0a66ff] shadow-2xs"
+                          }`}
+                        >
+                          <div className="flex items-start sm:items-center gap-3">
+                            <div className="text-[0.68rem] sm:text-[0.72rem] font-bold text-slate-400 min-w-[50px] sm:min-w-[60px] pt-0.5 sm:pt-0">
+                              {task.time}
+                            </div>
+                            <div className={`w-2.5 h-2.5 rounded-full mt-1.5 sm:mt-0 shrink-0 ${task.status === "completed" ? "bg-emerald-500" : "bg-[#0a66ff] animate-pulse"}`} />
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className={`text-xs sm:text-sm font-bold truncate ${task.status === "completed" ? "line-through text-slate-400" : "text-[#0b1a33]"}`}>
+                                  {task.title}
+                                </span>
+                                <span className="px-2 py-0.2 rounded-md bg-[#e8f0fe] text-[#0a66ff] text-[0.6rem] font-bold">
+                                  {task.course}
+                                </span>
+                              </div>
+                              <div className="text-[0.65rem] sm:text-[0.68rem] text-slate-500 flex items-center gap-1.5 mt-0.5">
+                                <span>{task.duration}</span>
+                                <span>·</span>
+                                <span className="capitalize">{task.verificationMethod} Proof</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={() => handleToggleTaskStatus(task.id)}
+                            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 self-end sm:self-center cursor-pointer ${
+                              task.status === "completed"
+                                ? "bg-emerald-100 text-emerald-700"
+                                : "bg-[#0a66ff] text-white hover:bg-[#084bc2] shadow-xs"
+                            }`}
+                          >
+                            <i className={`fas ${task.status === "completed" ? "fa-check-double" : "fa-check"} text-xs`}></i>
+                            <span>{task.status === "completed" ? "Verified" : "Verify Proof"}</span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-[#0b1a33]">{completedTasksCount}</div>
-                <div className="text-[0.68rem] sm:text-[0.72rem] font-bold text-emerald-600 mt-1 truncate">
-                  {activeTasksCount} active remaining
+
+                {/* High-Stakes Target Section (Span 1) */}
+                <div className="bg-gradient-to-br from-[#0b1a33] to-[#142b4a] rounded-3xl p-5 sm:p-6 text-white shadow-xl shadow-[#0b1a33]/15 flex flex-col justify-between">
+                  {highStakesTask ? (
+                    <>
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-[0.68rem] uppercase font-extrabold tracking-wider text-slate-300 flex items-center gap-1.5">
+                            <i className="fas fa-stopwatch text-[#0a66ff]"></i>
+                            <span>High-Stakes Priority</span>
+                          </span>
+                          <span className="px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 text-[0.6rem] font-bold uppercase border border-red-500/30">
+                            Urgent
+                          </span>
+                        </div>
+                        <h4 className="text-sm sm:text-base font-extrabold text-white leading-snug">{highStakesTask.title}</h4>
+                        <p className="text-xs text-slate-300 mt-0.5">{highStakesTask.course} · {highStakesTask.date} at {highStakesTask.time}</p>
+                      </div>
+
+                      <div className="mt-4 p-3 rounded-2xl bg-black/30 border border-white/10 text-center">
+                        <span className="text-[0.65rem] uppercase text-slate-400 block mb-1">Required Proof</span>
+                        <span className="text-xs font-bold text-amber-400 flex items-center justify-center gap-1">
+                          <i className="fas fa-lock text-xs"></i>
+                          <span>{highStakesTask.verificationMethod.toUpperCase()} PROOF</span>
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-center py-6 space-y-3">
+                      <div className="w-10 h-10 rounded-full bg-white/10 text-slate-300 flex items-center justify-center text-sm mx-auto">
+                        <i className="fas fa-calendar-plus"></i>
+                      </div>
+                      <div>
+                        <h4 className="text-xs font-bold text-white">No Urgent Deadlines</h4>
+                        <p className="text-[0.68rem] text-slate-400 mt-1">Set an exam or target deadline to activate strict countdown tracking.</p>
+                      </div>
+                      <button
+                        onClick={() => setIsCreateTaskOpen(true)}
+                        className="px-4 py-1.5 rounded-xl bg-[#0a66ff] text-white text-xs font-bold cursor-pointer hover:bg-[#084bc2] transition-colors"
+                      >
+                        + Add Priority Target
+                      </button>
+                    </div>
+                  )}
                 </div>
+
               </div>
 
-              {/* Stat 3: Study Hours */}
-              <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-2xs hover:border-amber-500/40 transition-colors">
-                <div className="flex items-center justify-between mb-1.5 sm:mb-2">
-                  <span className="text-[0.68rem] sm:text-[0.72rem] uppercase font-bold tracking-wider text-slate-400">Study Time</span>
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs">
-                    <i className="fas fa-clock"></i>
-                  </div>
-                </div>
-                <div className="text-2xl sm:text-3xl font-black text-[#0b1a33]">{studyHoursDisplay}h</div>
-                <div className="text-[0.68rem] sm:text-[0.72rem] font-bold text-amber-600 mt-1 truncate">
-                  {focusSessionsCompleted} sprints logged
-                </div>
-              </div>
-
-              {/* Stat 4: Overdue Tasks */}
-              <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-2xs hover:border-red-500/40 transition-colors">
-                <div className="flex items-center justify-between mb-1.5 sm:mb-2">
-                  <span className="text-[0.68rem] sm:text-[0.72rem] uppercase font-bold tracking-wider text-slate-400">Overdue</span>
-                  <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full text-white flex items-center justify-center text-xs ${overdueTasksCount > 0 ? "bg-red-500" : "bg-slate-300"}`}>
-                    <i className="fas fa-triangle-exclamation"></i>
-                  </div>
-                </div>
-                <div className={`text-2xl sm:text-3xl font-black ${overdueTasksCount > 0 ? "text-red-500" : "text-[#0b1a33]"}`}>
-                  {overdueTasksCount}
-                </div>
-                <div className={`text-[0.68rem] sm:text-[0.72rem] font-bold mt-1 truncate ${overdueTasksCount > 0 ? "text-red-500" : "text-emerald-600"}`}>
-                  {overdueTasksCount > 0 ? "Penalty pending" : "All clean"}
-                </div>
-              </div>
-
-            </div>
-
-            {/* Middle Grid: Discipline Score Gauge (Span 2/3) & High-Stakes Target (Span 1/3) */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-
-              {/* Discipline Gauge (Span 2) */}
-              <div className="lg:col-span-2 bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-4">
+              {/* ========================================================================= */}
+              {/* SECTION 3: DISCIPLINE SCORE ENGINE & AUDIT CALIBRATION                    */}
+              {/* ========================================================================= */}
+              <div className="bg-white rounded-3xl border border-slate-200/80 p-4 sm:p-6 shadow-xs space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-[#e8f0fe] text-[#0a66ff] flex items-center justify-center text-sm font-bold">
+                    <div className="w-8 h-8 rounded-lg bg-[#e8f0fe] text-[#0a66ff] flex items-center justify-center text-sm font-bold">
                       <i className="fas fa-shield-halved"></i>
                     </div>
                     <div>
-                      <h3 className="text-sm font-extrabold text-[#0b1a33]">Discipline Score Engine</h3>
-                      <p className="text-[0.68rem] text-slate-400">Pact calibration rating</p>
+                      <h3 className="text-xs sm:text-sm font-extrabold text-[#0b1a33]">Discipline Score Engine</h3>
+                      <p className="text-[0.65rem] sm:text-[0.68rem] text-slate-400">Pact calibration rating</p>
                     </div>
                   </div>
                   <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[0.65rem] font-bold">
@@ -994,9 +1278,9 @@ export default function DashboardPage() {
                   </span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center gap-6 py-2">
+                <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 py-1">
                   {/* Gauge Ring */}
-                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0">
+                  <div className="relative w-24 h-24 sm:w-32 sm:h-32 shrink-0">
                     <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
                       <circle cx="60" cy="60" r="50" fill="none" stroke="#e2eaf5" strokeWidth="10" />
                       <circle
@@ -1013,33 +1297,33 @@ export default function DashboardPage() {
                       />
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                      <span className="text-2xl font-black text-[#0b1a33] leading-none">{disciplineScore}</span>
-                      <span className="text-[0.6rem] font-extrabold uppercase tracking-wider text-slate-400 mt-0.5">/ 100</span>
+                      <span className="text-xl sm:text-2xl font-black text-[#0b1a33] leading-none">{disciplineScore}</span>
+                      <span className="text-[0.55rem] sm:text-[0.6rem] font-extrabold uppercase tracking-wider text-slate-400 mt-0.5">/ 100</span>
                     </div>
                   </div>
 
                   {/* Breakdown Grid */}
                   <div className="grid grid-cols-2 gap-2.5 sm:gap-3 flex-1 w-full">
-                    <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                      <div className="text-[0.62rem] sm:text-[0.65rem] uppercase font-bold text-slate-400">Total Enrolled</div>
-                      <div className="text-sm sm:text-base font-black text-[#0b1a33] mt-0.5">{totalTasksCount} Pacts</div>
+                    <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                      <div className="text-[0.6rem] sm:text-[0.65rem] uppercase font-bold text-slate-400">Total Enrolled</div>
+                      <div className="text-xs sm:text-base font-black text-[#0b1a33] mt-0.5">{totalTasksCount} Pacts</div>
                     </div>
-                    <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                      <div className="text-[0.62rem] sm:text-[0.65rem] uppercase font-bold text-slate-400">Streak Status</div>
-                      <div className="text-sm sm:text-base font-black text-[#0a66ff] mt-0.5">{streakDays} Day(s)</div>
+                    <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                      <div className="text-[0.6rem] sm:text-[0.65rem] uppercase font-bold text-slate-400">Streak Status</div>
+                      <div className="text-xs sm:text-base font-black text-[#0a66ff] mt-0.5">{streakDays} Day(s)</div>
                     </div>
-                    <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                      <div className="text-[0.62rem] sm:text-[0.65rem] uppercase font-bold text-slate-400">Overdue Items</div>
-                      <div className="text-sm sm:text-base font-black text-red-500 mt-0.5">{overdueTasksCount}</div>
+                    <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                      <div className="text-[0.6rem] sm:text-[0.65rem] uppercase font-bold text-slate-400">Overdue Items</div>
+                      <div className="text-xs sm:text-base font-black text-red-500 mt-0.5">{overdueTasksCount}</div>
                     </div>
-                    <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                      <div className="text-[0.62rem] sm:text-[0.65rem] uppercase font-bold text-slate-400">Standing Goal</div>
-                      <div className="text-sm sm:text-base font-black text-[#0b1a33] mt-0.5 truncate">{userProfile.targetGpa}</div>
+                    <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                      <div className="text-[0.6rem] sm:text-[0.65rem] uppercase font-bold text-slate-400">Standing Goal</div>
+                      <div className="text-xs sm:text-base font-black text-[#0b1a33] mt-0.5 truncate">{userProfile.targetGpa}</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[0.7rem] text-slate-500">
+                <div className="pt-2 flex items-center justify-between text-[0.68rem] sm:text-[0.7rem] text-slate-500 border-t border-slate-100">
                   <span>Enforcement: <strong className="text-[#0a66ff]">{userProfile.tier}</strong></span>
                   <button onClick={() => setActiveTab("audit")} className="text-[#0a66ff] font-bold hover:underline cursor-pointer">
                     Audit Log →
@@ -1047,663 +1331,440 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              {/* High-Stakes Target Card (Span 1) */}
-              <div className="bg-gradient-to-br from-[#0b1a33] to-[#142b4a] rounded-3xl p-5 sm:p-6 text-white shadow-xl flex flex-col justify-between">
-                {highStakesTask ? (
-                  <>
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-[0.68rem] uppercase font-extrabold tracking-wider text-slate-300 flex items-center gap-1.5">
-                          <i className="fas fa-stopwatch text-[#0a66ff]"></i>
-                          <span>High-Stakes Priority</span>
-                        </span>
-                        <span className="px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 text-[0.6rem] font-bold uppercase">
-                          Urgent
-                        </span>
-                      </div>
-                      <h4 className="text-sm sm:text-base font-extrabold text-white leading-snug">{highStakesTask.title}</h4>
-                      <p className="text-xs text-slate-300 mt-0.5">{highStakesTask.course} · {highStakesTask.date} at {highStakesTask.time}</p>
-                    </div>
-
-                    <div className="mt-4 p-3 rounded-2xl bg-black/30 border border-white/10 text-center">
-                      <span className="text-[0.65rem] uppercase text-slate-400 block mb-1">Required Proof</span>
-                      <span className="text-xs font-bold text-amber-400 flex items-center justify-center gap-1">
-                        <i className="fas fa-lock text-xs"></i>
-                        <span>{highStakesTask.verificationMethod.toUpperCase()} PROOF</span>
-                      </span>
-                    </div>
-                  </>
-                ) : (
-                  <div className="text-center py-6 space-y-3">
-                    <div className="w-10 h-10 rounded-full bg-white/10 text-slate-300 flex items-center justify-center text-sm mx-auto">
-                      <i className="fas fa-calendar-plus"></i>
-                    </div>
-                    <div>
-                      <h4 className="text-xs font-bold text-white">No Urgent Deadlines</h4>
-                      <p className="text-[0.68rem] text-slate-400 mt-1">Set an exam or target deadline to activate strict countdown tracking.</p>
-                    </div>
-                    <button
-                      onClick={() => setIsCreateTaskOpen(true)}
-                      className="px-4 py-1.5 rounded-xl bg-[#0a66ff] text-white text-xs font-bold cursor-pointer hover:bg-[#084bc2] transition-colors"
-                    >
-                      + Add Priority Target
-                    </button>
-                  </div>
-                )}
-              </div>
-
             </div>
+          )}
 
-            {/* Bottom Row: Timeline & Quick Action Buttons */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-
-              {/* Timeline (Span 2) */}
-              <div className="lg:col-span-2 bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-[#e8f0fe] text-[#0a66ff] flex items-center justify-center text-sm font-bold">
-                      <i className="fas fa-list-ul"></i>
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-extrabold text-[#0b1a33]">Enforced Study Timeline</h3>
-                      <p className="text-[0.68rem] text-slate-400">Pacts scheduled for today</p>
-                    </div>
-                  </div>
+          {/* ========================================================================= */}
+          {/* VIEW 2: TASKS & SCHEDULE HUB                                              */}
+          {/* ========================================================================= */}
+          {activeTab === "tasks" && (
+            <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-6 shadow-xs space-y-6 animate-fadeIn">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200">
+                <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-xl w-full sm:w-auto">
                   <button
-                    onClick={() => setActiveTab("tasks")}
-                    className="text-xs text-[#0a66ff] font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                    onClick={() => setTaskViewMode("list")}
+                    className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${taskViewMode === "list" ? "bg-white text-[#0a66ff] shadow-xs" : "text-slate-600"}`}
                   >
-                    <span>Hub</span>
-                    <i className="fas fa-arrow-right text-[0.62rem]"></i>
+                    <i className="fas fa-list text-xs"></i>
+                    <span>List</span>
+                  </button>
+                  <button
+                    onClick={() => setTaskViewMode("calendar")}
+                    className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${taskViewMode === "calendar" ? "bg-white text-[#0a66ff] shadow-xs" : "text-slate-600"}`}
+                  >
+                    <i className="fas fa-calendar-days text-xs"></i>
+                    <span>Calendar</span>
+                  </button>
+                  <button
+                    onClick={() => setTaskViewMode("kanban")}
+                    className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${taskViewMode === "kanban" ? "bg-white text-[#0a66ff] shadow-xs" : "text-slate-600"}`}
+                  >
+                    <i className="fas fa-table-columns text-xs"></i>
+                    <span>Kanban</span>
                   </button>
                 </div>
 
-                {tasks.length === 0 ? (
-                  <div className="p-6 sm:p-8 text-center rounded-2xl bg-slate-50 border border-dashed border-slate-200 space-y-3">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-100 text-[#0a66ff] flex items-center justify-center text-base sm:text-lg mx-auto">
-                      <i className="fas fa-plus"></i>
-                    </div>
-                    <div>
-                      <h4 className="text-xs font-bold text-[#0b1a33]">No Pacts Scheduled Yet</h4>
-                      <p className="text-[0.7rem] text-slate-500 max-w-sm mx-auto mt-0.5">
-                        Schedule your first study sprint or assignment to build your streak.
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setIsCreateTaskOpen(true)}
-                      className="px-4 py-2 rounded-xl bg-[#0a66ff] text-white text-xs font-bold shadow-md hover:bg-[#084bc2] transition-colors cursor-pointer"
-                    >
-                      + Create First Pact
-                    </button>
-                  </div>
-                ) : (
-                  <div className="space-y-2.5">
-                    {tasks.map((task) => (
-                      <div
-                        key={task.id}
-                        className={`p-3.5 sm:p-4 rounded-2xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${task.status === "completed"
-                          ? "bg-slate-50/60 border-slate-200/60 opacity-60"
-                          : "bg-white border-slate-200 hover:border-[#0a66ff]"
-                          }`}
-                      >
-                        <div className="flex items-start sm:items-center gap-3">
-                          <div className="text-[0.72rem] font-bold text-slate-400 min-w-[60px]">
-                            {task.time}
-                          </div>
-                          <div className={`w-2.5 h-2.5 rounded-full mt-1 sm:mt-0 shrink-0 ${task.status === "completed" ? "bg-emerald-500" : "bg-[#0a66ff] animate-pulse"}`} />
-                          <div>
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <span className={`text-xs sm:text-sm font-bold ${task.status === "completed" ? "line-through text-slate-400" : "text-[#0b1a33]"}`}>
-                                {task.title}
-                              </span>
-                              <span className="px-2 py-0.5 rounded-md bg-[#e8f0fe] text-[#0a66ff] text-[0.62rem] font-bold">
-                                {task.course}
-                              </span>
-                            </div>
-                            <div className="text-[0.68rem] text-slate-500 flex items-center gap-2 mt-0.5">
-                              <span>{task.duration}</span>
-                              <span>·</span>
-                              <span className="capitalize">{task.verificationMethod} Proof</span>
-                            </div>
-                          </div>
-                        </div>
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <button
+                    onClick={() => setIsPdfTimetableOpen(true)}
+                    className="w-full sm:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-[#0a66ff] to-[#7c3aed] text-white text-xs font-bold hover:opacity-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <i className="fas fa-wand-magic-sparkles text-amber-300 text-xs"></i>
+                    <span>AI Syllabus Timetable</span>
+                  </button>
 
-                        <button
-                          onClick={() => handleToggleTaskStatus(task.id)}
-                          className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 self-end sm:self-center cursor-pointer ${task.status === "completed"
-                            ? "bg-emerald-100 text-emerald-700"
-                            : "bg-slate-100 hover:bg-[#0a66ff] hover:text-white text-slate-700"
-                            }`}
-                        >
-                          <i className={`fas ${task.status === "completed" ? "fa-check-double" : "fa-check"} text-xs`}></i>
-                          <span>{task.status === "completed" ? "Verified" : "Verify Proof"}</span>
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Quick Actions (Span 1) */}
-              <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-3.5">
-                    <div className="w-8 h-8 rounded-xl bg-[#e8f0fe] text-[#0a66ff] flex items-center justify-center text-sm font-bold">
-                      <i className="fas fa-bolt"></i>
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-extrabold text-[#0b1a33]">Quick Actions</h3>
-                      <p className="text-[0.68rem] text-slate-400">Instant controls</p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <button
-                      onClick={() => setIsPdfTimetableOpen(true)}
-                      className="w-full p-3 rounded-2xl bg-gradient-to-r from-[#0a66ff]/10 to-[#7c3aed]/10 hover:from-[#0a66ff]/20 hover:to-[#7c3aed]/20 text-[#0a66ff] text-xs font-bold transition-all flex items-center justify-between border border-[#0a66ff]/30 cursor-pointer group"
-                    >
-                      <span className="flex items-center gap-2.5">
-                        <span className="w-6 h-6 rounded-lg bg-gradient-to-tr from-[#0a66ff] to-[#7c3aed] text-white flex items-center justify-center text-[0.65rem] shadow-xs group-hover:scale-110 transition-transform">
-                          <i className="fas fa-file-pdf"></i>
-                        </span>
-                        <span className="font-extrabold text-[#0b1a33]">AI Syllabus Timetable</span>
-                      </span>
-                      <span className="px-1.5 py-0.5 rounded bg-[#0a66ff] text-white text-[0.55rem] font-bold">PDF AI</span>
-                    </button>
-
-                    <button
-                      onClick={() => setIsCreateTaskOpen(true)}
-                      className="w-full p-3 rounded-2xl bg-slate-50 hover:bg-[#e8f0fe] hover:text-[#0a66ff] text-slate-700 text-xs font-bold transition-all flex items-center justify-between border border-slate-200/70 cursor-pointer"
-                    >
-                      <span className="flex items-center gap-2.5">
-                        <span className="w-6 h-6 rounded-lg bg-[#0a66ff] text-white flex items-center justify-center text-[0.65rem]">
-                          <i className="fas fa-plus"></i>
-                        </span>
-                        <span>Create Pact</span>
-                      </span>
-                      <kbd className="text-[0.62rem] text-slate-400 font-mono">⌘N</kbd>
-                    </button>
-
-                    <button
-                      onClick={() => setActiveTab("focus")}
-                      className="w-full p-3 rounded-2xl bg-slate-50 hover:bg-[#e8f0fe] hover:text-[#0a66ff] text-slate-700 text-xs font-bold transition-all flex items-center justify-between border border-slate-200/70 cursor-pointer"
-                    >
-                      <span className="flex items-center gap-2.5">
-                        <span className="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center text-[0.65rem]">
-                          <i className="fas fa-play"></i>
-                        </span>
-                        <span>Focus Room</span>
-                      </span>
-                      <kbd className="text-[0.62rem] text-slate-400 font-mono">⌘F</kbd>
-                    </button>
-
-                    <button
-                      onClick={() => setIsAddPartnerOpen(true)}
-                      className="w-full p-3 rounded-2xl bg-slate-50 hover:bg-[#e8f0fe] hover:text-[#0a66ff] text-slate-700 text-xs font-bold transition-all flex items-center justify-between border border-slate-200/70 cursor-pointer"
-                    >
-                      <span className="flex items-center gap-2.5">
-                        <span className="w-6 h-6 rounded-lg bg-amber-500 text-white flex items-center justify-center text-[0.65rem]">
-                          <i className="fas fa-user-plus"></i>
-                        </span>
-                        <span>Add Partner</span>
-                      </span>
-                    </button>
-
-                    <button
-                      onClick={() => setIsAlarmActive(true)}
-                      className="w-full p-3 rounded-2xl bg-red-50 hover:bg-red-100 text-red-700 text-xs font-bold transition-all flex items-center justify-between border border-red-200 cursor-pointer"
-                    >
-                      <span className="flex items-center gap-2.5">
-                        <span className="w-6 h-6 rounded-lg bg-red-500 text-white flex items-center justify-center text-[0.65rem]">
-                          <i className="fas fa-triangle-exclamation"></i>
-                        </span>
-                        <span>Simulate Alarm</span>
-                      </span>
-                      <kbd className="text-[0.62rem] text-red-400 font-mono">⌘L</kbd>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-slate-100 text-center">
-                  <span className="text-[0.65rem] text-slate-400 flex items-center justify-center gap-1">
-                    <i className="fas fa-shield-halved text-[#0a66ff]"></i>
-                    <span>Hardware Anti-Bypass Kernel</span>
-                  </span>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        )}
-
-        {/* ========================================================================= */}
-        {/* VIEW 2: TASKS & SCHEDULE HUB                                              */}
-        {/* ========================================================================= */}
-        {activeTab === "tasks" && (
-          <div className="space-y-4 sm:space-y-6 animate-fadeIn">
-            <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-xl w-full sm:w-auto">
-                <button
-                  onClick={() => setTaskViewMode("list")}
-                  className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${taskViewMode === "list" ? "bg-white text-[#0a66ff] shadow-xs" : "text-slate-600"}`}
-                >
-                  <i className="fas fa-list text-xs"></i>
-                  <span>List</span>
-                </button>
-                <button
-                  onClick={() => setTaskViewMode("calendar")}
-                  className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${taskViewMode === "calendar" ? "bg-white text-[#0a66ff] shadow-xs" : "text-slate-600"}`}
-                >
-                  <i className="fas fa-calendar-days text-xs"></i>
-                  <span>Calendar</span>
-                </button>
-                <button
-                  onClick={() => setTaskViewMode("kanban")}
-                  className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${taskViewMode === "kanban" ? "bg-white text-[#0a66ff] shadow-xs" : "text-slate-600"}`}
-                >
-                  <i className="fas fa-table-columns text-xs"></i>
-                  <span>Kanban</span>
-                </button>
-              </div>
-
-              <div className="flex items-center gap-2 w-full sm:w-auto">
-                <button
-                  onClick={() => setIsPdfTimetableOpen(true)}
-                  className="w-full sm:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-[#0a66ff] to-[#7c3aed] text-white text-xs font-bold shadow-md hover:opacity-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-                >
-                  <i className="fas fa-wand-magic-sparkles text-amber-300 text-xs"></i>
-                  <span>AI Syllabus Timetable</span>
-                </button>
-
-                <button
-                  onClick={() => setIsCreateTaskOpen(true)}
-                  className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#0a66ff] text-white text-xs font-bold shadow-md hover:bg-[#084bc2] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                >
-                  <i className="fas fa-plus text-xs"></i>
-                  <span>Create Pact</span>
-                </button>
-              </div>
-            </div>
-
-            {/* List View */}
-            {taskViewMode === "list" && (
-              <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
-                <h3 className="text-sm font-extrabold text-[#0b1a33]">Active Pacts ({filteredTasks.length})</h3>
-                {filteredTasks.length === 0 ? (
-                  <div className="p-8 text-center text-xs text-slate-500">
-                    No matching tasks found. Click &quot;Create New Pact&quot; to add one.
-                  </div>
-                ) : (
-                  <div className="space-y-2.5">
-                    {filteredTasks.map((t) => (
-                      <div
-                        key={t.id}
-                        className="p-4 rounded-2xl border border-slate-200/80 bg-slate-50/40 hover:bg-white transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-                      >
-                        <div className="flex items-start sm:items-center gap-3">
-                          <button
-                            onClick={() => handleToggleTaskStatus(t.id)}
-                            className={`w-5 h-5 sm:w-6 sm:h-6 rounded-lg flex items-center justify-center text-xs transition-colors cursor-pointer shrink-0 mt-0.5 sm:mt-0 ${t.status === "completed" ? "bg-emerald-500 text-white" : "border-2 border-slate-300 hover:border-[#0a66ff]"}`}
-                          >
-                            {t.status === "completed" && <i className="fas fa-check"></i>}
-                          </button>
-                          <div>
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <span className={`text-xs sm:text-sm font-bold ${t.status === "completed" ? "line-through text-slate-400" : "text-[#0b1a33]"}`}>
-                                {t.title}
-                              </span>
-                              <span className="px-2 py-0.5 rounded-md bg-[#e8f0fe] text-[#0a66ff] text-[0.62rem] font-bold">
-                                {t.course}
-                              </span>
-                            </div>
-                            <div className="text-[0.68rem] text-slate-500 flex items-center gap-2 mt-1">
-                              <span>{t.date} at {t.time}</span>
-                              <span>·</span>
-                              <span>{t.duration}</span>
-                              <span>·</span>
-                              <span className="text-[#0a66ff] font-medium">{t.verificationMethod.toUpperCase()} Proof</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <button
-                          onClick={() => handleToggleTaskStatus(t.id)}
-                          className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer self-end sm:self-center ${t.status === "completed" ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 hover:bg-[#0a66ff] hover:text-white text-slate-700"}`}
-                        >
-                          {t.status === "completed" ? "Verified" : "Verify Proof"}
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Kanban View */}
-            {taskViewMode === "kanban" && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-slate-100/70 rounded-3xl p-4 space-y-3">
-                  <div className="flex items-center justify-between font-bold text-xs text-slate-700">
-                    <span>Active Pacts</span>
-                    <span className="px-2 py-0.5 rounded-full bg-white text-slate-500 text-[0.65rem]">
-                      {tasks.filter((t) => t.status !== "completed").length}
-                    </span>
-                  </div>
-                  {tasks.filter((t) => t.status !== "completed").map((t) => (
-                    <div key={t.id} className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
-                      <span className="text-xs font-bold text-[#0b1a33] block">{t.title}</span>
-                      <div className="flex items-center justify-between text-[0.65rem]">
-                        <span className="px-2 py-0.5 rounded bg-[#e8f0fe] text-[#0a66ff] font-bold">{t.course}</span>
-                        <button onClick={() => handleToggleTaskStatus(t.id)} className="text-[#0a66ff] font-bold cursor-pointer">
-                          Verify →
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="bg-emerald-50/50 rounded-3xl p-4 space-y-3">
-                  <div className="flex items-center justify-between font-bold text-xs text-emerald-600">
-                    <span>Verified & Sealed</span>
-                    <span className="px-2 py-0.5 rounded-full bg-white text-emerald-600 text-[0.65rem]">
-                      {tasks.filter((t) => t.status === "completed").length}
-                    </span>
-                  </div>
-                  {tasks.filter((t) => t.status === "completed").map((t) => (
-                    <div key={t.id} className="bg-white p-3.5 rounded-2xl border border-emerald-200 shadow-2xs space-y-2">
-                      <span className="text-xs font-bold text-slate-400 line-through block">{t.title}</span>
-                      <span className="text-[0.65rem] text-emerald-600 font-bold flex items-center gap-1">
-                        <i className="fas fa-check-circle"></i> Proof Verified
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="bg-blue-50/50 rounded-3xl p-4 space-y-3">
-                  <div className="flex items-center justify-between font-bold text-xs text-[#0a66ff]">
-                    <span>Quick Add</span>
-                  </div>
                   <button
                     onClick={() => setIsCreateTaskOpen(true)}
-                    className="w-full py-6 rounded-2xl border-2 border-dashed border-[#0a66ff]/40 text-[#0a66ff] text-xs font-bold flex flex-col items-center justify-center gap-1 hover:bg-[#e8f0fe] transition-colors cursor-pointer"
+                    className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#0a66ff] text-white text-xs font-bold hover:bg-[#084bc2] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
-                    <i className="fas fa-plus text-sm"></i>
-                    <span>Add New Task</span>
+                    <i className="fas fa-plus text-xs"></i>
+                    <span>Create Pact</span>
                   </button>
                 </div>
               </div>
-            )}
 
-            {/* Calendar View */}
-            {taskViewMode === "calendar" && (
-              <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
-                <h3 className="text-sm font-extrabold text-[#0b1a33]">Academic Calendar View</h3>
-                <div className="grid grid-cols-7 gap-1.5 sm:gap-2 text-center text-[0.68rem] sm:text-xs font-bold text-slate-400 pb-2 border-b border-slate-100">
-                  <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
-                </div>
-                <div className="grid grid-cols-7 gap-1.5 sm:gap-2 min-h-[180px]">
-                  {Array.from({ length: 14 }).map((_, i) => (
-                    <div key={i} className="p-1.5 sm:p-2 rounded-xl sm:rounded-2xl border bg-slate-50/40 border-slate-100 text-left min-h-[50px] sm:min-h-[60px] flex flex-col justify-between">
-                      <span className="text-[0.65rem] sm:text-[0.7rem] font-bold text-slate-500">Day {i + 1}</span>
-                      {i === 0 && tasks.length > 0 && (
-                        <span className="px-1 py-0.2 rounded bg-blue-100 text-[#0a66ff] text-[0.5rem] sm:text-[0.55rem] font-bold truncate">
-                          {tasks[0].title}
-                        </span>
-                      )}
+              {/* List View */}
+              {taskViewMode === "list" && (
+                <div className="space-y-4">
+                  <h3 className="text-sm font-extrabold text-[#0b1a33]">Active Pacts ({filteredTasks.length})</h3>
+                  {filteredTasks.length === 0 ? (
+                    <div className="p-8 text-center text-xs text-slate-500 rounded-xl bg-slate-50 border border-slate-100">
+                      No matching tasks found. Click &quot;Create New Pact&quot; to add one.
                     </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {filteredTasks.map((t) => (
+                        <div
+                          key={t.id}
+                          className="p-3.5 rounded-xl border border-slate-200 hover:border-[#0a66ff] transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                        >
+                          <div className="flex items-start sm:items-center gap-3">
+                            <button
+                              onClick={() => handleToggleTaskStatus(t.id)}
+                              className={`w-5 h-5 sm:w-6 sm:h-6 rounded-lg flex items-center justify-center text-xs transition-colors cursor-pointer shrink-0 mt-0.5 sm:mt-0 ${t.status === "completed" ? "bg-emerald-500 text-white" : "border-2 border-slate-300 hover:border-[#0a66ff]"}`}
+                            >
+                              {t.status === "completed" && <i className="fas fa-check"></i>}
+                            </button>
+                            <div>
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <span className={`text-xs sm:text-sm font-bold ${t.status === "completed" ? "line-through text-slate-400" : "text-[#0b1a33]"}`}>
+                                  {t.title}
+                                </span>
+                                <span className="px-2 py-0.5 rounded-md bg-[#e8f0fe] text-[#0a66ff] text-[0.62rem] font-bold">
+                                  {t.course}
+                                </span>
+                              </div>
+                              <div className="text-[0.68rem] text-slate-500 flex items-center gap-2 mt-1">
+                                <span>{t.date} at {t.time}</span>
+                                <span>·</span>
+                                <span>{t.duration}</span>
+                                <span>·</span>
+                                <span className="text-[#0a66ff] font-medium">{t.verificationMethod.toUpperCase()} Proof</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={() => handleToggleTaskStatus(t.id)}
+                            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer self-end sm:self-center ${t.status === "completed" ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 hover:bg-[#0a66ff] hover:text-white text-slate-700"}`}
+                          >
+                            {t.status === "completed" ? "Verified" : "Verify Proof"}
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Kanban View */}
+              {taskViewMode === "kanban" && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-slate-50 rounded-2xl p-4 space-y-3 border border-slate-200/80">
+                    <div className="flex items-center justify-between font-bold text-xs text-slate-700">
+                      <span>Active Pacts</span>
+                      <span className="px-2 py-0.5 rounded-full bg-white text-slate-500 text-[0.65rem]">
+                        {tasks.filter((t) => t.status !== "completed").length}
+                      </span>
+                    </div>
+                    {tasks.filter((t) => t.status !== "completed").map((t) => (
+                      <div key={t.id} className="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2">
+                        <span className="text-xs font-bold text-[#0b1a33] block">{t.title}</span>
+                        <div className="flex items-center justify-between text-[0.65rem]">
+                          <span className="px-2 py-0.5 rounded bg-[#e8f0fe] text-[#0a66ff] font-bold">{t.course}</span>
+                          <button onClick={() => handleToggleTaskStatus(t.id)} className="text-[#0a66ff] font-bold cursor-pointer">
+                            Verify →
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="bg-emerald-50/40 rounded-2xl p-4 space-y-3 border border-emerald-100">
+                    <div className="flex items-center justify-between font-bold text-xs text-emerald-600">
+                      <span>Verified & Sealed</span>
+                      <span className="px-2 py-0.5 rounded-full bg-white text-emerald-600 text-[0.65rem]">
+                        {tasks.filter((t) => t.status === "completed").length}
+                      </span>
+                    </div>
+                    {tasks.filter((t) => t.status === "completed").map((t) => (
+                      <div key={t.id} className="bg-white p-3.5 rounded-xl border border-emerald-200 space-y-2">
+                        <span className="text-xs font-bold text-slate-400 line-through block">{t.title}</span>
+                        <span className="text-[0.65rem] text-emerald-600 font-bold flex items-center gap-1">
+                          <i className="fas fa-check-circle"></i> Proof Verified
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="bg-blue-50/40 rounded-2xl p-4 space-y-3 border border-blue-100">
+                    <div className="flex items-center justify-between font-bold text-xs text-[#0a66ff]">
+                      <span>Quick Add</span>
+                    </div>
+                    <button
+                      onClick={() => setIsCreateTaskOpen(true)}
+                      className="w-full py-6 rounded-xl border-2 border-dashed border-[#0a66ff]/40 text-[#0a66ff] text-xs font-bold flex flex-col items-center justify-center gap-1 hover:bg-[#e8f0fe] transition-colors cursor-pointer"
+                    >
+                      <i className="fas fa-plus text-sm"></i>
+                      <span>Add New Task</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Calendar View */}
+              {taskViewMode === "calendar" && (
+                <div className="space-y-4">
+                  <h3 className="text-sm font-extrabold text-[#0b1a33]">Academic Calendar View</h3>
+                  <div className="grid grid-cols-7 gap-2 text-center text-[0.68rem] sm:text-xs font-bold text-slate-400 pb-2 border-b border-slate-100">
+                    <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+                  </div>
+                  <div className="grid grid-cols-7 gap-2 min-h-[180px]">
+                    {Array.from({ length: 14 }).map((_, i) => (
+                      <div key={i} className="p-2 rounded-xl border bg-slate-50 border-slate-200 text-left min-h-[60px] flex flex-col justify-between">
+                        <span className="text-[0.65rem] sm:text-[0.7rem] font-bold text-slate-500">Day {i + 1}</span>
+                        {i === 0 && tasks.length > 0 && (
+                          <span className="px-1 py-0.2 rounded bg-blue-100 text-[#0a66ff] text-[0.5rem] sm:text-[0.55rem] font-bold truncate">
+                            {tasks[0].title}
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* VIEW 3: COURSE VAULT & AI ASSISTANT                                       */}
+          {/* ========================================================================= */}
+          {activeTab === "courses" && (
+            <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-6 shadow-xs animate-fadeIn">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-1 space-y-3">
+                  <div className="pb-3 border-b border-slate-100 flex items-center justify-between">
+                    <h3 className="text-sm font-extrabold text-[#0b1a33]">Enrolled Courses ({courses.length})</h3>
+                    <button
+                      onClick={() => setIsAddCourseOpen(true)}
+                      className="text-xs text-[#0a66ff] font-bold hover:underline cursor-pointer"
+                    >
+                      + Add Course
+                    </button>
+                  </div>
+
+                  {courses.length === 0 ? (
+                    <div className="p-6 text-center text-xs text-slate-500 space-y-2 rounded-xl bg-slate-50 border border-slate-100">
+                      <p>No courses added yet.</p>
+                      <button
+                        onClick={() => setIsAddCourseOpen(true)}
+                        className="px-4 py-1.5 rounded-xl bg-[#0a66ff] text-white text-xs font-bold cursor-pointer"
+                      >
+                        + Enroll Course
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {courses.map((course) => (
+                        <button
+                          key={course.id}
+                          onClick={() => setSelectedCourse(course)}
+                          className={`w-full p-3.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between ${
+                            selectedCourse?.id === course.id
+                              ? "bg-[#e8f0fe] border-[#0a66ff]"
+                              : "bg-slate-50/50 hover:bg-slate-50 border-slate-200/80"
+                          }`}
+                        >
+                          <div>
+                            <span className="text-xs font-extrabold text-[#0a66ff]">{course.code}</span>
+                            <h4 className="text-xs font-bold text-[#0b1a33] mt-0.5 truncate max-w-[140px] sm:max-w-[160px]">{course.name}</h4>
+                          </div>
+                          <span className="text-xs font-black text-[#0b1a33]">Goal: {course.targetGrade}%</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="lg:col-span-2 space-y-6">
+                  {selectedCourse ? (
+                    <div className="space-y-5">
+                      <div className="flex items-center justify-between flex-wrap gap-2 pb-4 border-b border-slate-100">
+                        <div>
+                          <span className="px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-extrabold">
+                            {selectedCourse.code}
+                          </span>
+                          <h2 className="text-base sm:text-lg font-black text-[#0b1a33] mt-2">{selectedCourse.name}</h2>
+                        </div>
+                        <button
+                          onClick={() => setIsAiDrawerOpen(true)}
+                          className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#0a66ff] to-[#7c3aed] text-white text-xs font-bold flex items-center gap-2 cursor-pointer shadow-xs"
+                        >
+                          <i className="fas fa-wand-magic-sparkles text-xs"></i>
+                          <span>Ask Coursework AI</span>
+                        </button>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-3">
+                          Final Exam Target Calculator
+                        </h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-[#f8faff] p-4 rounded-2xl border border-slate-200/70">
+                          <div>
+                            <label className="text-[0.7rem] font-bold text-slate-600 block mb-1">Current Standing (%)</label>
+                            <input
+                              type="number"
+                              value={gradeCalc.currentStanding}
+                              onChange={(e) => setGradeCalc({ ...gradeCalc, currentStanding: Number(e.target.value) })}
+                              className="w-full px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-[#0b1a33]"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-[0.7rem] font-bold text-slate-600 block mb-1">Target Grade (%)</label>
+                            <input
+                              type="number"
+                              value={gradeCalc.goalGrade}
+                              onChange={(e) => setGradeCalc({ ...gradeCalc, goalGrade: Number(e.target.value) })}
+                              className="w-full px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-[#0b1a33]"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-[0.7rem] font-bold text-slate-600 block mb-1">Final Exam Weight (%)</label>
+                            <input
+                              type="number"
+                              value={gradeCalc.finalWeight}
+                              onChange={(e) => setGradeCalc({ ...gradeCalc, finalWeight: Number(e.target.value) })}
+                              className="w-full px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-[#0b1a33]"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="mt-3 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center justify-between">
+                          <span>
+                            Required Final Exam Score:{" "}
+                            <strong>
+                              {Math.max(
+                                0,
+                                Math.round(
+                                  (gradeCalc.goalGrade -
+                                    gradeCalc.currentStanding * (1 - gradeCalc.finalWeight / 100)) /
+                                    (gradeCalc.finalWeight / 100)
+                                )
+                              )}
+                              %
+                            </strong>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="p-8 text-center text-xs text-slate-500 rounded-2xl bg-slate-50 border border-slate-200">
+                      Select a course from your vault or enroll a new one.
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* VIEW 4: FOCUS ROOM                                                        */}
+          {/* ========================================================================= */}
+          {activeTab === "focus" && (
+            <div className="bg-gradient-to-br from-[#0b1a33] to-[#142b4a] rounded-3xl p-6 sm:p-10 text-white space-y-6 sm:space-y-8 animate-fadeIn shadow-xl shadow-[#0b1a33]/15">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+                <div>
+                  <span className="px-3 py-1 rounded-full bg-[#0a66ff]/20 text-[#5b9aff] border border-[#0a66ff]/30 text-[0.65rem] font-extrabold uppercase tracking-wider">
+                    Distraction Shield Ready
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">Focus Sanctuary</h2>
+                  <p className="text-xs text-slate-300">Accumulate verified study hours</p>
+                </div>
+
+                <div className="flex items-center gap-1.5 bg-white/5 p-1 rounded-xl border border-white/10 w-full sm:w-auto justify-center">
+                  <button
+                    onClick={() => { setFocusMode("pomodoro"); setFocusTimeLeft(25 * 60); setIsFocusRunning(false); }}
+                    className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${focusMode === "pomodoro" ? "bg-[#0a66ff] text-white" : "text-slate-300 hover:text-white"}`}
+                  >
+                    25m Pomodoro
+                  </button>
+                  <button
+                    onClick={() => { setFocusMode("shortBreak"); setFocusTimeLeft(5 * 60); setIsFocusRunning(false); }}
+                    className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${focusMode === "shortBreak" ? "bg-[#0a66ff] text-white" : "text-slate-300 hover:text-white"}`}
+                  >
+                    5m Break
+                  </button>
+                </div>
+              </div>
+
+              {/* Pomodoro Timer */}
+              <div className="flex flex-col items-center justify-center py-4 sm:py-6 text-center">
+                <div className="relative w-48 h-48 sm:w-64 sm:h-64 flex items-center justify-center">
+                  <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="6" />
+                    <circle
+                      cx="60"
+                      cy="60"
+                      r="52"
+                      fill="none"
+                      stroke="#0a66ff"
+                      strokeWidth="6"
+                      strokeLinecap="round"
+                      strokeDasharray="326.72"
+                      strokeDashoffset={326.72 - (326.72 * focusTimeLeft) / (focusMode === "pomodoro" ? 25 * 60 : 5 * 60)}
+                      className="transition-all duration-1000 ease-linear"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <span className="text-3xl sm:text-5xl font-black text-white font-mono tracking-tighter">
+                      {String(Math.floor(focusTimeLeft / 60)).padStart(2, "0")}:{String(focusTimeLeft % 60).padStart(2, "0")}
+                    </span>
+                    <span className="text-[0.65rem] sm:text-[0.7rem] uppercase font-bold text-slate-400 mt-1">
+                      {isFocusRunning ? "In Progress" : "Ready to Sprint"}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 mt-6">
+                  <button
+                    onClick={() => setIsFocusRunning(!isFocusRunning)}
+                    className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] text-white font-extrabold text-xs sm:text-sm shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+                  >
+                    <i className={`fas ${isFocusRunning ? "fa-pause" : "fa-play"} text-xs`}></i>
+                    <span>{isFocusRunning ? "Pause Session" : "Start Focus Session"}</span>
+                  </button>
+                  <button
+                    onClick={() => { setIsFocusRunning(false); setFocusTimeLeft(25 * 60); }}
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+                  >
+                    <i className="fas fa-rotate-left text-xs sm:text-sm"></i>
+                  </button>
+                </div>
+              </div>
+
+              {/* Soundscapes */}
+              <div className="pt-6 border-t border-white/10">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-slate-300">
+                    Ambient Soundscapes
+                  </span>
+                  <span className="text-[0.7rem] text-slate-400">
+                    {activeSound !== "silence" ? `Playing: ${activeSound.toUpperCase()}` : "Muted"}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+                  {[
+                    { id: "silence", name: "Mute", icon: "fa-volume-xmark" },
+                    { id: "rain", name: "Rain", icon: "fa-cloud-rain" },
+                    { id: "white", name: "White Noise", icon: "fa-wind" },
+                    { id: "binaural", name: "40Hz Gamma", icon: "fa-brain" },
+                    { id: "cafe", name: "Cafe Ambience", icon: "fa-mug-hot" },
+                  ].map((sound) => (
+                    <button
+                      key={sound.id}
+                      onClick={() => toggleSoundscape(sound.id as any)}
+                      className={`p-3 rounded-xl border text-center transition-all cursor-pointer flex flex-col items-center gap-1 ${
+                        activeSound === sound.id
+                          ? "bg-[#0a66ff] text-white border-[#0a66ff] shadow-sm scale-105"
+                          : "bg-white/5 hover:bg-white/10 text-slate-300 border-white/10"
+                      }`}
+                    >
+                      <i className={`fas ${sound.icon} text-sm sm:text-base`}></i>
+                      <span className="text-[0.7rem] sm:text-xs font-bold">{sound.name}</span>
+                    </button>
                   ))}
                 </div>
               </div>
-            )}
-
-          </div>
-        )}
-
-        {/* ========================================================================= */}
-        {/* VIEW 3: COURSE VAULT & AI ASSISTANT                                       */}
-        {/* ========================================================================= */}
-        {activeTab === "courses" && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 animate-fadeIn">
-            <div className="lg:col-span-1 space-y-3">
-              <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-extrabold text-[#0b1a33]">Enrolled Courses ({courses.length})</h3>
-                  <button
-                    onClick={() => setIsAddCourseOpen(true)}
-                    className="text-xs text-[#0a66ff] font-bold hover:underline cursor-pointer"
-                  >
-                    + Add Course
-                  </button>
-                </div>
-
-                {courses.length === 0 ? (
-                  <div className="p-6 text-center text-xs text-slate-500 space-y-2">
-                    <p>No courses added yet.</p>
-                    <button
-                      onClick={() => setIsAddCourseOpen(true)}
-                      className="px-4 py-1.5 rounded-xl bg-[#0a66ff] text-white text-xs font-bold cursor-pointer"
-                    >
-                      + Enroll Course
-                    </button>
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    {courses.map((course) => (
-                      <button
-                        key={course.id}
-                        onClick={() => setSelectedCourse(course)}
-                        className={`w-full p-3.5 sm:p-4 rounded-2xl border text-left transition-all cursor-pointer flex items-center justify-between ${selectedCourse?.id === course.id ? "bg-[#e8f0fe] border-[#0a66ff]" : "bg-slate-50/50 hover:bg-white border-slate-200/80"}`}
-                      >
-                        <div>
-                          <span className="text-xs font-extrabold text-[#0a66ff]">{course.code}</span>
-                          <h4 className="text-xs font-bold text-[#0b1a33] mt-0.5 truncate max-w-[140px] sm:max-w-[160px]">{course.name}</h4>
-                        </div>
-                        <span className="text-xs font-black text-[#0b1a33]">Goal: {course.targetGrade}%</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
             </div>
+          )}
 
-            <div className="lg:col-span-2 space-y-4 sm:space-y-6">
-              {selectedCourse ? (
-                <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm space-y-5">
-                  <div className="flex items-center justify-between flex-wrap gap-2 pb-4 border-b border-slate-100">
-                    <div>
-                      <span className="px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-extrabold">
-                        {selectedCourse.code}
-                      </span>
-                      <h2 className="text-base sm:text-lg font-black text-[#0b1a33] mt-2">{selectedCourse.name}</h2>
-                    </div>
-                    <button
-                      onClick={() => setIsAiDrawerOpen(true)}
-                      className="px-4 py-2 rounded-2xl bg-gradient-to-r from-[#0a66ff] to-[#7c3aed] text-white text-xs font-bold shadow-md flex items-center gap-2 cursor-pointer"
-                    >
-                      <i className="fas fa-wand-magic-sparkles text-xs"></i>
-                      <span>Ask Coursework AI</span>
-                    </button>
-                  </div>
-
-                  <div>
-                    <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-3">
-                      Final Exam Target Calculator
-                    </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-[#f8faff] p-4 rounded-2xl border border-slate-200/70">
-                      <div>
-                        <label className="text-[0.7rem] font-bold text-slate-600 block mb-1">Current Standing (%)</label>
-                        <input
-                          type="number"
-                          value={gradeCalc.currentStanding}
-                          onChange={(e) => setGradeCalc({ ...gradeCalc, currentStanding: Number(e.target.value) })}
-                          className="w-full px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-[#0b1a33]"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-[0.7rem] font-bold text-slate-600 block mb-1">Target Grade (%)</label>
-                        <input
-                          type="number"
-                          value={gradeCalc.goalGrade}
-                          onChange={(e) => setGradeCalc({ ...gradeCalc, goalGrade: Number(e.target.value) })}
-                          className="w-full px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-[#0b1a33]"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-[0.7rem] font-bold text-slate-600 block mb-1">Final Exam Weight (%)</label>
-                        <input
-                          type="number"
-                          value={gradeCalc.finalWeight}
-                          onChange={(e) => setGradeCalc({ ...gradeCalc, finalWeight: Number(e.target.value) })}
-                          className="w-full px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-[#0b1a33]"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mt-3 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center justify-between">
-                      <span>
-                        Required Final Exam Score:{" "}
-                        <strong>
-                          {Math.max(
-                            0,
-                            Math.round(
-                              (gradeCalc.goalGrade -
-                                gradeCalc.currentStanding * (1 - gradeCalc.finalWeight / 100)) /
-                                (gradeCalc.finalWeight / 100)
-                            )
-                          )}
-                          %
-                        </strong>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="bg-white rounded-3xl p-8 text-center text-xs text-slate-500">
-                  Select a course from your vault or enroll a new one.
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* ========================================================================= */}
-        {/* VIEW 4: FOCUS ROOM                                                        */}
-        {/* ========================================================================= */}
-        {activeTab === "focus" && (
-          <div className="bg-gradient-to-br from-[#0b1a33] to-[#142b4a] rounded-3xl p-6 sm:p-10 text-white shadow-2xl border border-white/10 space-y-6 sm:space-y-8 animate-fadeIn">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
-              <div>
-                <span className="px-3 py-1 rounded-full bg-[#0a66ff]/20 text-[#0a66ff] border border-[#0a66ff]/30 text-[0.65rem] font-extrabold uppercase tracking-wider">
-                  Distraction Shield Ready
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">Focus Sanctuary</h2>
-                <p className="text-xs text-slate-300">Accumulate verified study hours</p>
-              </div>
-
-              <div className="flex items-center gap-1.5 bg-white/5 p-1 rounded-2xl border border-white/10 w-full sm:w-auto justify-center">
-                <button
-                  onClick={() => { setFocusMode("pomodoro"); setFocusTimeLeft(25 * 60); setIsFocusRunning(false); }}
-                  className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${focusMode === "pomodoro" ? "bg-[#0a66ff] text-white" : "text-slate-300 hover:text-white"}`}
-                >
-                  25m Pomodoro
-                </button>
-                <button
-                  onClick={() => { setFocusMode("shortBreak"); setFocusTimeLeft(5 * 60); setIsFocusRunning(false); }}
-                  className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${focusMode === "shortBreak" ? "bg-[#0a66ff] text-white" : "text-slate-300 hover:text-white"}`}
-                >
-                  5m Break
-                </button>
-              </div>
-            </div>
-
-            {/* Pomodoro Timer */}
-            <div className="flex flex-col items-center justify-center py-4 sm:py-6 text-center">
-              <div className="relative w-48 h-48 sm:w-64 sm:h-64 flex items-center justify-center">
-                <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
-                  <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="6" />
-                  <circle
-                    cx="60"
-                    cy="60"
-                    r="52"
-                    fill="none"
-                    stroke="#0a66ff"
-                    strokeWidth="6"
-                    strokeLinecap="round"
-                    strokeDasharray="326.72"
-                    strokeDashoffset={326.72 - (326.72 * focusTimeLeft) / (focusMode === "pomodoro" ? 25 * 60 : 5 * 60)}
-                    className="transition-all duration-1000 ease-linear"
-                  />
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-3xl sm:text-5xl font-black text-white font-mono tracking-tighter">
-                    {String(Math.floor(focusTimeLeft / 60)).padStart(2, "0")}:{String(focusTimeLeft % 60).padStart(2, "0")}
-                  </span>
-                  <span className="text-[0.65rem] sm:text-[0.7rem] uppercase font-bold text-slate-400 mt-1">
-                    {isFocusRunning ? "In Progress" : "Ready to Sprint"}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 mt-6">
-                <button
-                  onClick={() => setIsFocusRunning(!isFocusRunning)}
-                  className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] text-white font-extrabold text-xs sm:text-sm shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
-                >
-                  <i className={`fas ${isFocusRunning ? "fa-pause" : "fa-play"} text-xs`}></i>
-                  <span>{isFocusRunning ? "Pause Session" : "Start Focus Session"}</span>
-                </button>
-                <button
-                  onClick={() => { setIsFocusRunning(false); setFocusTimeLeft(25 * 60); }}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <i className="fas fa-rotate-left text-xs sm:text-sm"></i>
-                </button>
-              </div>
-            </div>
-
-            {/* Soundscapes */}
-            <div className="pt-6 border-t border-white/10">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-extrabold uppercase tracking-wider text-slate-300">
-                  Ambient Soundscapes
-                </span>
-                <span className="text-[0.7rem] text-slate-400">
-                  {activeSound !== "silence" ? `Playing: ${activeSound.toUpperCase()}` : "Muted"}
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
-                {[
-                  { id: "silence", name: "Mute", icon: "fa-volume-xmark" },
-                  { id: "rain", name: "Rain", icon: "fa-cloud-rain" },
-                  { id: "white", name: "White Noise", icon: "fa-wind" },
-                  { id: "binaural", name: "40Hz Gamma", icon: "fa-brain" },
-                  { id: "cafe", name: "Cafe Ambience", icon: "fa-mug-hot" },
-                ].map((sound) => (
-                  <button
-                    key={sound.id}
-                    onClick={() => toggleSoundscape(sound.id as any)}
-                    className={`p-3 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center gap-1 ${activeSound === sound.id
-                      ? "bg-[#0a66ff] text-white border-[#0a66ff] shadow-lg scale-105"
-                      : "bg-white/5 hover:bg-white/10 text-slate-300 border-white/10"
-                      }`}
-                  >
-                    <i className={`fas ${sound.icon} text-sm sm:text-base`}></i>
-                    <span className="text-[0.7rem] sm:text-xs font-bold">{sound.name}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ========================================================================= */}
-        {/* VIEW 5: DISCIPLINE & AUDIT TRAIL                                          */}
-        {/* ========================================================================= */}
-        {activeTab === "audit" && (
-          <div className="space-y-4 sm:space-y-6 animate-fadeIn">
-            <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
+          {/* ========================================================================= */}
+          {/* VIEW 5: DISCIPLINE & AUDIT TRAIL                                          */}
+          {/* ========================================================================= */}
+          {activeTab === "audit" && (
+            <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-6 shadow-xs space-y-6 animate-fadeIn">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div>
                   <h3 className="text-sm font-extrabold text-[#0b1a33]">Immutable Cryptographic Activity Ledger</h3>
@@ -1714,11 +1775,11 @@ export default function DashboardPage() {
                 </span>
               </div>
 
-              <div className="space-y-2.5">
+              <div className="space-y-2">
                 {auditLogs.map((log) => (
                   <div
                     key={log.id}
-                    className="p-3.5 sm:p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5"
+                    className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5"
                   >
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
@@ -1735,15 +1796,13 @@ export default function DashboardPage() {
                 ))}
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* ========================================================================= */}
-        {/* VIEW 6: ACCOUNTABILITY NETWORK                                            */}
-        {/* ========================================================================= */}
-        {activeTab === "network" && (
-          <div className="space-y-4 sm:space-y-6 animate-fadeIn">
-            <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm space-y-5">
+          {/* ========================================================================= */}
+          {/* VIEW 6: ACCOUNTABILITY NETWORK                                            */}
+          {/* ========================================================================= */}
+          {activeTab === "network" && (
+            <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-6 shadow-xs space-y-6 animate-fadeIn">
               <div className="flex items-center justify-between flex-wrap gap-2 pb-4 border-b border-slate-100">
                 <div>
                   <h3 className="text-sm font-extrabold text-[#0b1a33]">Linked Accountability Partners</h3>
@@ -1751,7 +1810,7 @@ export default function DashboardPage() {
                 </div>
                 <button
                   onClick={() => setIsAddPartnerOpen(true)}
-                  className="px-4 py-2 rounded-xl bg-[#0a66ff] text-white text-xs font-bold shadow-md hover:bg-[#084bc2] transition-colors flex items-center gap-1.5 cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-[#0a66ff] text-white text-xs font-bold hover:bg-[#084bc2] transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
                 >
                   <i className="fas fa-user-plus text-xs"></i>
                   <span>+ Add Partner</span>
@@ -1760,7 +1819,7 @@ export default function DashboardPage() {
 
               {partners.length === 0 ? (
                 <div className="p-6 sm:p-8 text-center rounded-2xl bg-slate-50 border border-dashed border-slate-200 space-y-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-100 text-[#0a66ff] flex items-center justify-center text-base sm:text-lg mx-auto">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 text-[#0a66ff] flex items-center justify-center text-base mx-auto">
                     <i className="fas fa-users"></i>
                   </div>
                   <div>
@@ -1771,7 +1830,7 @@ export default function DashboardPage() {
                   </div>
                   <button
                     onClick={() => setIsAddPartnerOpen(true)}
-                    className="px-4 py-2 rounded-xl bg-[#0a66ff] text-white text-xs font-bold shadow-md hover:bg-[#084bc2] transition-colors cursor-pointer"
+                    className="px-4 py-2 rounded-xl bg-[#0a66ff] text-white text-xs font-bold hover:bg-[#084bc2] transition-colors cursor-pointer"
                   >
                     + Add Your First Partner
                   </button>
@@ -1779,10 +1838,10 @@ export default function DashboardPage() {
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {partners.map((partner) => (
-                    <div key={partner.id} className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-4">
+                    <div key={partner.id} className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-4">
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#0a66ff] text-white font-black text-xs sm:text-sm flex items-center justify-center">
+                          <div className="w-9 h-9 rounded-full bg-[#0a66ff] text-white font-black text-xs flex items-center justify-center">
                             {partner.name.substring(0, 2).toUpperCase()}
                           </div>
                           <div>
@@ -1800,118 +1859,317 @@ export default function DashboardPage() {
                 </div>
               )}
             </div>
-          </div>
-        )}
+          )}
 
-        {/* ========================================================================= */}
-        {/* VIEW 7: SETTINGS, SECURITY & SUBSCRIPTION                                 */}
-        {/* ========================================================================= */}
-        {activeTab === "settings" && (
-          <div className="bg-white rounded-3xl p-5 sm:p-8 border border-slate-200/80 shadow-sm space-y-6 animate-fadeIn max-w-3xl mx-auto">
-            <div className="pb-4 border-b border-slate-100 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-extrabold text-[#0b1a33]">Account & Subscription Settings</h3>
-                <p className="text-xs text-slate-400">Manage plan tier, security, and alerts for {userProfile.name}</p>
-              </div>
-              <span className="px-3 py-1 rounded-full bg-blue-50 text-[#0a66ff] border border-blue-200/60 text-[0.65rem] font-extrabold uppercase tracking-wider">
-                {userProfile.tier || "Free Scholar"}
-              </span>
-            </div>
-
-            {/* ====== SUBSCRIPTION & PLAN SECTION ====== */}
-            <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-[#0b1a33] via-[#0f2444] to-[#142b4a] text-white space-y-4 shadow-lg">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-[#0a66ff]/30 text-[#5b9aff] flex items-center justify-center text-lg border border-white/10">
-                    <i className="fas fa-crown"></i>
+          {/* ========================================================================= */}
+          {/* VIEW 7: REDESIGNED USER SETTINGS & PROFILE VIEW                           */}
+          {/* ========================================================================= */}
+          {activeTab === "settings" && (
+            <div className="space-y-6 animate-fadeIn max-w-4xl mx-auto">
+              
+              {/* Profile Card Header Banner */}
+              <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-7 shadow-xs space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-[#0a66ff] via-[#4d8eff] to-[#7c3aed] text-white flex items-center justify-center text-2xl sm:text-3xl font-black shadow-lg shadow-[#0a66ff]/20 shrink-0">
+                      {(userProfile.firstName || userProfile.name || "S").charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h2 className="text-lg sm:text-2xl font-black text-[#0b1a33]">
+                          {userProfile.name || userProfile.firstName || "Scholar"}
+                        </h2>
+                        <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[0.65rem] font-extrabold flex items-center gap-1">
+                          <i className="fas fa-badge-check text-emerald-500"></i>
+                          <span>Verified Scholar</span>
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-500 font-medium mt-0.5">
+                        {userProfile.username ? `@${userProfile.username}` : "Academic Profile"} · {userProfile.university}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className="text-sm font-extrabold text-white">Current Plan: Free Scholar Tier</h4>
-                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[0.6rem] font-bold">
-                        Active
+
+                  <div className="flex items-center gap-2 self-start sm:self-center">
+                    <span className="px-3.5 py-1 rounded-full bg-blue-50 text-[#0a66ff] border border-blue-200/70 text-xs font-black uppercase tracking-wider">
+                      {userProfile.tier || "Standard Enforcement"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Academic Profile Details Grid */}
+                <div>
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+                    <i className="fas fa-graduation-cap text-[#0a66ff]"></i>
+                    <span>Academic Standing & Information</span>
+                  </h4>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                      <span className="text-[0.65rem] uppercase font-bold text-slate-400 block mb-0.5">Institution / University</span>
+                      <span className="text-xs sm:text-sm font-bold text-[#0b1a33] flex items-center gap-1.5 truncate">
+                        <i className="fas fa-building-columns text-[#0a66ff] text-xs"></i>
+                        <span>{userProfile.university}</span>
                       </span>
                     </div>
-                    <p className="text-[0.7rem] text-slate-300">Basic self-enforcement & local study tracking</p>
+
+                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                      <span className="text-[0.65rem] uppercase font-bold text-slate-400 block mb-0.5">Faculty / Department</span>
+                      <span className="text-xs sm:text-sm font-bold text-[#0b1a33] flex items-center gap-1.5 truncate">
+                        <i className="fas fa-book-open text-[#0a66ff] text-xs"></i>
+                        <span>{userProfile.faculty}</span>
+                      </span>
+                    </div>
+
+                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                      <span className="text-[0.65rem] uppercase font-bold text-slate-400 block mb-0.5">Academic Degree Level</span>
+                      <span className="text-xs sm:text-sm font-bold text-[#0b1a33] flex items-center gap-1.5 truncate">
+                        <i className="fas fa-user-graduate text-[#0a66ff] text-xs"></i>
+                        <span>{userProfile.level}</span>
+                      </span>
+                    </div>
+
+                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                      <span className="text-[0.65rem] uppercase font-bold text-slate-400 block mb-0.5">Semester Target Standing</span>
+                      <span className="text-xs sm:text-sm font-bold text-[#0a66ff] flex items-center gap-1.5 truncate">
+                        <i className="fas fa-trophy text-amber-500 text-xs"></i>
+                        <span>{userProfile.targetGpa}</span>
+                      </span>
+                    </div>
+
+                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                      <span className="text-[0.65rem] uppercase font-bold text-slate-400 block mb-0.5">Current Enrolled Courses</span>
+                      <span className="text-xs sm:text-sm font-bold text-[#0b1a33] flex items-center gap-1.5">
+                        <i className="fas fa-book-bookmark text-[#0a66ff] text-xs"></i>
+                        <span>{courses.length} Active Courses</span>
+                      </span>
+                    </div>
+
+                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                      <span className="text-[0.65rem] uppercase font-bold text-slate-400 block mb-0.5">Discipline Score</span>
+                      <span className="text-xs sm:text-sm font-bold text-emerald-600 flex items-center gap-1.5">
+                        <i className="fas fa-shield-halved text-emerald-500 text-xs"></i>
+                        <span>{disciplineScore} / 100 Rating</span>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Feature Perks of Free Tier */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-[0.72rem]">
-                  <i className="fas fa-check text-emerald-400 text-xs shrink-0"></i>
-                  <span>Math & Quiz Proofs</span>
+              {/* ====== LOCKED CONTACT CREDENTIALS (ANTI-BYPASS SECURITY) ====== */}
+              <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-7 shadow-xs space-y-4">
+                <div className="flex items-start justify-between gap-3 pb-3 border-b border-slate-100">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-sm font-extrabold text-[#0b1a33]">Immutable Contact Credentials</h3>
+                      <span className="px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-[0.62rem] font-extrabold flex items-center gap-1">
+                        <i className="fas fa-lock text-[0.6rem]"></i>
+                        <span>Read-Only</span>
+                      </span>
+                    </div>
+                    <p className="text-[0.7rem] text-slate-500 mt-0.5">
+                      Your registered email and phone number are permanently locked to maintain academic verification integrity and anti-evasion logs.
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-[0.72rem]">
-                  <i className="fas fa-check text-emerald-400 text-xs shrink-0"></i>
-                  <span>Focus Room Timer</span>
-                </div>
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-[0.72rem]">
-                  <i className="fas fa-check text-emerald-400 text-xs shrink-0"></i>
-                  <span>Course Grade Vault</span>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                  {/* Locked Email Field */}
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[0.72rem] font-bold text-slate-700 flex items-center gap-1.5">
+                        <i className="fas fa-envelope text-slate-400 text-xs"></i>
+                        <span>Registered Email Address</span>
+                      </label>
+                      <span className="text-[0.6rem] font-bold text-amber-600 flex items-center gap-1">
+                        <i className="fas fa-lock text-[0.55rem]"></i>
+                        <span>Non-Changeable</span>
+                      </span>
+                    </div>
+                    <div className="relative">
+                      <input
+                        type="email"
+                        readOnly
+                        disabled
+                        value={userProfile.email}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-100/80 text-xs font-bold text-slate-700 cursor-not-allowed outline-none select-all"
+                      />
+                      <i className="fas fa-lock absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    </div>
+                    <p className="text-[0.65rem] text-slate-400 leading-tight">
+                      Bound to your university enrollment records and immutable audit cryptographic hashes.
+                    </p>
+                  </div>
+
+                  {/* Locked Phone Field */}
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[0.72rem] font-bold text-slate-700 flex items-center gap-1.5">
+                        <i className="fab fa-whatsapp text-emerald-500 text-xs"></i>
+                        <span>WhatsApp Alert Phone Number</span>
+                      </label>
+                      <span className="text-[0.6rem] font-bold text-amber-600 flex items-center gap-1">
+                        <i className="fas fa-lock text-[0.55rem]"></i>
+                        <span>Non-Changeable</span>
+                      </span>
+                    </div>
+                    <div className="relative">
+                      <input
+                        type="tel"
+                        readOnly
+                        disabled
+                        value={userProfile.phone}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-100/80 text-xs font-bold text-slate-700 cursor-not-allowed outline-none select-all font-mono"
+                      />
+                      <i className="fas fa-lock absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    </div>
+                    <p className="text-[0.65rem] text-slate-400 leading-tight">
+                      Locked for automated study pact dispatches and accountability partner alerts.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* Pro High-Stakes Upgrade Box */}
-              <div className="mt-4 pt-4 border-t border-white/10 bg-white/5 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              {/* ====== SUBSCRIPTION & PLAN SECTION ====== */}
+              <div className="bg-gradient-to-br from-[#0b1a33] via-[#0f2444] to-[#142b4a] rounded-3xl p-5 sm:p-7 text-white space-y-5 shadow-xl shadow-[#0b1a33]/15">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-2xl bg-[#0a66ff]/30 text-[#5b9aff] flex items-center justify-center text-xl border border-white/10 shadow-inner">
+                      <i className="fas fa-crown"></i>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-base font-extrabold text-white">Current Plan: Free Scholar Tier</h4>
+                        <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[0.62rem] font-bold border border-emerald-500/30 flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                          <span>Active Tier</span>
+                        </span>
+                      </div>
+                      <p className="text-[0.72rem] text-slate-300 mt-0.5">
+                        Core self-enforcement, local study tracking, and AI Syllabus Generator
+                      </p>
+                    </div>
+                  </div>
+
+                  <span className="px-3 py-1 rounded-full bg-white/10 text-slate-200 text-xs font-bold self-start sm:self-center border border-white/10">
+                    ₦0.00 / Lifetime
+                  </span>
+                </div>
+
+                {/* Feature Perks of Free Tier */}
                 <div>
-                  <div className="flex items-center gap-1.5 text-xs font-black text-amber-400">
-                    <i className="fas fa-bolt"></i>
-                    <span>Upgrade to Pro Enforcement</span>
-                  </div>
-                  <p className="text-[0.68rem] text-slate-300 mt-0.5">
-                    Includes automated WhatsApp escalation to accountability partners, GPS library verification, and unlimited AI assistant queries.
-                  </p>
-                  <div className="text-xs font-extrabold text-white mt-1.5">
-                    ₦2,500 <span className="text-[0.65rem] text-slate-400 font-normal">/ semester</span>
+                  <h5 className="text-[0.68rem] uppercase font-bold text-slate-400 mb-2.5 tracking-wider">
+                    Included Features in Your Plan
+                  </h5>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                    <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-[0.72rem]">
+                      <i className="fas fa-check text-emerald-400 text-xs shrink-0"></i>
+                      <span>AI Syllabus Timetable Reader</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-[0.72rem]">
+                      <i className="fas fa-check text-emerald-400 text-xs shrink-0"></i>
+                      <span>Math & Quiz Proof Alarms</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-[0.72rem]">
+                      <i className="fas fa-check text-emerald-400 text-xs shrink-0"></i>
+                      <span>Focus Sanctuary & Distraction Shield</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-[0.72rem]">
+                      <i className="fas fa-check text-emerald-400 text-xs shrink-0"></i>
+                      <span>Course Grade Vault & Calculator</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-[0.72rem]">
+                      <i className="fas fa-check text-emerald-400 text-xs shrink-0"></i>
+                      <span>Immutable Cryptographic Ledger</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-[0.72rem]">
+                      <i className="fas fa-check text-emerald-400 text-xs shrink-0"></i>
+                      <span>Offline Local Data Storage</span>
+                    </div>
                   </div>
                 </div>
 
-                <a
-                  href="https://wa.me/2349027874036?text=Hello%20MyPact,%20I%20want%20to%20upgrade%20to%20Pro%20Enforcement%20Plan"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-5 py-2.5 rounded-full bg-[#0a66ff] hover:bg-[#0052cc] text-white font-bold text-xs shadow-md shadow-[#0a66ff]/40 flex items-center justify-center gap-2 transition-all hover:scale-105 shrink-0"
+                {/* Pro High-Stakes Upgrade Box */}
+                <div className="mt-4 pt-4 border-t border-white/10 bg-white/5 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-1.5 text-xs font-black text-amber-400">
+                      <i className="fas fa-bolt"></i>
+                      <span>Upgrade to Pro Enforcement Plan</span>
+                    </div>
+                    <p className="text-[0.7rem] text-slate-300 mt-1 max-w-lg leading-relaxed">
+                      Unlock automated WhatsApp escalation dispatches to accountability partners, GPS library verification, and zero-tolerance lockout protocol.
+                    </p>
+                    <div className="text-sm font-black text-white mt-1.5">
+                      ₦2,500 <span className="text-xs text-slate-400 font-normal">/ semester</span>
+                    </div>
+                  </div>
+
+                  <a
+                    href="https://wa.me/2349027874036?text=Hello%20MyPact,%20I%20want%20to%20upgrade%20to%20Pro%20Enforcement%20Plan"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 rounded-xl bg-[#0a66ff] hover:bg-[#0052cc] text-white font-bold text-xs flex items-center justify-center gap-2 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#0a66ff]/25 shrink-0"
+                  >
+                    <i className="fab fa-whatsapp text-sm"></i>
+                    <span>Upgrade to Pro</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* ====== ENFORCEMENT & SECURITY PREFERENCES ====== */}
+              <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-7 shadow-xs space-y-4">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400">
+                  Enforcement & Security Rules
+                </h4>
+
+                <div className="space-y-3">
+                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+                    <div>
+                      <h4 className="text-xs font-bold text-[#0b1a33]">Strict Anti-Procrastination Mode</h4>
+                      <p className="text-[0.68rem] text-slate-500 mt-0.5">Locks non-study applications during focus sprints</p>
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked={settingsState.strictMode}
+                      onChange={(e) => setSettingsState({ ...settingsState, strictMode: e.target.checked })}
+                      className="w-5 h-5 accent-[#0a66ff] cursor-pointer"
+                    />
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+                    <div>
+                      <h4 className="text-xs font-bold text-[#0b1a33]">WhatsApp Partner Escalation</h4>
+                      <p className="text-[0.68rem] text-slate-500 mt-0.5">Auto-broadcast WhatsApp notification when an alarm is dismissed without proof</p>
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked={settingsState.partnerWhatsappAlerts}
+                      onChange={(e) => setSettingsState({ ...settingsState, partnerWhatsappAlerts: e.target.checked })}
+                      className="w-5 h-5 accent-[#0a66ff] cursor-pointer"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* ====== ACCOUNT ACTIONS ====== */}
+              <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-7 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <h4 className="text-xs font-bold text-[#0b1a33]">Account Session</h4>
+                  <p className="text-[0.68rem] text-slate-500">Log out of your current study session on this device.</p>
+                </div>
+                <Link
+                  href="/login"
+                  className="px-5 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
                 >
-                  <i className="fas fa-arrow-up-right-from-square text-[0.65rem]"></i>
-                  <span>Upgrade to Pro</span>
-                </a>
+                  <i className="fas fa-arrow-right-from-bracket text-xs"></i>
+                  <span>Sign Out</span>
+                </Link>
               </div>
+
             </div>
+          )}
 
-            {/* ====== SECURITY SETTINGS ====== */}
-            <div className="space-y-3.5">
-              <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400">Enforcement Rules</h4>
-
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
-                <div>
-                  <h4 className="text-xs font-bold text-[#0b1a33]">Strict Anti-Procrastination Mode</h4>
-                  <p className="text-[0.68rem] text-slate-500">Locks non-study applications during focus sprints</p>
-                </div>
-                <input
-                  type="checkbox"
-                  checked={settingsState.strictMode}
-                  onChange={(e) => setSettingsState({ ...settingsState, strictMode: e.target.checked })}
-                  className="w-5 h-5 accent-[#0a66ff] cursor-pointer"
-                />
-              </div>
-
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
-                <div>
-                  <h4 className="text-xs font-bold text-[#0b1a33]">WhatsApp Partner Escalation</h4>
-                  <p className="text-[0.68rem] text-slate-500">Auto-broadcast WhatsApp notification when an alarm is dismissed without proof</p>
-                </div>
-                <input
-                  type="checkbox"
-                  checked={settingsState.partnerWhatsappAlerts}
-                  onChange={(e) => setSettingsState({ ...settingsState, partnerWhatsappAlerts: e.target.checked })}
-                  className="w-5 h-5 accent-[#0a66ff] cursor-pointer"
-                />
-              </div>
-            </div>
-          </div>
-        )}
+        </main>
 
       </div>
 
