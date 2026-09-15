@@ -92,27 +92,27 @@ const rowTwoTestimonials: Testimonial[] = [
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-24 bg-[#f8faff] border-b border-slate-100 relative overflow-hidden">
+    <section id="testimonials" className="py-16 sm:py-24 bg-[#f8faff] dark:bg-[#070f1e] border-b border-slate-100 dark:border-slate-800 relative overflow-hidden transition-colors duration-300">
       {/* Background Subtle Accent */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#0a66ff]/4 dark:bg-[#0a66ff]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10 mb-12">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-8 sm:mb-12">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-4 border border-[#0a66ff]/20">
-            <i className="fas fa-quote-left text-[#0a66ff]"></i>
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e8f0fe] dark:bg-[#0a66ff]/15 text-[#0a66ff] dark:text-[#38bdf8] text-[0.72rem] sm:text-xs font-bold uppercase tracking-wider mb-3.5 sm:mb-4 border border-[#0a66ff]/20">
+            <i className="fas fa-quote-left text-[#0a66ff] dark:text-[#38bdf8]"></i>
             <span>Verified Student Proof</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] tracking-tight leading-tight mb-4">
-            Proven results across <span className="text-[#0a66ff]">Nigerian universities</span>.
+          <h2 className="text-2xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] dark:text-white tracking-tight leading-tight mb-3 sm:mb-4">
+            Proven results across <span className="text-[#0a66ff] dark:text-[#38bdf8]">Nigerian universities</span>.
           </h2>
-          <p className="text-base sm:text-lg text-[#3d4e6b] leading-relaxed">
+          <p className="text-sm sm:text-lg text-[#3d4e6b] dark:text-slate-300 leading-relaxed">
             Real students who traded endless snooze delays for First Class discipline.
           </p>
         </div>
 
         {/* Featured Student Milestone Anchor Card */}
-        <div className="max-w-4xl mx-auto bg-white rounded-3xl p-7 sm:p-9 border border-[#0a66ff]/25 shadow-[0_20px_50px_rgba(10,102,255,0.08)] mb-14">
+        <div className="max-w-4xl mx-auto bg-white dark:bg-[#0f1d32] rounded-3xl p-7 sm:p-9 border border-[#0a66ff]/25 dark:border-slate-700 shadow-[0_20px_50px_rgba(10,102,255,0.08)] mb-14">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
             <div className="md:col-span-8 flex flex-col justify-between">
               <div className="flex items-center gap-2 mb-3">
@@ -123,11 +123,11 @@ export default function Testimonials() {
                   <i className="fas fa-star"></i>
                   <i className="fas fa-star"></i>
                 </div>
-                <span className="text-[11px] font-black uppercase text-[#0a66ff] bg-[#e8f0fe] px-2.5 py-0.5 rounded-full">
+                <span className="text-[11px] font-black uppercase text-[#0a66ff] dark:text-[#38bdf8] bg-[#e8f0fe] dark:bg-[#0a66ff]/15 px-2.5 py-0.5 rounded-full">
                   Featured Milestone Story
                 </span>
               </div>
-              <blockquote className="text-base sm:text-lg font-bold text-[#0b1a33] leading-relaxed mb-4 italic">
+              <blockquote className="text-base sm:text-lg font-bold text-[#0b1a33] dark:text-white leading-relaxed mb-4 italic">
                 "MyPact fundamentally changed how I approach engineering. The ISBN barcode scan forces me to stand up, turn on the lights, and sit at my study desk. I went from a 3.2 CGPA to 4.75."
               </blockquote>
               <div className="flex items-center gap-3">
@@ -135,21 +135,21 @@ export default function Testimonials() {
                   CO
                 </div>
                 <div>
-                  <h4 className="font-extrabold text-sm text-[#0b1a33]">Chidiebere Okafor</h4>
-                  <p className="text-xs text-slate-500 font-medium">400L Mechanical Engineering · UNILAG</p>
+                  <h4 className="font-extrabold text-sm text-[#0b1a33] dark:text-white">Chidiebere Okafor</h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">400L Mechanical Engineering · UNILAG</p>
                 </div>
               </div>
             </div>
 
-            <div className="md:col-span-4 bg-[#f8faff] rounded-2xl p-5 border border-slate-200 text-center">
-              <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+            <div className="md:col-span-4 bg-[#f8faff] dark:bg-[#0a182d] rounded-2xl p-5 border border-slate-200 dark:border-slate-700 text-center">
+              <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                 Semester Turnaround
               </div>
-              <div className="text-3xl sm:text-4xl font-black text-emerald-600 tracking-tight">
+              <div className="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight">
                 3.2 → 4.75
               </div>
-              <div className="text-xs font-bold text-[#0b1a33] mt-1">First Class CGPA</div>
-              <div className="text-[10px] text-slate-500 mt-2 pt-2 border-t border-slate-200">
+              <div className="text-xs font-bold text-[#0b1a33] dark:text-white mt-1">First Class CGPA</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-2 pt-2 border-t border-slate-200 dark:border-slate-700">
                 142 study sessions verified with 0 overrides
               </div>
             </div>
@@ -160,15 +160,15 @@ export default function Testimonials() {
       {/* Dual Opposite Scrolling Marquee */}
       <div className="space-y-5 relative">
         {/* Left & Right Gradient Masks */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#f8faff] to-transparent z-20 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#f8faff] to-transparent z-20 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#f8faff] dark:from-[#070f1e] to-transparent z-20 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#f8faff] dark:from-[#070f1e] to-transparent z-20 pointer-events-none" />
 
         {/* Row 1: Scrolling Left */}
         <div className="animate-marquee-left flex items-center gap-5">
           {rowOneTestimonials.concat(rowOneTestimonials).map((item, idx) => (
             <div
               key={`row1-${idx}`}
-              className="w-[320px] sm:w-[380px] p-5 sm:p-6 rounded-3xl bg-white border border-slate-200/90 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-[#0a66ff]/30 transition-all flex-shrink-0 flex flex-col justify-between"
+              className="w-[320px] sm:w-[380px] p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#0f1d32] border border-slate-200/90 dark:border-slate-700 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-[#0a66ff]/30 transition-all flex-shrink-0 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -179,22 +179,22 @@ export default function Testimonials() {
                     <i className="fas fa-star"></i>
                     <i className="fas fa-star"></i>
                   </div>
-                  <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                     {item.gpa}
                   </span>
                 </div>
-                <p className="text-xs text-[#3d4e6b] leading-relaxed mb-4 italic">
+                <p className="text-xs text-[#3d4e6b] dark:text-slate-300 leading-relaxed mb-4 italic">
                   "{item.quote}"
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 pt-3 border-t border-slate-100">
+              <div className="flex items-center gap-3 pt-3 border-t border-slate-100 dark:border-slate-700">
                 <div className={`w-8 h-8 rounded-full ${item.avatarColor} text-white flex items-center justify-center text-xs font-black shadow-xs flex-shrink-0`}>
                   {item.initials}
                 </div>
                 <div>
-                  <h4 className="font-bold text-xs text-[#0b1a33]">{item.name}</h4>
-                  <p className="text-[10px] text-slate-500">{item.role} · {item.university}</p>
+                  <h4 className="font-bold text-xs text-[#0b1a33] dark:text-white">{item.name}</h4>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400">{item.role} · {item.university}</p>
                 </div>
               </div>
             </div>
@@ -206,7 +206,7 @@ export default function Testimonials() {
           {rowTwoTestimonials.concat(rowTwoTestimonials).map((item, idx) => (
             <div
               key={`row2-${idx}`}
-              className="w-[320px] sm:w-[380px] p-5 sm:p-6 rounded-3xl bg-white border border-slate-200/90 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-[#0a66ff]/30 transition-all flex-shrink-0 flex flex-col justify-between"
+              className="w-[320px] sm:w-[380px] p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#0f1d32] border border-slate-200/90 dark:border-slate-700 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-[#0a66ff]/30 transition-all flex-shrink-0 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -217,22 +217,22 @@ export default function Testimonials() {
                     <i className="fas fa-star"></i>
                     <i className="fas fa-star"></i>
                   </div>
-                  <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                     {item.gpa}
                   </span>
                 </div>
-                <p className="text-xs text-[#3d4e6b] leading-relaxed mb-4 italic">
+                <p className="text-xs text-[#3d4e6b] dark:text-slate-300 leading-relaxed mb-4 italic">
                   "{item.quote}"
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 pt-3 border-t border-slate-100">
+              <div className="flex items-center gap-3 pt-3 border-t border-slate-100 dark:border-slate-700">
                 <div className={`w-8 h-8 rounded-full ${item.avatarColor} text-white flex items-center justify-center text-xs font-black shadow-xs flex-shrink-0`}>
                   {item.initials}
                 </div>
                 <div>
-                  <h4 className="font-bold text-xs text-[#0b1a33]">{item.name}</h4>
-                  <p className="text-[10px] text-slate-500">{item.role} · {item.university}</p>
+                  <h4 className="font-bold text-xs text-[#0b1a33] dark:text-white">{item.name}</h4>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400">{item.role} · {item.university}</p>
                 </div>
               </div>
             </div>

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -403,11 +404,11 @@ export default function SignUpPage() {
         </div>
 
         {/* ====== RIGHT: MODERN, PROFESSIONAL SIGN UP FORM ====== */}
-        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-6 sm:px-6 lg:py-8 relative overflow-y-auto bg-white">
+        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-6 sm:px-6 lg:py-8 relative overflow-y-auto bg-slate-50/60 dark:bg-[#070f1e] lg:bg-white lg:dark:bg-[#070f1e] transition-colors duration-300">
           
           {/* Mobile Top Navigation Bar */}
           <div className="w-full max-w-[340px] sm:max-w-[380px] flex items-center justify-between lg:hidden mb-3">
-            <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
+            <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] dark:text-white group">
               <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                 <Image
                   src="/logo/mypact_icon.svg"
@@ -421,19 +422,22 @@ export default function SignUpPage() {
                 My<span className="text-[#0a66ff]">Pact</span>
               </span>
             </Link>
-            <Link
-              href="/login"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0a66ff] bg-blue-50 hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-blue-200/60 shadow-xs transition-all active:scale-95"
-            >
-              <span>Sign In</span>
-              <i className="fas fa-arrow-right text-[0.55rem]"></i>
-            </Link>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0a66ff] dark:text-[#5b9aff] bg-blue-50 dark:bg-blue-950/40 hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-blue-200/60 dark:border-blue-800/60 shadow-xs transition-all active:scale-95"
+              >
+                <span>Sign In</span>
+                <i className="fas fa-arrow-right text-[0.55rem]"></i>
+              </Link>
+            </div>
           </div>
 
-          <div className="w-full max-w-[360px] sm:max-w-[400px] my-auto flex flex-col justify-center bg-white lg:bg-transparent p-6 sm:p-7 rounded-3xl border border-slate-200/90 lg:border-none shadow-[0_8px_30px_rgba(0,0,0,0.04)] lg:shadow-none">
+          <div className="w-full max-w-[360px] sm:max-w-[400px] my-auto flex flex-col justify-center bg-white dark:bg-[#0f1d32] lg:bg-transparent lg:dark:bg-transparent p-6 sm:p-7 rounded-3xl border border-slate-200/90 dark:border-slate-800 lg:border-none shadow-[0_8px_30px_rgba(0,0,0,0.04)] lg:shadow-none">
             {/* Desktop Brand Header */}
             <div className="hidden lg:flex items-center justify-between mb-3">
-              <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight group">
+              <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] dark:text-white tracking-tight group">
                 <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                   <Image
                     src="/logo/mypact_icon.svg"
@@ -447,34 +451,37 @@ export default function SignUpPage() {
                   My<span className="text-[#0a66ff]">Pact</span>
                 </span>
               </Link>
-              <Link
-                href="/login"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0a66ff] bg-blue-50 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-blue-200/60 shadow-xs transition-all active:scale-95"
-              >
-                <span>Sign In</span>
-                <i className="fas fa-arrow-right text-[0.6rem]"></i>
-              </Link>
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <Link
+                  href="/login"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0a66ff] dark:text-[#5b9aff] bg-blue-50 dark:bg-blue-950/40 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-blue-200/60 dark:border-blue-800/60 shadow-xs transition-all active:scale-95"
+                >
+                  <span>Sign In</span>
+                  <i className="fas fa-arrow-right text-[0.6rem]"></i>
+                </Link>
+              </div>
             </div>
 
             <div className="hidden lg:block mb-3.5 text-left">
-              <h1 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-[#0b1a33] dark:text-white tracking-tight">
                 Create your account
               </h1>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Join thousands of students who never miss a beat.
               </p>
             </div>
 
             {/* Mobile Header */}
             <div className="lg:hidden text-center mb-3.5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] dark:bg-blue-950/50 text-[#0a66ff] dark:text-blue-300 text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
                 <i className="fas fa-bolt text-[0.6rem]"></i>
                 <span>Fast 1-Minute Setup</span>
               </div>
-              <h1 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-[#0b1a33] dark:text-white tracking-tight">
                 Create your account
               </h1>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Join thousands of students who never miss a beat.
               </p>
             </div>
@@ -484,7 +491,7 @@ export default function SignUpPage() {
               <form onSubmit={handleSubmit} noValidate className="space-y-2.5">
                 {/* First Name (Full Width Block) */}
                 <div className="relative">
-                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-0.5">
                     First name <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -496,11 +503,11 @@ export default function SignUpPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("firstName")}
                       placeholder="First name"
-                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.firstName || hasSubmitted) && currentErrors.firstName
+                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#070f1e] text-[#0b1a33] dark:text-white ${(touched.firstName || hasSubmitted) && currentErrors.firstName
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.firstName && !currentErrors.firstName && formData.firstName
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                          : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                     />
                   </div>
@@ -511,7 +518,7 @@ export default function SignUpPage() {
 
                 {/* Last Name (Full Width Block) */}
                 <div className="relative">
-                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-0.5">
                     Last name <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -523,11 +530,11 @@ export default function SignUpPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("lastName")}
                       placeholder="Last name"
-                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.lastName || hasSubmitted) && currentErrors.lastName
+                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#070f1e] text-[#0b1a33] dark:text-white ${(touched.lastName || hasSubmitted) && currentErrors.lastName
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.lastName && !currentErrors.lastName && formData.lastName
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                          : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                     />
                   </div>
@@ -538,7 +545,7 @@ export default function SignUpPage() {
 
                 {/* Row 2: Username */}
                 <div className="relative">
-                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-0.5">
                     Username <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -550,11 +557,11 @@ export default function SignUpPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("username")}
                       placeholder="Username"
-                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.username || hasSubmitted) && currentErrors.username
+                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#070f1e] text-[#0b1a33] dark:text-white ${(touched.username || hasSubmitted) && currentErrors.username
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.username && !currentErrors.username && formData.username
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                          : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                     />
                   </div>
@@ -565,7 +572,7 @@ export default function SignUpPage() {
 
                 {/* Row 3: Email */}
                 <div className="relative">
-                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-0.5">
                     Email <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -577,11 +584,11 @@ export default function SignUpPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("email")}
                       placeholder="name@email.com"
-                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.email || hasSubmitted) && currentErrors.email
+                      className={`w-full pl-7 pr-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#070f1e] text-[#0b1a33] dark:text-white ${(touched.email || hasSubmitted) && currentErrors.email
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.email && !currentErrors.email && formData.email
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                          : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                     />
                   </div>
@@ -592,7 +599,7 @@ export default function SignUpPage() {
 
                 {/* Password (Full Width Block) */}
                 <div className="relative">
-                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-0.5">
                     Password <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -604,11 +611,11 @@ export default function SignUpPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("password")}
                       placeholder="Create a password"
-                      className={`w-full pl-7 pr-8 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.password || hasSubmitted) && currentErrors.password
+                      className={`w-full pl-7 pr-8 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#070f1e] text-[#0b1a33] dark:text-white ${(touched.password || hasSubmitted) && currentErrors.password
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.password && !currentErrors.password && formData.password
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                          : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                     />
                     <button
@@ -627,7 +634,7 @@ export default function SignUpPage() {
 
                 {/* Confirm Password (Full Width Block) */}
                 <div className="relative">
-                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] mb-0.5">
+                  <label className="block text-[0.7rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-0.5">
                     Confirm password <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -639,11 +646,11 @@ export default function SignUpPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("confirmPassword")}
                       placeholder="Confirm your password"
-                      className={`w-full pl-7 pr-8 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
+                      className={`w-full pl-7 pr-8 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#070f1e] text-[#0b1a33] dark:text-white ${(touched.confirmPassword || hasSubmitted) && currentErrors.confirmPassword
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.confirmPassword && !currentErrors.confirmPassword && formData.confirmPassword
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                          : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                     />
                     <button
@@ -670,13 +677,13 @@ export default function SignUpPage() {
                       onChange={handleInputChange}
                       className="w-3.5 h-3.5 rounded mt-0.5 accent-[#0a66ff] cursor-pointer shrink-0"
                     />
-                    <span className="text-[0.68rem] text-slate-600 leading-tight">
+                    <span className="text-[0.68rem] text-slate-600 dark:text-slate-400 leading-tight">
                       I agree to the{" "}
-                      <Link href="/terms" className="text-[#0a66ff] font-semibold hover:underline">
+                      <Link href="/terms" className="text-[#0a66ff] dark:text-[#5b9aff] font-semibold hover:underline">
                         Terms of Service
                       </Link>{" "}
                       and{" "}
-                      <Link href="/privacy" className="text-[#0a66ff] font-semibold hover:underline">
+                      <Link href="/privacy" className="text-[#0a66ff] dark:text-[#5b9aff] font-semibold hover:underline">
                         Privacy Policy
                       </Link>
                       .
@@ -704,9 +711,9 @@ export default function SignUpPage() {
                 </button>
 
                 {/* Log In Link */}
-                <p className="text-center text-xs text-slate-500 pt-1">
+                <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-1">
                   Already have an account?{" "}
-                  <Link href="/login" className="font-bold text-[#0a66ff] hover:underline">
+                  <Link href="/login" className="font-bold text-[#0a66ff] dark:text-[#5b9aff] hover:underline">
                     Log in
                   </Link>
                 </p>

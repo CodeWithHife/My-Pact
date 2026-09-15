@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -52,8 +53,10 @@ export default function RootLayout({
           referrerPolicy="no-referrer"
         />
       </head>
-      <body className="min-h-screen bg-[#f8faff] text-[#0b1a33] font-sans antialiased">
-        {children}
+      <body className="min-h-screen bg-[var(--bg)] text-[var(--text-primary)] font-sans antialiased transition-colors duration-300">
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
         <script
           dangerouslySetInnerHTML={{
             __html: `

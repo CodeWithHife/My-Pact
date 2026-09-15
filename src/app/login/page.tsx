@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import ThemeToggle from "@/components/ThemeToggle";
 
 // Rotating study session mockups for the live dashboard demonstration
 const studySessions = [
@@ -512,11 +513,11 @@ export default function LoginPage() {
         </div>
 
         {/* ====== RIGHT: MODERN, PROFESSIONAL LOGIN FORM ====== */}
-        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:p-10 relative overflow-y-auto bg-slate-50/60 lg:bg-white">
+        <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:p-10 relative overflow-y-auto bg-slate-50/60 dark:bg-[#070f1e] lg:bg-white lg:dark:bg-[#070f1e] transition-colors duration-300">
 
           {/* Mobile Top Navigation Bar */}
           <div className="w-full max-w-[360px] sm:max-w-[400px] flex items-center justify-between lg:hidden mb-4">
-            <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] group">
+            <Link href="/" className="inline-flex items-center gap-2 font-extrabold text-lg text-[#0b1a33] dark:text-white group">
               <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                 <Image
                   src="/logo/mypact_icon.svg"
@@ -530,20 +531,23 @@ export default function LoginPage() {
                 My<span className="text-[#0a66ff]">Pact</span>
               </span>
             </Link>
-            <Link
-              href="/signup"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0a66ff] bg-blue-50 hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-blue-200/60 shadow-xs transition-all active:scale-95"
-            >
-              <span>Sign Up</span>
-              <i className="fas fa-arrow-right text-[0.55rem]"></i>
-            </Link>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <Link
+                href="/signup"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0a66ff] dark:text-[#5b9aff] bg-blue-50 dark:bg-blue-950/40 hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-blue-200/60 dark:border-blue-800/60 shadow-xs transition-all active:scale-95"
+              >
+                <span>Sign Up</span>
+                <i className="fas fa-arrow-right text-[0.55rem]"></i>
+              </Link>
+            </div>
           </div>
 
-          <div className="w-full max-w-[360px] sm:max-w-[400px] my-auto flex flex-col justify-center bg-white lg:bg-transparent p-6 sm:p-7 rounded-3xl border border-slate-200/90 lg:border-none shadow-[0_8px_30px_rgba(0,0,0,0.04)] lg:shadow-none">
+          <div className="w-full max-w-[360px] sm:max-w-[400px] my-auto flex flex-col justify-center bg-white dark:bg-[#0f1d32] lg:bg-transparent lg:dark:bg-transparent p-6 sm:p-7 rounded-3xl border border-slate-200/90 dark:border-slate-800 lg:border-none shadow-[0_8px_30px_rgba(0,0,0,0.04)] lg:shadow-none">
 
             {/* Desktop Brand Header */}
             <div className="hidden lg:flex items-center justify-between mb-5">
-              <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight group">
+              <Link href="/" className="inline-flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] dark:text-white tracking-tight group">
                 <div className="w-7 h-7 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-xs shadow-xs">
                   <Image
                     src="/logo/mypact_icon.svg"
@@ -557,35 +561,38 @@ export default function LoginPage() {
                   My<span className="text-[#0a66ff]">Pact</span>
                 </span>
               </Link>
-              <Link
-                href="/signup"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0a66ff] bg-blue-50 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-blue-200/60 shadow-xs transition-all active:scale-95"
-              >
-                <span>Create Account</span>
-                <i className="fas fa-arrow-right text-[0.6rem]"></i>
-              </Link>
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <Link
+                  href="/signup"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0a66ff] dark:text-[#5b9aff] bg-blue-50 dark:bg-blue-950/40 hover:bg-[#0a66ff] hover:text-white px-3.5 py-1.5 rounded-full border border-blue-200/60 dark:border-blue-800/60 shadow-xs transition-all active:scale-95"
+                >
+                  <span>Create Account</span>
+                  <i className="fas fa-arrow-right text-[0.6rem]"></i>
+                </Link>
+              </div>
             </div>
 
             {/* Desktop Title Header */}
             <div className="hidden lg:block mb-5 text-left">
-              <h1 className="text-2xl font-black text-[#0b1a33] tracking-tight">
+              <h1 className="text-2xl font-black text-[#0b1a33] dark:text-white tracking-tight">
                 Welcome back
               </h1>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                 Log in to continue your academic accountability journey.
               </p>
             </div>
 
             {/* Mobile Header */}
             <div className="lg:hidden text-center mb-5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-2 border border-[#0a66ff]/20">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] dark:bg-blue-950/50 text-[#0a66ff] dark:text-blue-300 text-[0.65rem] font-extrabold uppercase tracking-wider mb-2 border border-[#0a66ff]/20">
                 <i className="fas fa-lock text-[0.6rem]"></i>
                 <span>Student Portal</span>
               </div>
-              <h1 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-[#0b1a33] dark:text-white tracking-tight">
                 Welcome back
               </h1>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                 Log in to continue your accountability journey.
               </p>
             </div>
@@ -595,7 +602,7 @@ export default function LoginPage() {
               <form onSubmit={handleSubmit} noValidate className="space-y-4">
                 {/* Email or Username */}
                 <div className="relative">
-                  <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                  <label className="block text-[0.72rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-1">
                     Email or username <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -607,11 +614,11 @@ export default function LoginPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("loginIdentifier")}
                       placeholder="name@email.com or username"
-                      className={`w-full pl-8 pr-3 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.loginIdentifier || hasSubmitted) && currentErrors.loginIdentifier
+                      className={`w-full pl-8 pr-3 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#070f1e] text-[#0b1a33] dark:text-white ${(touched.loginIdentifier || hasSubmitted) && currentErrors.loginIdentifier
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.loginIdentifier && !currentErrors.loginIdentifier && formData.loginIdentifier
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                          : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                     />
                   </div>
@@ -623,12 +630,12 @@ export default function LoginPage() {
                 {/* Password (with Eye Show/Hide toggle) */}
                 <div className="relative">
                   <div className="flex justify-between items-center mb-1">
-                    <label className="block text-[0.72rem] font-bold text-[#0b1a33]">
+                    <label className="block text-[0.72rem] font-bold text-[#0b1a33] dark:text-slate-200">
                       Password <span className="text-red-500">*</span>
                     </label>
                     <Link
                       href="/forgot-password"
-                      className="text-[0.68rem] text-[#0a66ff] font-semibold hover:underline"
+                      className="text-[0.68rem] text-[#0a66ff] dark:text-[#5b9aff] font-semibold hover:underline"
                     >
                       Forgot password?
                     </Link>
@@ -642,11 +649,11 @@ export default function LoginPage() {
                       onChange={handleInputChange}
                       onBlur={() => handleBlur("password")}
                       placeholder="Password"
-                      className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(touched.password || hasSubmitted) && currentErrors.password
+                      className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#070f1e] text-[#0b1a33] dark:text-white ${(touched.password || hasSubmitted) && currentErrors.password
                         ? "border-red-500 ring-2 ring-red-500/10"
                         : touched.password && !currentErrors.password && formData.password
                           ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                          : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                          : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                         }`}
                     />
                     <button
@@ -673,7 +680,7 @@ export default function LoginPage() {
                       onChange={handleInputChange}
                       className="w-3.5 h-3.5 rounded accent-[#0a66ff] cursor-pointer"
                     />
-                    <span className="text-[0.72rem] text-slate-600">Remember me</span>
+                    <span className="text-[0.72rem] text-slate-600 dark:text-slate-400">Remember me</span>
                   </label>
                 </div>
 
@@ -694,9 +701,9 @@ export default function LoginPage() {
                 </button>
 
                 {/* Sign Up Link */}
-                <p className="text-center text-xs text-slate-500 pt-2">
+                <p className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2">
                   Don&apos;t have an account?{" "}
-                  <Link href="/signup" className="font-bold text-[#0a66ff] hover:underline">
+                  <Link href="/signup" className="font-bold text-[#0a66ff] dark:text-[#5b9aff] hover:underline">
                     Sign up free
                   </Link>
                 </p>

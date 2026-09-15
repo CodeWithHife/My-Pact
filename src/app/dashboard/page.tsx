@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import ThemeToggle from "@/components/ThemeToggle";
 
 // Interfaces
 interface TaskItem {
@@ -784,7 +785,7 @@ export default function DashboardPage() {
   const timeGreeting = getGreeting();
 
   return (
-    <div className="min-h-screen bg-[#f0f5fe] text-[#0b1a33] font-sans antialiased selection:bg-[#0a66ff] selection:text-white pb-28 md:pb-12">
+    <div className="min-h-screen bg-[#f0f5fe] dark:bg-[#070f1e] text-[#0b1a33] dark:text-slate-100 font-sans antialiased selection:bg-[#0a66ff] selection:text-white pb-28 md:pb-12 transition-colors duration-300">
       <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pt-4 sm:pt-6 space-y-4 sm:space-y-6">
 
         {/* Toast */}
@@ -804,7 +805,7 @@ export default function DashboardPage() {
         {/* CARDED HEADER: Rounded floating top card                                  */}
         {/* ========================================================================= */}
         {activeTab === "overview" ? (
-          <header className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_4px_20px_rgba(10,102,255,0.04)] p-4 sm:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 animate-fadeIn">
+          <header className="bg-white dark:bg-[#0f1d32] rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-[0_4px_20px_rgba(10,102,255,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] p-4 sm:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 animate-fadeIn">
             {/* Left: Branding & Responsive Profile Block */}
             <div className="flex items-center gap-3.5 w-full md:w-auto">
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#0a66ff] flex items-center justify-center text-white shadow-md shadow-[#0a66ff]/20 shrink-0">
@@ -818,27 +819,29 @@ export default function DashboardPage() {
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-base sm:text-lg font-black text-[#0b1a33] tracking-tight leading-tight">
+                  <h1 className="text-base sm:text-lg font-black text-[#0b1a33] dark:text-white tracking-tight leading-tight">
                     Good evening, <span className="text-[#0a66ff]">{userProfile.name || userProfile.firstName || "Scholar"}</span>
                   </h1>
-                  <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-600 text-[0.68rem] sm:text-xs font-black shrink-0">
+                  <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-600 dark:text-amber-400 text-[0.68rem] sm:text-xs font-black shrink-0">
                     <i className="fas fa-fire text-amber-500 animate-pulse text-[0.65rem]"></i>
                     <span>{streakDays} Day Streak</span>
                   </div>
                 </div>
-                <div className="text-[0.7rem] sm:text-xs text-slate-500 font-medium flex items-center gap-1.5 mt-0.5 flex-wrap">
-                  <span className="inline-flex items-center gap-1 font-semibold text-slate-700">
+                <div className="text-[0.7rem] sm:text-xs text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1.5 mt-0.5 flex-wrap">
+                  <span className="inline-flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-300">
                     <i className="fas fa-building-columns text-[#0a66ff] text-[0.65rem]"></i>
                     <span>{userProfile.university}</span>
                   </span>
-                  <span className="text-slate-300">•</span>
-                  <span className="text-slate-600">{userProfile.faculty}</span>
+                  <span className="text-slate-300 dark:text-slate-600">•</span>
+                  <span className="text-slate-600 dark:text-slate-400">{userProfile.faculty}</span>
                 </div>
               </div>
             </div>
 
             {/* Right: Actions Bar */}
-            <div className="flex items-center justify-between md:justify-end gap-2.5 w-full md:w-auto">
+            <div className="flex items-center justify-between md:justify-end gap-2 sm:gap-2.5 w-full md:w-auto">
+              <ThemeToggle />
+
               <button
                 onClick={() => setIsCreateTaskOpen(true)}
                 className="flex-1 md:flex-initial px-4 py-2 rounded-xl bg-[#0a66ff] hover:bg-[#084bc2] text-white text-xs font-bold shadow-md shadow-[#0a66ff]/20 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
@@ -849,7 +852,7 @@ export default function DashboardPage() {
 
               <button
                 onClick={() => setIsAlarmActive(true)}
-                className="px-3.5 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-red-50 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/60 text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <i className="fas fa-bell text-xs animate-pulse"></i>
                 <span>Test Alarm</span>
@@ -858,19 +861,19 @@ export default function DashboardPage() {
           </header>
         ) : (
           /* Sleek Minimal Top Navigation Bar for Sub-Pages */
-          <header className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_4px_20px_rgba(10,102,255,0.04)] px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3 animate-fadeIn">
+          <header className="bg-white dark:bg-[#0f1d32] rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-[0_4px_20px_rgba(10,102,255,0.04)] px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3 animate-fadeIn">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setActiveTab("overview")}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#0b1a33] text-xs font-extrabold transition-colors cursor-pointer group"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-[#0b1a33] dark:text-slate-200 text-xs font-extrabold transition-colors cursor-pointer group"
                 title="Return to Main Dashboard"
               >
                 <i className="fas fa-arrow-left text-[#0a66ff] group-hover:-translate-x-0.5 transition-transform text-xs"></i>
                 <span>Back</span>
               </button>
-              <div className="h-4 w-px bg-slate-200 hidden sm:block" />
+              <div className="h-4 w-px bg-slate-200 dark:bg-slate-700 hidden sm:block" />
               <div className="flex items-center gap-2">
-                <span className="text-xs sm:text-sm font-black text-[#0b1a33] capitalize">
+                <span className="text-xs sm:text-sm font-black text-[#0b1a33] dark:text-white capitalize">
                   {activeTab === "tasks" && "Tasks & Schedule Hub"}
                   {activeTab === "courses" && "Course Vault"}
                   {activeTab === "focus" && "Focus Sanctuary"}
@@ -882,6 +885,7 @@ export default function DashboardPage() {
             </div>
 
             <div className="flex items-center gap-2">
+              <ThemeToggle />
               <button
                 onClick={() => setIsCreateTaskOpen(true)}
                 className="px-3.5 py-1.5 rounded-xl bg-[#0a66ff] hover:bg-[#084bc2] text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
@@ -891,7 +895,7 @@ export default function DashboardPage() {
               </button>
               <button
                 onClick={() => setIsAlarmActive(true)}
-                className="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
+                className="px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/60 text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
               >
                 <i className="fas fa-bell text-xs"></i>
                 <span className="hidden sm:inline">Test Alarm</span>
@@ -903,7 +907,7 @@ export default function DashboardPage() {
         {/* ========================================================================= */}
         {/* DESKTOP NAVIGATION TAB BAR: Carded horizontal tab bar                     */}
         {/* ========================================================================= */}
-        <nav className="hidden md:flex bg-white rounded-2xl border border-slate-200/80 p-1.5 shadow-xs items-center gap-1 overflow-x-auto scrollbar-none">
+        <nav className="hidden md:flex bg-white dark:bg-[#0f1d32] rounded-2xl border border-slate-200/80 dark:border-slate-800 p-1.5 shadow-xs items-center gap-1 overflow-x-auto scrollbar-none">
           {[
             { id: "overview", label: "Dashboard", icon: "fa-chart-pie" },
             { id: "tasks", label: "Tasks Hub", icon: "fa-calendar-check", count: tasks.length },
@@ -919,13 +923,13 @@ export default function DashboardPage() {
               className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shrink-0 ${
                 activeTab === tab.id
                   ? "bg-[#0a66ff] text-white shadow-xs"
-                  : "text-slate-600 hover:text-[#0a66ff] hover:bg-slate-50"
+                  : "text-slate-600 dark:text-slate-400 hover:text-[#0a66ff] dark:hover:text-[#38bdf8] hover:bg-slate-50 dark:hover:bg-slate-800/60"
               }`}
             >
               <i className={`fas ${tab.icon} text-xs`}></i>
               <span>{tab.label}</span>
               {tab.count !== undefined && (
-                <span className={`text-[0.62rem] px-1.5 py-0.2 rounded-full ${activeTab === tab.id ? "bg-white/20 text-white" : "bg-blue-100 text-[#0a66ff]"}`}>
+                <span className={`text-[0.62rem] px-1.5 py-0.2 rounded-full ${activeTab === tab.id ? "bg-white/20 text-white" : "bg-blue-100 dark:bg-blue-900/50 text-[#0a66ff] dark:text-blue-300"}`}>
                   {tab.count}
                 </span>
               )}
@@ -2127,17 +2131,32 @@ export default function DashboardPage() {
                 </div>
               </div>
 
+              {/* ====== APPEARANCE & THEME PREFERENCES ====== */}
+              <div className="bg-white dark:bg-[#0f1d32] rounded-3xl border border-slate-200/80 dark:border-slate-800 p-5 sm:p-7 shadow-xs space-y-4">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400">
+                  Appearance & Theme
+                </h4>
+
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#070f1e] border border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                  <div>
+                    <h4 className="text-xs font-bold text-[#0b1a33] dark:text-white">Color Mode</h4>
+                    <p className="text-[0.68rem] text-slate-500 dark:text-slate-400 mt-0.5">Toggle between Clean Light and Deep Midnight Blue dark mode</p>
+                  </div>
+                  <ThemeToggle showLabel={true} />
+                </div>
+              </div>
+
               {/* ====== ENFORCEMENT & SECURITY PREFERENCES ====== */}
-              <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-7 shadow-xs space-y-4">
+              <div className="bg-white dark:bg-[#0f1d32] rounded-3xl border border-slate-200/80 dark:border-slate-800 p-5 sm:p-7 shadow-xs space-y-4">
                 <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400">
                   Enforcement & Security Rules
                 </h4>
 
                 <div className="space-y-3">
-                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#070f1e] border border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
                     <div>
-                      <h4 className="text-xs font-bold text-[#0b1a33]">Strict Anti-Procrastination Mode</h4>
-                      <p className="text-[0.68rem] text-slate-500 mt-0.5">Locks non-study applications during focus sprints</p>
+                      <h4 className="text-xs font-bold text-[#0b1a33] dark:text-white">Strict Anti-Procrastination Mode</h4>
+                      <p className="text-[0.68rem] text-slate-500 dark:text-slate-400 mt-0.5">Locks non-study applications during focus sprints</p>
                     </div>
                     <input
                       type="checkbox"
@@ -2147,10 +2166,10 @@ export default function DashboardPage() {
                     />
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#070f1e] border border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
                     <div>
-                      <h4 className="text-xs font-bold text-[#0b1a33]">WhatsApp Partner Escalation</h4>
-                      <p className="text-[0.68rem] text-slate-500 mt-0.5">Auto-broadcast WhatsApp notification when an alarm is dismissed without proof</p>
+                      <h4 className="text-xs font-bold text-[#0b1a33] dark:text-white">WhatsApp Partner Escalation</h4>
+                      <p className="text-[0.68rem] text-slate-500 dark:text-slate-400 mt-0.5">Auto-broadcast WhatsApp notification when an alarm is dismissed without proof</p>
                     </div>
                     <input
                       type="checkbox"
@@ -2163,15 +2182,15 @@ export default function DashboardPage() {
               </div>
 
               {/* ====== ACCOUNT ACTIONS ====== */}
-              <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-7 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="bg-white dark:bg-[#0f1d32] rounded-3xl border border-slate-200/80 dark:border-slate-800 p-5 sm:p-7 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
-                  <h4 className="text-xs font-bold text-[#0b1a33]">Account Session</h4>
-                  <p className="text-[0.68rem] text-slate-500">Log out of your current study session on this device.</p>
+                  <h4 className="text-xs font-bold text-[#0b1a33] dark:text-white">Account Session</h4>
+                  <p className="text-[0.68rem] text-slate-500 dark:text-slate-400">Log out of your current study session on this device.</p>
                 </div>
                 <button
                   type="button"
                   onClick={handleSignOut}
-                  className="px-5 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
+                  className="px-5 py-2 rounded-xl bg-red-50 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800/60 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
                 >
                   <i className="fas fa-arrow-right-from-bracket text-xs"></i>
                   <span>Sign Out</span>

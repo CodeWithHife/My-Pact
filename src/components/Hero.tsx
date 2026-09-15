@@ -62,11 +62,11 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="relative pt-32 sm:pt-40 pb-0 overflow-hidden bg-white border-b border-slate-100">
+    <section id="hero" className="relative pt-24 sm:pt-36 lg:pt-40 pb-0 overflow-hidden bg-white dark:bg-[#070f1e] border-b border-slate-100 dark:border-slate-800/80 transition-colors duration-300">
       {/* Background Styled Education & Study Icons with Geometric Tile Patterns */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
         {/* Subtle Geometric Background Dot Grid Pattern */}
-        <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px] opacity-60" />
+        <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] dark:bg-[radial-gradient(#1e3250_1px,transparent_1px)] [background-size:24px_24px] opacity-60 dark:opacity-40" />
 
         {/* Floating Styled Education Icon Badges/Cards */}
         {backgroundIcons.map((item, idx) => (
@@ -78,44 +78,44 @@ export default function Hero() {
               left: item.left,
               right: item.right,
             }}
-            className={`absolute flex items-center justify-center rounded-2xl bg-white/95 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] text-slate-300 opacity-60 ${item.size} ${item.animation} transition-transform`}
+            className={`absolute hidden sm:flex items-center justify-center rounded-2xl bg-white/95 dark:bg-[#0f1d32]/90 border border-slate-100 dark:border-slate-800 shadow-[0_4px_16px_rgba(0,0,0,0.03)] text-slate-300 dark:text-slate-600 opacity-60 dark:opacity-40 ${item.size} ${item.animation} transition-transform`}
           >
             <i className={`${item.icon} ${item.iconSize}`}></i>
           </div>
         ))}
       </div>
 
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10 pb-16 sm:pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-12 sm:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Column: Hero Content & Professional CTA */}
           <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left">
             {/* Tag Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-6 border border-[#0a66ff]/20 shadow-sm shadow-[#0a66ff]/10">
-              <i className="fas fa-shield-alt text-[#0a66ff]"></i>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e8f0fe] dark:bg-blue-950/50 text-[#0a66ff] dark:text-[#38bdf8] text-[0.72rem] sm:text-xs font-bold uppercase tracking-wider mb-4 sm:mb-6 border border-[#0a66ff]/20 dark:border-blue-800/50 shadow-xs">
+              <i className="fas fa-shield-alt text-[#0a66ff] dark:text-[#38bdf8]"></i>
               <span>Uncompromising Accountability</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.9rem] font-black tracking-[-0.035em] text-[#0b1a33] leading-[1.06] mb-6">
+            <h1 className="text-3xl sm:text-5xl lg:text-[3.9rem] font-black tracking-[-0.035em] text-[#0b1a33] dark:text-white leading-[1.1] sm:leading-[1.06] mb-4 sm:mb-6">
               Stop Snoozing. <br />
-              <span className="text-[#0a66ff]">
+              <span className="text-[#0a66ff] dark:text-[#38bdf8]">
                 Start Achieving.
               </span>
             </h1>
 
             {/* Subtitle Description */}
-            <p className="text-lg sm:text-[1.12rem] text-[#3d4e6b] max-w-xl leading-relaxed mb-9 font-normal">
+            <p className="text-sm sm:text-base lg:text-[1.12rem] text-[#3d4e6b] dark:text-slate-300 max-w-xl leading-relaxed mb-6 sm:mb-9 font-normal">
               MyPact is the only student platform that enforces your commitments
               with scheduled verification, active proof-of-work, and escalating
               consequences for missed tasks. No more zero-consequence procrastination.
             </p>
 
             {/* Highly Styled Professional Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-4 items-center justify-center lg:justify-start w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center lg:justify-start w-full sm:w-auto">
               {/* Primary High-Impact CTA Button */}
               <Link
                 href="/signup"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full font-bold text-base text-white bg-[#0a66ff] hover:bg-[#084bc2] shadow-lg shadow-[#0a66ff]/25 hover:shadow-xl hover:shadow-[#0a66ff]/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold text-sm sm:text-base text-white bg-[#0a66ff] hover:bg-[#084bc2] shadow-lg shadow-[#0a66ff]/25 hover:shadow-xl hover:shadow-[#0a66ff]/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
               >
                 <i className="fas fa-rocket text-sm"></i>
                 <span>Get Started Free</span>
@@ -125,30 +125,30 @@ export default function Hero() {
               {/* Secondary Sleek Glass Button */}
               <a
                 href="#features"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full font-semibold text-base text-[#0b1a33] bg-slate-50/90 hover:bg-white hover:text-[#0a66ff] border border-slate-200 hover:border-[#0a66ff]/40 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full font-semibold text-sm sm:text-base text-[#0b1a33] dark:text-slate-200 bg-slate-50/90 dark:bg-[#0f1d32] hover:bg-white dark:hover:bg-[#152744] hover:text-[#0a66ff] dark:hover:text-[#38bdf8] border border-slate-200 dark:border-slate-700 hover:border-[#0a66ff]/40 dark:hover:border-[#38bdf8]/40 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer group"
               >
-                <i className="fas fa-info-circle text-sm text-[#0a66ff]"></i>
+                <i className="fas fa-info-circle text-sm text-[#0a66ff] dark:text-[#38bdf8]"></i>
                 <span>Explore Features</span>
               </a>
             </div>
 
             {/* Highlights Below CTA */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 sm:gap-7 mt-8 text-xs font-semibold text-[#7a8aa3]">
-              <div className="flex items-center gap-2">
-                <i className="fas fa-check-circle text-[#0a66ff]"></i>
-                <span>Barcode & Math Verification</span>
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-7 mt-6 sm:mt-8 text-[0.72rem] sm:text-xs font-semibold text-[#7a8aa3] dark:text-slate-400">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <i className="fas fa-check-circle text-[#0a66ff] dark:text-[#38bdf8]"></i>
+                <span>Barcode & Math Proof</span>
               </div>
-              <div className="flex items-center gap-2">
-                <i className="fas fa-check-circle text-[#0a66ff]"></i>
-                <span>Escalating App Lockout</span>
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <i className="fas fa-check-circle text-[#0a66ff] dark:text-[#38bdf8]"></i>
+                <span>Escalating Lockouts</span>
               </div>
             </div>
           </div>
 
           {/* Right Column: Ultra-Modern Live Student Dashboard Mockup */}
-          <div className="lg:col-span-6 flex justify-center relative">
+          <div className="lg:col-span-6 flex justify-center relative w-full px-1 sm:px-0">
             {/* Top Floating Glass Badge */}
-            <div className="absolute -top-4 -right-2 sm:-right-4 bg-white/95 backdrop-blur-md rounded-2xl py-2 px-4 shadow-[0_8px_30px_rgba(10,102,255,0.12)] border border-[#0a66ff]/15 flex items-center gap-2.5 text-xs font-bold text-[#0b1a33] z-20 animate-badge-float">
+            <div className="hidden sm:flex absolute -top-4 -right-2 sm:-right-4 bg-white/95 dark:bg-[#0f1d32]/95 backdrop-blur-md rounded-2xl py-2 px-3.5 shadow-[0_8px_30px_rgba(10,102,255,0.12)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] border border-[#0a66ff]/15 dark:border-blue-500/30 items-center gap-2 text-xs font-bold text-[#0b1a33] dark:text-slate-200 z-20 animate-badge-float">
               <span className="flex h-2.5 w-2.5 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
@@ -157,15 +157,15 @@ export default function Hero() {
             </div>
 
             {/* Bottom Floating Glass Badge */}
-            <div className="absolute -bottom-4 -left-2 sm:-left-4 bg-white/95 backdrop-blur-md rounded-2xl py-2 px-4 shadow-[0_8px_30px_rgba(10,102,255,0.12)] border border-amber-200 flex items-center gap-2.5 text-xs font-bold text-[#0b1a33] z-20 animate-badge-float [animation-delay:1.5s]">
+            <div className="hidden sm:flex absolute -bottom-4 -left-2 sm:-left-4 bg-white/95 dark:bg-[#0f1d32]/95 backdrop-blur-md rounded-2xl py-2 px-3.5 shadow-[0_8px_30px_rgba(10,102,255,0.12)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] border border-amber-200 dark:border-amber-500/30 items-center gap-2 text-xs font-bold text-[#0b1a33] dark:text-slate-200 z-20 animate-badge-float [animation-delay:1.5s]">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-              <span>3 override attempts blocked</span>
+              <span>3 overrides blocked</span>
             </div>
 
             {/* Main Live Dashboard Card with Entrance Float Animation */}
-            <div className="w-full max-w-[480px] bg-white rounded-3xl p-6 sm:p-7 shadow-[0_24px_70px_rgba(10,102,255,0.12)] border border-[#0a66ff]/15 relative z-10 transition-all duration-300 hover:shadow-[0_32px_85px_rgba(10,102,255,0.18)] animate-mockup-entry">
+            <div className="w-full max-w-[480px] bg-white dark:bg-[#0f1d32] rounded-3xl p-4 sm:p-7 shadow-[0_20px_60px_rgba(10,102,255,0.10)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.5)] border border-[#0a66ff]/15 dark:border-slate-800 relative z-10 transition-all duration-300 hover:shadow-[0_30px_80px_rgba(10,102,255,0.16)] animate-mockup-entry">
               {/* App Mockup Top Window Controls & User Profile Bar */}
-              <div className="flex items-center justify-between pb-4 border-b border-[#e6edf5]">
+              <div className="flex items-center justify-between pb-4 border-b border-[#e6edf5] dark:border-slate-800">
                 {/* Left: Window Dots & Brand Icon */}
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-1.5">
@@ -173,21 +173,21 @@ export default function Hero() {
                     <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80"></span>
                   </div>
-                  <div className="h-4 w-[1px] bg-slate-200"></div>
+                  <div className="h-4 w-[1px] bg-slate-200 dark:bg-slate-700"></div>
                   <div>
-                    <h3 className="text-[11px] font-bold uppercase tracking-wider text-[#7a8aa3]">
+                    <h3 className="text-[11px] font-bold uppercase tracking-wider text-[#7a8aa3] dark:text-slate-400">
                       Today's Pact
                     </h3>
-                    <div className="text-sm font-extrabold text-[#0b1a33] leading-none mt-0.5">
+                    <div className="text-sm font-extrabold text-[#0b1a33] dark:text-white leading-none mt-0.5">
                       Strict Enforcement
                     </div>
                   </div>
                 </div>
 
                 {/* Right: Live Session Countdown Clock */}
-                <div className="flex items-center gap-2 bg-[#e8f0fe] px-3.5 py-1.5 rounded-full border border-[#0a66ff]/20 shadow-xs">
+                <div className="flex items-center gap-2 bg-[#e8f0fe] dark:bg-blue-950/60 px-3.5 py-1.5 rounded-full border border-[#0a66ff]/20 dark:border-blue-800/60 shadow-xs">
                   <span className="w-2 h-2 rounded-full bg-[#0a66ff] animate-pulse"></span>
-                  <span className="font-mono text-xs font-black text-[#0a66ff]">
+                  <span className="font-mono text-xs font-black text-[#0a66ff] dark:text-blue-300">
                     {formatTimer(secondsLeft)}
                   </span>
                 </div>
@@ -200,31 +200,31 @@ export default function Hero() {
                   onClick={() => setActiveTask(1)}
                   className={`p-3.5 rounded-2xl border transition-all cursor-pointer ${
                     activeTask === 1
-                      ? "bg-[#f8faff] border-[#0a66ff]/40 shadow-xs ring-1 ring-[#0a66ff]/20"
-                      : "bg-white border-[#e6edf5] hover:border-[#0a66ff]/20"
+                      ? "bg-[#f8faff] dark:bg-[#070f1e] border-[#0a66ff]/40 shadow-xs ring-1 ring-[#0a66ff]/20"
+                      : "bg-white dark:bg-[#0f1d32] border-[#e6edf5] dark:border-slate-800 hover:border-[#0a66ff]/20"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-[#e8f0fe] flex items-center justify-center text-[#0a66ff] text-base flex-shrink-0 shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-[#e8f0fe] dark:bg-blue-950/60 flex items-center justify-center text-[#0a66ff] dark:text-blue-300 text-base flex-shrink-0 shadow-xs">
                         <i className="fas fa-book-open"></i>
                       </div>
                       <div>
-                        <h4 className="font-bold text-sm text-[#0b1a33]">
+                        <h4 className="font-bold text-sm text-[#0b1a33] dark:text-white">
                           Organic Chemistry
                         </h4>
-                        <p className="text-xs text-[#7a8aa3]">
+                        <p className="text-xs text-[#7a8aa3] dark:text-slate-400">
                           Chapter 7 · 45 min study
                         </p>
                       </div>
                     </div>
-                    <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
-                      <i className="fas fa-play text-[8px] text-emerald-600"></i> Active
+                    <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 uppercase tracking-wider flex items-center gap-1.5 shadow-xs border border-emerald-500/20">
+                      <i className="fas fa-play text-[8px] text-emerald-600 dark:text-emerald-400"></i> Active
                     </span>
                   </div>
 
                   {/* Dynamic Animated Progress Bar */}
-                  <div className="mt-3 w-full bg-[#e6edf5] h-1.5 rounded-full overflow-hidden">
+                  <div className="mt-3 w-full bg-[#e6edf5] dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
                     <div
                       className={`bg-[#0a66ff] h-full rounded-full transition-all duration-1000 ease-out ${
                         isMounted ? "w-[68%]" : "w-0"
@@ -238,25 +238,25 @@ export default function Hero() {
                   onClick={() => setActiveTask(2)}
                   className={`p-3.5 rounded-2xl border transition-all cursor-pointer ${
                     activeTask === 2
-                      ? "bg-[#f8faff] border-amber-300 shadow-xs ring-1 ring-amber-200"
-                      : "bg-white border-[#e6edf5] hover:border-amber-200"
+                      ? "bg-[#f8faff] dark:bg-[#070f1e] border-amber-300 dark:border-amber-500/50 shadow-xs ring-1 ring-amber-200 dark:ring-amber-500/30"
+                      : "bg-white dark:bg-[#0f1d32] border-[#e6edf5] dark:border-slate-800 hover:border-amber-200"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 text-base flex-shrink-0 shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 flex items-center justify-center text-amber-600 dark:text-amber-400 text-base flex-shrink-0 shadow-xs">
                         <i className="fas fa-pencil-alt"></i>
                       </div>
                       <div>
-                        <h4 className="font-bold text-sm text-[#0b1a33]">
+                        <h4 className="font-bold text-sm text-[#0b1a33] dark:text-white">
                           Calc III Problem Set
                         </h4>
-                        <p className="text-xs text-[#7a8aa3]">
+                        <p className="text-xs text-[#7a8aa3] dark:text-slate-400">
                           Due tomorrow 11:59 PM
                         </p>
                       </div>
                     </div>
-                    <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900 uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
+                    <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950/50 text-amber-900 dark:text-amber-300 uppercase tracking-wider flex items-center gap-1.5 shadow-xs border border-amber-500/20">
                       <i className="fas fa-lock text-[8px]"></i> Lockout
                     </span>
                   </div>
@@ -267,25 +267,25 @@ export default function Hero() {
                   onClick={() => setActiveTask(3)}
                   className={`p-3.5 rounded-2xl border transition-all cursor-pointer ${
                     activeTask === 3
-                      ? "bg-[#f8faff] border-rose-300 shadow-xs ring-1 ring-rose-200"
-                      : "bg-white border-[#e6edf5] hover:border-rose-200"
+                      ? "bg-[#f8faff] dark:bg-[#070f1e] border-rose-300 dark:border-rose-500/50 shadow-xs ring-1 ring-rose-200 dark:ring-rose-500/30"
+                      : "bg-white dark:bg-[#0f1d32] border-[#e6edf5] dark:border-slate-800 hover:border-rose-200"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 text-base flex-shrink-0 shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/40 flex items-center justify-center text-rose-600 dark:text-rose-400 text-base flex-shrink-0 shadow-xs">
                         <i className="fas fa-bullseye"></i>
                       </div>
                       <div>
-                        <h4 className="font-bold text-sm text-[#0b1a33]">
+                        <h4 className="font-bold text-sm text-[#0b1a33] dark:text-white">
                           Final Exam Prep
                         </h4>
-                        <p className="text-xs text-[#7a8aa3]">
+                        <p className="text-xs text-[#7a8aa3] dark:text-slate-400">
                           Micro-study block · 30 min
                         </p>
                       </div>
                     </div>
-                    <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-900 uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
+                    <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-100 dark:bg-rose-950/50 text-rose-900 dark:text-rose-300 uppercase tracking-wider flex items-center gap-1.5 shadow-xs border border-rose-500/20">
                       <i className="fas fa-bell text-[8px] animate-pulse"></i> Alert
                     </span>
                   </div>
@@ -293,9 +293,9 @@ export default function Hero() {
               </div>
 
               {/* Interactive Proof Verification Action Simulation */}
-              <div className="bg-[#f8faff] rounded-2xl p-3.5 border border-[#e6edf5] flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#3d4e6b]">
-                  <i className="fas fa-qrcode text-[#0a66ff]"></i>
+              <div className="bg-[#f8faff] dark:bg-[#070f1e] rounded-2xl p-3.5 border border-[#e6edf5] dark:border-slate-800 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#3d4e6b] dark:text-slate-300">
+                  <i className="fas fa-qrcode text-[#0a66ff] dark:text-[#38bdf8]"></i>
                   <span>Physical task proof</span>
                 </div>
                 <button
@@ -324,11 +324,11 @@ export default function Hero() {
               </div>
 
               {/* Dashboard Footer Status Bar */}
-              <div className="mt-4 pt-3.5 border-t border-[#e6edf5] flex items-center justify-between text-[11px] font-semibold text-[#7a8aa3]">
-                <span className="flex items-center gap-1.5 text-[#0a66ff]">
+              <div className="mt-4 pt-3.5 border-t border-[#e6edf5] dark:border-slate-800 flex items-center justify-between text-[11px] font-semibold text-[#7a8aa3] dark:text-slate-400">
+                <span className="flex items-center gap-1.5 text-[#0a66ff] dark:text-[#38bdf8]">
                   <i className="fas fa-clock"></i> Unstoppable alarm armed
                 </span>
-                <span className="flex items-center gap-1.5 text-rose-600">
+                <span className="flex items-center gap-1.5 text-rose-600 dark:text-rose-400">
                   <i className="fas fa-shield-virus"></i> Level 2 lockout active
                 </span>
               </div>
@@ -338,10 +338,10 @@ export default function Hero() {
       </div>
 
       {/* Thin Animated Infinite Ticker Ribbon */}
-      <div className="w-full bg-[#0a66ff] border-y border-[#084bc2] text-white py-3 overflow-hidden shadow-inner relative">
+      <div className="w-full bg-[#0a66ff] dark:bg-[#084bc2] border-y border-[#084bc2] dark:border-blue-700 text-white py-3 overflow-hidden shadow-inner relative">
         {/* Gradient Edge Fades */}
-        <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0a66ff] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0a66ff] to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0a66ff] dark:from-[#084bc2] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0a66ff] dark:from-[#084bc2] to-transparent z-10 pointer-events-none" />
 
         {/* Continuous Animated Ticker Track */}
         <div className="animate-ticker flex items-center gap-8 text-sm font-semibold tracking-wide select-none">

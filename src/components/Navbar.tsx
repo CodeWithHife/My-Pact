@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 interface NavLinkItem {
   label: string;
@@ -42,8 +43,8 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/90 backdrop-blur-md shadow-[0_4px_24px_rgba(10,102,255,0.08)] border-b border-[#0a66ff]/10 py-3.5"
-          : "bg-white/70 backdrop-blur-sm border-b border-[#e6edf5]/60 py-4.5"
+          ? "bg-white/90 dark:bg-[#070f1e]/90 backdrop-blur-md shadow-[0_4px_24px_rgba(10,102,255,0.08)] border-b border-[#0a66ff]/10 dark:border-slate-800/80 py-3.5"
+          : "bg-white/70 dark:bg-[#070f1e]/70 backdrop-blur-sm border-b border-[#e6edf5]/60 dark:border-slate-800/50 py-4.5"
       }`}
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-8">
@@ -65,7 +66,7 @@ export default function Navbar() {
               />
             </div>
             <div className="flex items-baseline gap-1">
-              <span className="font-extrabold text-2xl sm:text-[1.65rem] text-[#0b1a33] tracking-[-0.03em] leading-none">
+              <span className="font-extrabold text-2xl sm:text-[1.65rem] text-[#0b1a33] dark:text-white tracking-[-0.03em] leading-none">
                 My<span className="text-[#0a66ff]">Pact</span>
               </span>
             </div>
@@ -77,15 +78,18 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="nav-link font-medium text-[0.95rem] text-[#3d4e6b] hover:text-[#0a66ff] transition-colors duration-200"
+                className="nav-link font-medium text-[0.95rem] text-[#3d4e6b] dark:text-slate-300 hover:text-[#0a66ff] dark:hover:text-[#38bdf8] transition-colors duration-200"
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
-          {/* Desktop Action Buttons with FontAwesome Icons */}
-          <div className="flex items-center gap-3">
+          {/* Action Buttons with FontAwesome Icons */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Theme Toggle Button */}
+            <ThemeToggle />
+
             {/* Log In Button (Desktop only) */}
             <Link
               href="/login"
@@ -108,22 +112,22 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-xl bg-slate-100/80 hover:bg-[#e8f0fe] text-[#0b1a33] transition-colors duration-200 focus:outline-none cursor-pointer"
+              className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-xl bg-slate-100/80 dark:bg-slate-800 hover:bg-[#e8f0fe] dark:hover:bg-slate-700 text-[#0b1a33] dark:text-slate-100 transition-colors duration-200 focus:outline-none cursor-pointer"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               <div className="w-5 h-4 flex flex-col justify-between">
                 <span
-                  className={`h-0.5 bg-[#0b1a33] rounded-full transition-all duration-300 origin-left ${
+                  className={`h-0.5 bg-[#0b1a33] dark:bg-slate-100 rounded-full transition-all duration-300 origin-left ${
                     mobileMenuOpen ? "rotate-45 translate-x-0.5 -translate-y-0.5" : ""
                   }`}
                 />
                 <span
-                  className={`h-0.5 bg-[#0b1a33] rounded-full transition-all duration-200 ${
+                  className={`h-0.5 bg-[#0b1a33] dark:bg-slate-100 rounded-full transition-all duration-200 ${
                     mobileMenuOpen ? "opacity-0" : "opacity-100"
                   }`}
                 />
                 <span
-                  className={`h-0.5 bg-[#0b1a33] rounded-full transition-all duration-300 origin-left ${
+                  className={`h-0.5 bg-[#0b1a33] dark:bg-slate-100 rounded-full transition-all duration-300 origin-left ${
                     mobileMenuOpen ? "-rotate-45 translate-x-0.5 translate-y-0.5" : ""
                   }`}
                 />
@@ -137,21 +141,21 @@ export default function Navbar() {
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
           mobileMenuOpen
-            ? "max-h-[460px] opacity-100 border-b border-[#e6edf5] bg-white/95 backdrop-blur-xl shadow-lg mt-3"
+            ? "max-h-[500px] opacity-100 border-b border-[#e6edf5] dark:border-slate-800 bg-white/95 dark:bg-[#0f1d32]/95 backdrop-blur-xl shadow-lg mt-3"
             : "max-h-0 opacity-0"
         }`}
       >
         <div className="max-w-[1200px] mx-auto px-6 py-5 flex flex-col gap-3">
-          <div className="flex flex-col divide-y divide-slate-100">
+          <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={closeMobileMenu}
-                className="flex items-center justify-between py-3 text-[1rem] font-medium text-[#3d4e6b] hover:text-[#0a66ff] transition-colors"
+                className="flex items-center justify-between py-3 text-[1rem] font-medium text-[#3d4e6b] dark:text-slate-200 hover:text-[#0a66ff] dark:hover:text-[#38bdf8] transition-colors"
               >
                 <span>{link.label}</span>
-                <i className="fas fa-chevron-right text-xs text-slate-300"></i>
+                <i className="fas fa-chevron-right text-xs text-slate-300 dark:text-slate-600"></i>
               </a>
             ))}
           </div>

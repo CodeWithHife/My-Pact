@@ -72,27 +72,27 @@ export default function HowItWorks() {
   const currentStep = steps[activeStep];
 
   return (
-    <section id="how" className="py-24 bg-[#f8faff] border-b border-slate-100 relative overflow-hidden">
+    <section id="how" className="py-16 sm:py-24 bg-[#f8faff] dark:bg-[#070f1e] border-b border-slate-100 dark:border-slate-800 relative overflow-hidden transition-colors duration-300">
       {/* Background Subtle Accent */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#0a66ff]/4 dark:bg-[#0a66ff]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-4 border border-[#0a66ff]/20">
-            <i className="fas fa-route text-[#0a66ff]"></i>
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e8f0fe] dark:bg-[#0a66ff]/15 text-[#0a66ff] dark:text-[#38bdf8] text-[0.72rem] sm:text-xs font-bold uppercase tracking-wider mb-3.5 sm:mb-4 border border-[#0a66ff]/20">
+            <i className="fas fa-route text-[#0a66ff] dark:text-[#38bdf8]"></i>
             <span>The 4-Step Process</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] tracking-tight leading-tight mb-4">
-            How MyPact turns intentions into <span className="text-[#0a66ff]">daily execution</span>.
+          <h2 className="text-2xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] dark:text-white tracking-tight leading-tight mb-3 sm:mb-4">
+            How MyPact turns intentions into <span className="text-[#0a66ff] dark:text-[#38bdf8]">daily execution</span>.
           </h2>
-          <p className="text-base sm:text-lg text-[#3d4e6b] leading-relaxed">
+          <p className="text-sm sm:text-lg text-[#3d4e6b] dark:text-slate-300 leading-relaxed">
             A frictionless 4-step loop designed to make procrastinating more uncomfortable than getting to work.
           </p>
         </div>
 
         {/* Interactive Step Runway Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-10 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 mb-8 sm:mb-10 max-w-5xl mx-auto">
           {steps.map((step, idx) => {
             const isSelected = activeStep === idx;
             return (
@@ -103,16 +103,16 @@ export default function HowItWorks() {
                 className={`p-4 sm:p-5 rounded-2xl text-left border transition-all duration-300 cursor-pointer flex flex-col justify-between ${
                   isSelected
                     ? "bg-[#0a66ff] text-white border-[#0a66ff] shadow-lg shadow-[#0a66ff]/25 scale-102"
-                    : "bg-white text-slate-700 border-slate-200/90 hover:border-slate-300 hover:bg-slate-50"
+                    : "bg-white dark:bg-[#0f1d32] text-slate-700 dark:text-slate-200 border-slate-200/90 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-[#142642]"
                 }`}
               >
                 <div className="flex items-center justify-between mb-3">
                   <span className={`text-xs font-black font-mono px-2 py-0.5 rounded-md ${
-                    isSelected ? "bg-white/20 text-white" : "bg-slate-100 text-[#0a66ff]"
+                    isSelected ? "bg-white/20 text-white" : "bg-slate-100 dark:bg-slate-800 text-[#0a66ff] dark:text-[#38bdf8]"
                   }`}>
                     Step {step.number}
                   </span>
-                  <i className={`${step.icon} text-sm ${isSelected ? "text-white" : "text-[#0a66ff]"}`}></i>
+                  <i className={`${step.icon} text-sm ${isSelected ? "text-white" : "text-[#0a66ff] dark:text-[#38bdf8]"}`}></i>
                 </div>
                 <div className="font-extrabold text-sm sm:text-base leading-snug">
                   {step.title}
@@ -123,23 +123,23 @@ export default function HowItWorks() {
         </div>
 
         {/* Runway Active Spotlight Stage */}
-        <div className="max-w-5xl mx-auto bg-white rounded-3xl p-7 sm:p-10 border border-slate-200/90 shadow-[0_20px_50px_rgba(10,102,255,0.08)]">
+        <div className="max-w-5xl mx-auto bg-white dark:bg-[#0f1d32] rounded-3xl p-7 sm:p-10 border border-slate-200/90 dark:border-slate-700 shadow-[0_20px_50px_rgba(10,102,255,0.08)]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left: Step Details */}
             <div className="lg:col-span-7 flex flex-col items-start">
-              <div className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#0a66ff] bg-[#e8f0fe] px-3 py-1 rounded-full mb-3">
+              <div className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#0a66ff] dark:text-[#38bdf8] bg-[#e8f0fe] dark:bg-[#0a66ff]/15 px-3 py-1 rounded-full mb-3">
                 <span>Phase: {currentStep.phase}</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0b1a33] tracking-tight mb-3">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0b1a33] dark:text-white tracking-tight mb-3">
                 {currentStep.title}
               </h3>
-              <p className="text-sm sm:text-base text-[#3d4e6b] leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-[#3d4e6b] dark:text-slate-300 leading-relaxed mb-6">
                 {currentStep.description}
               </p>
 
-              <div className="p-3.5 rounded-2xl bg-[#f8faff] border border-slate-200/80 flex items-center gap-3 w-full mb-6">
+              <div className="p-3.5 rounded-2xl bg-[#f8faff] dark:bg-[#132238] border border-slate-200/80 dark:border-slate-700 flex items-center gap-3 w-full mb-6">
                 <i className="fas fa-lightbulb text-amber-500 text-sm flex-shrink-0"></i>
-                <span className="text-xs text-[#3d4e6b] font-medium">
+                <span className="text-xs text-[#3d4e6b] dark:text-slate-300 font-medium">
                   {currentStep.actionTip}
                 </span>
               </div>
@@ -156,35 +156,35 @@ export default function HowItWorks() {
             </div>
 
             {/* Right: Interactive Step Simulated Preview */}
-            <div className="lg:col-span-5 bg-[#f8faff] rounded-3xl p-6 border border-[#0a66ff]/20 shadow-sm">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
-                <span className="text-xs font-black text-[#0a66ff] uppercase tracking-wider">
+            <div className="lg:col-span-5 bg-[#f8faff] dark:bg-[#0a182d] rounded-3xl p-6 border border-[#0a66ff]/20 dark:border-slate-700 shadow-sm">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-700 mb-4">
+                <span className="text-xs font-black text-[#0a66ff] dark:text-[#38bdf8] uppercase tracking-wider">
                   Live Stage Simulator
                 </span>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                   {currentStep.preview.stat}
                 </span>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2 mb-4">
+              <div className="p-4 rounded-2xl bg-white dark:bg-[#132238] border border-slate-200 dark:border-slate-700 shadow-xs space-y-2 mb-4">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-lg bg-[#0a66ff] text-white flex items-center justify-center text-xs">
                     <i className={currentStep.icon}></i>
                   </div>
                   <div>
-                    <h4 className="font-bold text-xs text-[#0b1a33]">
+                    <h4 className="font-bold text-xs text-[#0b1a33] dark:text-white">
                       {currentStep.preview.title}
                     </h4>
-                    <p className="text-[11px] text-slate-500">
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
                       {currentStep.preview.subtitle}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-[11px] text-slate-500 pt-2 border-t border-slate-200/80">
+              <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-200/80 dark:border-slate-700">
                 <span>Autonomous Execution</span>
-                <span className="text-[#0a66ff] font-bold">100% Guaranteed</span>
+                <span className="text-[#0a66ff] dark:text-[#38bdf8] font-bold">100% Guaranteed</span>
               </div>
             </div>
           </div>

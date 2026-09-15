@@ -100,24 +100,24 @@ export default function Pricing() {
     <section 
       id="pricing" 
       ref={sectionRef}
-      className="py-20 sm:py-24 bg-[#ffffff] border-b border-slate-100 relative overflow-hidden"
+      className="py-16 sm:py-24 bg-[#ffffff] dark:bg-[#070f1e] border-b border-slate-100 dark:border-slate-800 relative overflow-hidden transition-colors duration-300"
     >
       {/* Background Accent Gradients */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#0a66ff]/4 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#0a66ff]/4 dark:bg-[#0a66ff]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1200px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className={`text-center max-w-2xl mx-auto mb-14 transition-all duration-700 ease-out ${
+        <div className={`text-center max-w-2xl mx-auto mb-10 sm:mb-14 transition-all duration-700 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-3.5 border border-[#0a66ff]/20 shadow-xs">
-            <i className="fas fa-tag text-[#0a66ff]"></i>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e8f0fe] dark:bg-[#0a66ff]/15 text-[#0a66ff] dark:text-[#38bdf8] text-[0.72rem] sm:text-xs font-bold uppercase tracking-wider mb-3.5 border border-[#0a66ff]/20 shadow-xs">
+            <i className="fas fa-tag text-[#0a66ff] dark:text-[#38bdf8]"></i>
             <span>Pricing</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0b1a33] tracking-tight leading-tight mb-3">
-            Choose your <span className="text-[#0a66ff]">accountability level</span>.
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#0b1a33] dark:text-white tracking-tight leading-tight mb-3">
+            Choose your <span className="text-[#0a66ff] dark:text-[#38bdf8]">accountability level</span>.
           </h2>
-          <p className="text-sm sm:text-base text-[#3d4e6b] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#3d4e6b] dark:text-slate-300 leading-relaxed">
             Budget-friendly student pricing designed for academic achievement in Nigerian universities.
           </p>
         </div>
@@ -131,8 +131,8 @@ export default function Pricing() {
               key={plan.id}
               className={`rounded-3xl p-6 sm:p-7 transition-all duration-300 flex flex-col justify-between relative ${
                 plan.popular
-                  ? "bg-white border-2 border-[#0a66ff] shadow-[0_20px_50px_rgba(10,102,255,0.14)] ring-4 ring-[#0a66ff]/10 -translate-y-1 sm:-translate-y-2"
-                  : "bg-white border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-md hover:border-slate-300"
+                  ? "bg-white dark:bg-[#0f1d32] border-2 border-[#0a66ff] shadow-[0_20px_50px_rgba(10,102,255,0.14)] ring-4 ring-[#0a66ff]/10 -translate-y-1 sm:-translate-y-2"
+                  : "bg-white dark:bg-[#0f1d32] border border-slate-200/90 dark:border-slate-700 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-md hover:border-slate-300 dark:hover:border-slate-600"
               }`}
             >
               {/* Badge */}
@@ -160,10 +160,10 @@ export default function Pricing() {
                       <i className={plan.icon}></i>
                     </div>
                     <div>
-                      <h3 className="text-base font-extrabold text-[#0b1a33] tracking-tight">
+                      <h3 className="text-base font-extrabold text-[#0b1a33] dark:text-white tracking-tight">
                         {plan.name}
                       </h3>
-                      <p className="text-[11px] text-[#7a8aa3]">
+                      <p className="text-[11px] text-[#7a8aa3] dark:text-slate-400">
                         {plan.description}
                       </p>
                     </div>
@@ -171,11 +171,11 @@ export default function Pricing() {
                 </div>
 
                 {/* Price Display */}
-                <div className="my-5 py-3 border-y border-slate-100 flex items-baseline gap-1.5">
-                  <span className="text-3xl sm:text-4xl font-black text-[#0b1a33] tracking-tight">
+                <div className="my-5 py-3 border-y border-slate-100 dark:border-slate-700 flex items-baseline gap-1.5">
+                  <span className="text-3xl sm:text-4xl font-black text-[#0b1a33] dark:text-white tracking-tight">
                     {plan.price}
                   </span>
-                  <span className="text-xs font-bold text-[#7a8aa3]">
+                  <span className="text-xs font-bold text-[#7a8aa3] dark:text-slate-400">
                     / {plan.period}
                   </span>
                 </div>
@@ -183,11 +183,11 @@ export default function Pricing() {
                 {/* Compact Feature Bullet Points */}
                 <ul className="space-y-2.5 mb-6">
                   {plan.features.map((feature, idx) => (
-                    <li key={`feat-${idx}`} className="flex items-center gap-2.5 text-xs text-[#3d4e6b]">
-                      <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[9px] flex-shrink-0">
+                    <li key={`feat-${idx}`} className="flex items-center gap-2.5 text-xs text-[#3d4e6b] dark:text-slate-300">
+                      <div className="w-4 h-4 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 flex items-center justify-center text-[9px] flex-shrink-0">
                         <i className="fas fa-check"></i>
                       </div>
-                      <span className="font-medium text-[#0b1a33]">
+                      <span className="font-medium text-[#0b1a33] dark:text-slate-200">
                         {feature}
                       </span>
                     </li>
@@ -202,7 +202,7 @@ export default function Pricing() {
                   className={`w-full py-3 rounded-full font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer ${
                     plan.popular
                       ? "bg-[#0a66ff] hover:bg-[#084bc2] text-white shadow-md shadow-[#0a66ff]/25 hover:shadow-lg hover:shadow-[#0a66ff]/35 hover:-translate-y-0.5"
-                      : "bg-slate-50 hover:bg-white text-[#0b1a33] hover:text-[#0a66ff] border border-slate-200 hover:border-[#0a66ff]/40 shadow-xs"
+                      : "bg-slate-50 dark:bg-[#142642] hover:bg-white dark:hover:bg-[#1b335a] text-[#0b1a33] dark:text-white hover:text-[#0a66ff] border border-slate-200 dark:border-slate-700 hover:border-[#0a66ff]/40 shadow-xs"
                   }`}
                 >
                   <span>{plan.buttonText}</span>
@@ -214,21 +214,21 @@ export default function Pricing() {
         </div>
 
         {/* Campus & Department Horizontal Banner Card */}
-        <div className="max-w-5xl mx-auto rounded-3xl p-6 sm:p-7 bg-[#f8faff] border border-[#0a66ff]/20 shadow-[0_12px_36px_rgba(10,102,255,0.06)] flex flex-col md:flex-row items-center justify-between gap-5">
+        <div className="max-w-5xl mx-auto rounded-3xl p-6 sm:p-7 bg-[#f8faff] dark:bg-[#0f1d32] border border-[#0a66ff]/20 dark:border-slate-700 shadow-[0_12px_36px_rgba(10,102,255,0.06)] flex flex-col md:flex-row items-center justify-between gap-5">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#0b1a33] text-white flex items-center justify-center text-xl flex-shrink-0 shadow-xs">
+            <div className="w-12 h-12 rounded-2xl bg-[#0b1a33] dark:bg-[#0a66ff] text-white flex items-center justify-center text-xl flex-shrink-0 shadow-xs">
               <i className="fas fa-school"></i>
             </div>
             <div>
               <div className="flex items-center gap-2 mb-0.5">
-                <span className="text-xs font-bold text-[#0a66ff] uppercase tracking-wider">
+                <span className="text-xs font-bold text-[#0a66ff] dark:text-[#38bdf8] uppercase tracking-wider">
                   Campus & University Departments
                 </span>
-                <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-blue-100 text-[#0a66ff]">
+                <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/60 text-[#0a66ff] dark:text-[#38bdf8]">
                   Custom Plan
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-[#3d4e6b] leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#3d4e6b] dark:text-slate-300 leading-relaxed">
                 Faculty admin dashboards, bulk student LMS onboarding, and cohort-wide early at-risk detection.
               </p>
             </div>
@@ -237,7 +237,7 @@ export default function Pricing() {
             href="https://wa.me/2349027874036?text=Hello%20MyPact,%20I%20am%20interested%20in%20Campus%20and%20Department%20plans"
             target="_blank"
             rel="noopener noreferrer"
-            className="whitespace-nowrap px-6 py-3 rounded-full bg-[#0b1a33] hover:bg-[#1b2f4f] text-white font-semibold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+            className="whitespace-nowrap px-6 py-3 rounded-full bg-[#0b1a33] dark:bg-[#0a66ff] hover:bg-[#1b2f4f] dark:hover:bg-[#084bc2] text-white font-semibold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <span>Contact Campus Sales</span>
             <i className="fas fa-arrow-right text-[10px]"></i>

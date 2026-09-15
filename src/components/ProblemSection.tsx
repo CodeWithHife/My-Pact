@@ -69,21 +69,21 @@ export default function ProblemSection() {
     <section
       id="problem"
       ref={sectionRef}
-      className="py-24 bg-[#08111e] text-white relative overflow-hidden"
+      className="py-16 sm:py-24 bg-[#08111e] text-white relative overflow-hidden"
     >
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div
-          className={`flex flex-col md:flex-row md:items-end justify-between mb-14 pb-8 border-b border-slate-800 transition-all duration-700 ease-out ${
+          className={`flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 pb-6 sm:pb-8 border-b border-slate-800 transition-all duration-700 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800 text-slate-300 text-xs font-bold uppercase tracking-wider mb-4 border border-slate-700">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-[0.7rem] sm:text-xs font-bold uppercase tracking-wider mb-3 sm:mb-4 border border-slate-700">
               <i className="fas fa-triangle-exclamation text-rose-400"></i>
               <span>The Broken Cycle</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-tight leading-[1.15] text-white">
+            <h2 className="text-2xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-tight leading-[1.15] text-white">
               Why traditional productivity apps{" "}
               <span className="text-[#0a66ff]">
                 fail university students
@@ -91,15 +91,15 @@ export default function ProblemSection() {
               .
             </h2>
           </div>
-          <p className="text-slate-400 text-sm sm:text-base max-w-md mt-4 md:mt-0 leading-relaxed">
+          <p className="text-slate-400 text-xs sm:text-base max-w-md mt-3 md:mt-0 leading-relaxed">
             Standard apps rely 100% on voluntary willpower. When motivation dips, there are zero immediate friction points or consequences.
           </p>
         </div>
 
         {/* 3-Pillar Interactive Failure Matrix */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
           {/* Left Column: Interactive Problem Selector Deck */}
-          <div className="lg:col-span-5 flex flex-col gap-3.5 justify-center">
+          <div className="lg:col-span-5 flex flex-col gap-2.5 sm:gap-3.5 justify-center">
             {problems.map((item, idx) => {
               const isSelected = activeTab === idx;
               return (
@@ -107,15 +107,15 @@ export default function ProblemSection() {
                   key={item.id}
                   type="button"
                   onClick={() => setActiveTab(idx)}
-                  className={`w-full p-5 rounded-2xl text-left border transition-all duration-200 cursor-pointer flex items-center justify-between ${
+                  className={`w-full p-4 sm:p-5 rounded-2xl text-left border transition-all duration-200 cursor-pointer flex items-center justify-between ${
                     isSelected
-                      ? "bg-[#0f1d32] border-[#0a66ff] shadow-lg ring-1 ring-[#0a66ff]/40 -translate-x-1"
+                      ? "bg-[#0f1d32] border-[#0a66ff] shadow-lg ring-1 ring-[#0a66ff]/40 sm:-translate-x-1"
                       : "bg-[#0b1626] border-slate-800 hover:bg-[#0f1d32] hover:border-slate-700 text-slate-300"
                   }`}
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3 sm:gap-4">
                     <div
-                      className={`w-11 h-11 rounded-xl flex items-center justify-center text-sm font-black transition-colors ${
+                      className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center text-xs sm:text-sm font-black transition-colors shrink-0 ${
                         isSelected
                           ? "bg-[#0a66ff] text-white shadow-sm"
                           : "bg-slate-800 text-slate-400"
@@ -124,17 +124,17 @@ export default function ProblemSection() {
                       {item.number}
                     </div>
                     <div>
-                      <h3 className="font-extrabold text-base text-white">
+                      <h3 className="font-extrabold text-sm sm:text-base text-white">
                         {item.title}
                       </h3>
-                      <p className="text-xs text-slate-400 mt-0.5 line-clamp-1">
+                      <p className="text-[0.72rem] sm:text-xs text-slate-400 mt-0.5 line-clamp-1">
                         {item.headline}
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                     <span
-                      className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full border ${
+                      className={`text-[9px] sm:text-[10px] font-black uppercase px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border ${
                         isSelected
                           ? "bg-rose-950/60 text-rose-300 border-rose-800/80"
                           : "bg-slate-800 text-slate-400 border-slate-700"
@@ -143,7 +143,7 @@ export default function ProblemSection() {
                       {item.dangerLevel}
                     </span>
                     <i
-                      className={`fas fa-chevron-right text-xs transition-transform ${
+                      className={`fas fa-chevron-right text-[10px] sm:text-xs transition-transform ${
                         isSelected ? "text-[#0a66ff] translate-x-0.5" : "text-slate-600"
                       }`}
                     ></i>

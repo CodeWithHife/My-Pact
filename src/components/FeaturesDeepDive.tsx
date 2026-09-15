@@ -113,27 +113,27 @@ export default function FeaturesDeepDive() {
   const currentPillar = featurePillars[activeTab];
 
   return (
-    <section id="features" className="py-24 bg-[#f8faff] border-b border-slate-100 relative overflow-hidden">
+    <section id="features" className="py-16 sm:py-24 bg-[#f8faff] dark:bg-[#070f1e] border-b border-slate-100 dark:border-slate-800/80 relative overflow-hidden transition-colors duration-300">
       {/* Dynamic Background Glows */}
-      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-[#0a66ff]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-[#0a66ff]/5 dark:bg-[#0a66ff]/15 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-4 border border-[#0a66ff]/20">
-            <i className="fas fa-microchip text-[#0a66ff]"></i>
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e8f0fe] dark:bg-blue-950/50 text-[#0a66ff] dark:text-[#38bdf8] text-[0.72rem] sm:text-xs font-bold uppercase tracking-wider mb-3.5 sm:mb-4 border border-[#0a66ff]/20 dark:border-blue-800/50">
+            <i className="fas fa-microchip text-[#0a66ff] dark:text-[#38bdf8]"></i>
             <span>Interactive Command Center</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] tracking-tight leading-tight mb-4">
-            Master the complete <span className="text-[#0a66ff]">MyPact toolkit</span>.
+          <h2 className="text-2xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] dark:text-white tracking-tight leading-tight mb-3 sm:mb-4">
+            Master the complete <span className="text-[#0a66ff] dark:text-[#38bdf8]">MyPact toolkit</span>.
           </h2>
-          <p className="text-base sm:text-lg text-[#3d4e6b] leading-relaxed">
+          <p className="text-sm sm:text-lg text-[#3d4e6b] dark:text-slate-300 leading-relaxed">
             Explore every core pillar engineered to transform academic intentions into verifiable results.
           </p>
         </div>
 
         {/* Feature Pillar Horizontal Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 mb-10 max-w-4xl mx-auto">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3.5 mb-8 sm:mb-10 max-w-4xl mx-auto">
           {featurePillars.map((pillar, idx) => {
             const isSelected = activeTab === idx;
             return (
@@ -141,13 +141,13 @@ export default function FeaturesDeepDive() {
                 key={pillar.id}
                 type="button"
                 onClick={() => setActiveTab(idx)}
-                className={`px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center gap-2.5 cursor-pointer ${
+                className={`px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center gap-2 sm:gap-2.5 cursor-pointer ${
                   isSelected
                     ? "bg-[#0a66ff] text-white shadow-lg shadow-[#0a66ff]/25 scale-102"
-                    : "bg-white text-slate-600 hover:text-[#0b1a33] border border-slate-200/90 hover:border-slate-300"
+                    : "bg-white dark:bg-[#0f1d32] text-slate-600 dark:text-slate-300 hover:text-[#0b1a33] dark:hover:text-white border border-slate-200/90 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
                 }`}
               >
-                <i className={`${pillar.icon} ${isSelected ? "text-white" : "text-[#0a66ff]"}`}></i>
+                <i className={`${pillar.icon} ${isSelected ? "text-white" : "text-[#0a66ff] dark:text-[#38bdf8]"}`}></i>
                 <span>{pillar.tabTitle}</span>
               </button>
             );
@@ -155,32 +155,32 @@ export default function FeaturesDeepDive() {
         </div>
 
         {/* Master Feature Interactive Stage */}
-        <div className="bg-white rounded-3xl p-7 sm:p-10 border border-slate-200/90 shadow-[0_20px_60px_rgba(10,102,255,0.08)]">
+        <div className="bg-white dark:bg-[#0f1d32] rounded-3xl p-5 sm:p-10 border border-slate-200/90 dark:border-slate-800 shadow-[0_20px_60px_rgba(10,102,255,0.08)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Stage: Deep Feature Overview & Bullet List */}
             <div className="lg:col-span-6 flex flex-col items-start">
-              <div className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#0a66ff] bg-[#e8f0fe] px-3.5 py-1 rounded-full mb-4">
+              <div className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#0a66ff] dark:text-[#38bdf8] bg-[#e8f0fe] dark:bg-blue-950/50 px-3.5 py-1 rounded-full mb-4 border border-[#0a66ff]/20 dark:border-blue-800/50">
                 <span>Pillar {currentPillar.number}</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0b1a33] tracking-tight leading-snug mb-3">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0b1a33] dark:text-white tracking-tight leading-snug mb-3">
                 {currentPillar.title}
               </h3>
-              <p className="text-sm sm:text-base text-[#3d4e6b] leading-relaxed mb-8">
+              <p className="text-sm sm:text-base text-[#3d4e6b] dark:text-slate-300 leading-relaxed mb-8">
                 {currentPillar.subtitle}
               </p>
 
               {/* 3 Bullet Points */}
               <div className="space-y-4 w-full">
                 {currentPillar.bullets.map((bullet, idx) => (
-                  <div key={idx} className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-[#f8faff] border border-slate-200/70">
+                  <div key={idx} className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-[#f8faff] dark:bg-[#070f1e] border border-slate-200/70 dark:border-slate-800">
                     <div className="w-9 h-9 rounded-xl bg-[#0a66ff] text-white flex items-center justify-center text-xs flex-shrink-0 shadow-xs mt-0.5">
                       <i className={bullet.icon}></i>
                     </div>
                     <div>
-                      <h4 className="font-bold text-sm text-[#0b1a33]">
+                      <h4 className="font-bold text-sm text-[#0b1a33] dark:text-white">
                         {bullet.title}
                       </h4>
-                      <p className="text-xs text-[#3d4e6b] mt-0.5 leading-relaxed">
+                      <p className="text-xs text-[#3d4e6b] dark:text-slate-400 mt-0.5 leading-relaxed">
                         {bullet.desc}
                       </p>
                     </div>
@@ -193,52 +193,52 @@ export default function FeaturesDeepDive() {
             <div className="lg:col-span-6">
               {activeTab === 0 && (
                 /* Interactive Widget for Enforcement Engine */
-                <div className="bg-[#f8faff] rounded-3xl p-6 sm:p-7 border border-[#0a66ff]/20 shadow-sm">
-                  <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-5">
+                <div className="bg-[#f8faff] dark:bg-[#070f1e] rounded-3xl p-6 sm:p-7 border border-[#0a66ff]/20 dark:border-slate-800 shadow-sm">
+                  <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-5">
                     <div className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
-                      <span className="font-extrabold text-xs text-[#0b1a33] uppercase tracking-wider">
+                      <span className="font-extrabold text-xs text-[#0b1a33] dark:text-white uppercase tracking-wider">
                         Alarm Verification Live
                       </span>
                     </div>
-                    <span className="text-xs font-bold text-[#0a66ff] bg-blue-50 px-2.5 py-0.5 rounded-full">
+                    <span className="text-xs font-bold text-[#0a66ff] dark:text-[#38bdf8] bg-blue-50 dark:bg-blue-950/60 px-2.5 py-0.5 rounded-full border border-blue-200/60 dark:border-blue-800/60">
                       Zero Snooze Mode
                     </span>
                   </div>
 
                   <div className="space-y-3 mb-5">
-                    <div className="p-4 rounded-2xl bg-white border border-[#0a66ff]/30 shadow-xs flex items-center justify-between">
+                    <div className="p-4 rounded-2xl bg-white dark:bg-[#0f1d32] border border-[#0a66ff]/30 dark:border-blue-500/30 shadow-xs flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-[#0a66ff] text-white flex items-center justify-center text-sm">
                           <i className="fas fa-barcode"></i>
                         </div>
                         <div>
-                          <div className="font-bold text-xs text-[#0b1a33]">Textbook ISBN Scan</div>
-                          <div className="text-[11px] text-slate-500">Scan BIO-301 Physical Cover</div>
+                          <div className="font-bold text-xs text-[#0b1a33] dark:text-white">Textbook ISBN Scan</div>
+                          <div className="text-[11px] text-slate-500 dark:text-slate-400">Scan BIO-301 Physical Cover</div>
                         </div>
                       </div>
-                      <span className="text-[10px] font-bold px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded">
+                      <span className="text-[10px] font-bold px-2 py-0.5 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 rounded border border-emerald-500/20">
                         Required
                       </span>
                     </div>
 
-                    <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-center justify-between">
+                    <div className="p-4 rounded-2xl bg-white dark:bg-[#0f1d32] border border-slate-200 dark:border-slate-800 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-sm">
+                        <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 flex items-center justify-center text-sm">
                           <i className="fas fa-calculator"></i>
                         </div>
                         <div>
-                          <div className="font-bold text-xs text-[#0b1a33]">Mental Alertness Equation</div>
-                          <div className="text-[11px] text-slate-500">Solve 3 equations in 45 seconds</div>
+                          <div className="font-bold text-xs text-[#0b1a33] dark:text-white">Mental Alertness Equation</div>
+                          <div className="text-[11px] text-slate-500 dark:text-slate-400">Solve 3 equations in 45 seconds</div>
                         </div>
                       </div>
-                      <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">
+                      <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded">
                         Active
                       </span>
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-2xl bg-slate-900 text-white flex items-center justify-between text-xs">
+                  <div className="p-3.5 rounded-2xl bg-slate-900 dark:bg-[#132238] border border-transparent dark:border-slate-800 text-white flex items-center justify-between text-xs">
                     <span className="flex items-center gap-2">
                       <i className="fas fa-shield-virus text-rose-400"></i>
                       <span>App Lockout armed on timeout</span>
@@ -250,24 +250,24 @@ export default function FeaturesDeepDive() {
 
               {activeTab === 1 && (
                 /* Interactive Widget for AI Syllabus & Grade Goal */
-                <div className="bg-[#f8faff] rounded-3xl p-6 sm:p-7 border border-[#0a66ff]/20 shadow-sm">
-                  <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-5">
+                <div className="bg-[#f8faff] dark:bg-[#070f1e] rounded-3xl p-6 sm:p-7 border border-[#0a66ff]/20 dark:border-slate-800 shadow-sm">
+                  <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-5">
                     <div className="flex items-center gap-2">
-                      <i className="fas fa-robot text-[#0a66ff]"></i>
-                      <span className="font-extrabold text-xs text-[#0b1a33] uppercase tracking-wider">
+                      <i className="fas fa-robot text-[#0a66ff] dark:text-[#38bdf8]"></i>
+                      <span className="font-extrabold text-xs text-[#0b1a33] dark:text-white uppercase tracking-wider">
                         AI Grade Calculator & Syllabus
                       </span>
                     </div>
-                    <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">
+                    <span className="text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
                       CHEM_201.pdf
                     </span>
                   </div>
 
                   {/* Grade Goal Slider */}
-                  <div className="p-4 rounded-2xl bg-white border border-[#0a66ff]/30 shadow-xs mb-4">
+                  <div className="p-4 rounded-2xl bg-white dark:bg-[#0f1d32] border border-[#0a66ff]/30 dark:border-blue-500/30 shadow-xs mb-4">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold text-[#0b1a33]">Target Final Grade</span>
-                      <span className="text-xs font-extrabold text-[#0a66ff]">{desiredGrade}% (A)</span>
+                      <span className="text-xs font-bold text-[#0b1a33] dark:text-white">Target Final Grade</span>
+                      <span className="text-xs font-extrabold text-[#0a66ff] dark:text-[#38bdf8]">{desiredGrade}% (A)</span>
                     </div>
                     <input
                       type="range"
@@ -277,20 +277,20 @@ export default function FeaturesDeepDive() {
                       onChange={(e) => setDesiredGrade(Number(e.target.value))}
                       className="w-full accent-[#0a66ff] cursor-pointer mb-2"
                     />
-                    <div className="flex items-center justify-between text-[11px] pt-2 border-t border-slate-100">
-                      <span className="text-slate-500">Current Average: 84.0%</span>
-                      <span className="font-bold text-emerald-700">
+                    <div className="flex items-center justify-between text-[11px] pt-2 border-t border-slate-100 dark:border-slate-800">
+                      <span className="text-slate-500 dark:text-slate-400">Current Average: 84.0%</span>
+                      <span className="font-bold text-emerald-700 dark:text-emerald-400">
                         Need {(desiredGrade * 1.08 - 6.5).toFixed(1)}% on Final Exam
                       </span>
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-2xl bg-white border border-slate-200 flex items-center justify-between text-xs">
+                  <div className="p-3.5 rounded-2xl bg-white dark:bg-[#0f1d32] border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
-                      <i className="fas fa-calendar-check text-[#0a66ff]"></i>
-                      <span className="text-[#0b1a33] font-semibold">12 Exam Micro-blocks Scheduled</span>
+                      <i className="fas fa-calendar-check text-[#0a66ff] dark:text-[#38bdf8]"></i>
+                      <span className="text-[#0b1a33] dark:text-white font-semibold">12 Exam Micro-blocks Scheduled</span>
                     </div>
-                    <span className="text-[10px] font-extrabold bg-[#e8f0fe] text-[#0a66ff] px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-extrabold bg-[#e8f0fe] dark:bg-blue-950/60 text-[#0a66ff] dark:text-blue-300 px-2 py-0.5 rounded border border-blue-500/20">
                       Auto-Synced
                     </span>
                   </div>
@@ -299,38 +299,38 @@ export default function FeaturesDeepDive() {
 
               {activeTab === 2 && (
                 /* Interactive Widget for App Lockout */
-                <div className="bg-[#f8faff] rounded-3xl p-6 sm:p-7 border border-[#0a66ff]/20 shadow-sm">
-                  <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-5">
+                <div className="bg-[#f8faff] dark:bg-[#070f1e] rounded-3xl p-6 sm:p-7 border border-[#0a66ff]/20 dark:border-slate-800 shadow-sm">
+                  <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-5">
                     <div className="flex items-center gap-2">
                       <i className="fas fa-lock text-rose-500"></i>
-                      <span className="font-extrabold text-xs text-[#0b1a33] uppercase tracking-wider">
+                      <span className="font-extrabold text-xs text-[#0b1a33] dark:text-white uppercase tracking-wider">
                         Distraction Shield Active
                       </span>
                     </div>
-                    <span className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700">
+                    <span className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-500/20">
                       Lockout Active
                     </span>
                   </div>
 
                   <div className="space-y-3 mb-5">
-                    <div className="p-3.5 rounded-2xl bg-white border border-slate-200 flex items-center justify-between">
+                    <div className="p-3.5 rounded-2xl bg-white dark:bg-[#0f1d32] border border-slate-200 dark:border-slate-800 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <i className="fab fa-instagram text-rose-500 text-lg"></i>
-                        <span className="text-xs font-bold text-[#0b1a33]">Instagram & Reels</span>
+                        <span className="text-xs font-bold text-[#0b1a33] dark:text-white">Instagram & Reels</span>
                       </div>
-                      <span className="text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded">Blocked (90 min)</span>
+                      <span className="text-[10px] font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 px-2 py-0.5 rounded border border-rose-500/20">Blocked (90 min)</span>
                     </div>
 
-                    <div className="p-3.5 rounded-2xl bg-white border border-slate-200 flex items-center justify-between">
+                    <div className="p-3.5 rounded-2xl bg-white dark:bg-[#0f1d32] border border-slate-200 dark:border-slate-800 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <i className="fab fa-tiktok text-slate-900 text-lg"></i>
-                        <span className="text-xs font-bold text-[#0b1a33]">TikTok & Shorts</span>
+                        <i className="fab fa-tiktok text-slate-900 dark:text-white text-lg"></i>
+                        <span className="text-xs font-bold text-[#0b1a33] dark:text-white">TikTok & Shorts</span>
                       </div>
-                      <span className="text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded">Blocked (90 min)</span>
+                      <span className="text-[10px] font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 px-2 py-0.5 rounded border border-rose-500/20">Blocked (90 min)</span>
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-2xl bg-slate-900 text-white flex items-center justify-between text-xs">
+                  <div className="p-3.5 rounded-2xl bg-slate-900 dark:bg-[#132238] border border-transparent dark:border-slate-800 text-white flex items-center justify-between text-xs">
                     <span>Unlock criteria: Complete 45m Organic Chemistry</span>
                     <i className="fas fa-key text-amber-400"></i>
                   </div>
@@ -339,28 +339,28 @@ export default function FeaturesDeepDive() {
 
               {activeTab === 3 && (
                 /* Interactive Widget for Accountability Circle */
-                <div className="bg-[#f8faff] rounded-3xl p-6 sm:p-7 border border-[#0a66ff]/20 shadow-sm">
-                  <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-4">
+                <div className="bg-[#f8faff] dark:bg-[#070f1e] rounded-3xl p-6 sm:p-7 border border-[#0a66ff]/20 dark:border-slate-800 shadow-sm">
+                  <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
                     <div className="flex items-center gap-2">
-                      <i className="fas fa-user-shield text-[#0a66ff]"></i>
-                      <span className="font-extrabold text-xs text-[#0b1a33] uppercase tracking-wider">
+                      <i className="fas fa-user-shield text-[#0a66ff] dark:text-[#38bdf8]"></i>
+                      <span className="font-extrabold text-xs text-[#0b1a33] dark:text-white uppercase tracking-wider">
                         Guardian Dispatch Live
                       </span>
                     </div>
-                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
+                    <span className="text-[10px] font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/60 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
                       2 Partners Connected
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-slate-900 text-white space-y-2 mb-4">
+                  <div className="p-4 rounded-2xl bg-slate-900 dark:bg-[#132238] border border-transparent dark:border-slate-800 text-white space-y-2 mb-4">
                     <div className="flex items-center justify-between text-xs text-slate-400">
                       <span className="flex items-center gap-1 text-amber-400 font-bold">
                         <i className="fas fa-comment-sms"></i> Level 3 SMS Dispatch
                       </span>
                       <span className="text-[10px]">Just now</span>
                     </div>
-                    <p className="text-xs text-slate-200 font-mono bg-slate-800 p-2.5 rounded-xl leading-relaxed">
-                      "🚨 Alert: Alex has entered Level 3 escalation after missing Organic Chemistry session. Lockout applied."
+                    <p className="text-xs text-slate-200 font-mono bg-slate-800 dark:bg-slate-900/80 p-2.5 rounded-xl leading-relaxed">
+                      &quot;🚨 Alert: Alex has entered Level 3 escalation after missing Organic Chemistry session. Lockout applied.&quot;
                     </p>
                   </div>
 

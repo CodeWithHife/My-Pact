@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import ThemeToggle from "@/components/ThemeToggle";
 
 // Comprehensive list of Nigerian & Global Universities / Polytechnics
 const universities = [
@@ -316,22 +317,22 @@ export default function OnboardingPage() {
   const progressPercent = (currentStep / totalSteps) * 100;
 
   return (
-    <div className="relative min-h-screen w-full bg-[#f0f5fe] text-[#0b1a33] flex items-center justify-center font-sans p-4 sm:p-6 lg:p-10 overflow-x-hidden">
+    <div className="relative min-h-screen w-full bg-[#f0f5fe] dark:bg-[#070f1e] text-[#0b1a33] dark:text-slate-100 flex items-center justify-center font-sans p-4 sm:p-6 lg:p-10 overflow-x-hidden transition-colors duration-300">
       {/* Background Animated Floating Glow Orbs */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute w-[600px] h-[600px] bg-[#0a66ff] rounded-full blur-[130px] opacity-15 -top-[200px] -right-[150px] animate-pulse" />
-        <div className="absolute w-[500px] h-[500px] bg-[#7c3aed] rounded-full blur-[130px] opacity-12 -bottom-[150px] -left-[120px] animate-pulse delay-1000" />
+        <div className="absolute w-[600px] h-[600px] bg-[#0a66ff] rounded-full blur-[130px] opacity-15 dark:opacity-20 -top-[200px] -right-[150px] animate-pulse" />
+        <div className="absolute w-[500px] h-[500px] bg-[#7c3aed] rounded-full blur-[130px] opacity-12 dark:opacity-15 -bottom-[150px] -left-[120px] animate-pulse delay-1000" />
       </div>
 
       <div className="relative z-10 w-full max-w-[780px] mx-auto">
         
         {/* Main Onboarding Card Container */}
-        <div className="bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl border border-white/80 shadow-[0_24px_64px_rgba(10,102,255,0.12)] overflow-hidden">
+        <div className="bg-white/95 dark:bg-[#0f1d32]/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl border border-white/80 dark:border-slate-800 shadow-[0_24px_64px_rgba(10,102,255,0.12)] overflow-hidden">
           
           {/* ====== HEADER ====== */}
-          <div className="px-5 py-4 sm:px-8 sm:py-5 border-b border-[#0a66ff]/10 flex items-center justify-between flex-wrap gap-3">
+          <div className="px-5 py-4 sm:px-8 sm:py-5 border-b border-[#0a66ff]/10 dark:border-slate-800 flex items-center justify-between flex-wrap gap-3">
             {/* Brand Logo */}
-            <Link href="/" className="flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] tracking-tight group">
+            <Link href="/" className="flex items-center gap-2.5 font-extrabold text-xl text-[#0b1a33] dark:text-white tracking-tight group">
               <div className="w-8 h-8 rounded-lg bg-[#0a66ff] flex items-center justify-center text-white text-sm shadow-sm shadow-[#0a66ff]/30 transition-transform group-hover:scale-105">
                 <Image
                   src="/logo/mypact_icon.svg"
@@ -342,24 +343,26 @@ export default function OnboardingPage() {
                 />
               </div>
               <span>
-                My<span className="text-[#0a66ff]">Pact</span>
+                My<span className="text-[#0a66ff] dark:text-[#38bdf8]">Pact</span>
               </span>
             </Link>
 
-            {/* Right Header Navigation: Step Counter + Styled Back to Home */}
-            <div className="flex items-center gap-3">
+            {/* Right Header Navigation: Step Counter + ThemeToggle + Styled Back to Home */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              <ThemeToggle />
+
               {!isSuccess && (
-                <div className="px-3 py-1 rounded-full bg-[#e8f0fe] border border-[#0a66ff]/15 text-[0.72rem] font-extrabold text-[#0a66ff] flex items-center gap-1.5 shadow-2xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0a66ff] animate-pulse" />
+                <div className="px-3 py-1 rounded-full bg-[#e8f0fe] dark:bg-[#0a66ff]/15 border border-[#0a66ff]/15 text-[0.72rem] font-extrabold text-[#0a66ff] dark:text-[#38bdf8] flex items-center gap-1.5 shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0a66ff] dark:bg-[#38bdf8] animate-pulse" />
                   <span>Step {currentStep} of {totalSteps}</span>
                 </div>
               )}
 
               <Link
                 href="/"
-                className="group/back inline-flex items-center gap-1.5 text-xs font-bold text-[#0b1a33] bg-slate-50 hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-slate-200/80 hover:border-[#0a66ff] shadow-2xs hover:shadow-[0_4px_16px_rgba(10,102,255,0.25)] transition-all duration-300 hover:-translate-x-0.5 active:scale-95"
+                className="group/back inline-flex items-center gap-1.5 text-xs font-bold text-[#0b1a33] dark:text-slate-200 bg-slate-50 dark:bg-[#142642] hover:bg-[#0a66ff] hover:text-white px-3 py-1.5 rounded-full border border-slate-200/80 dark:border-slate-700 hover:border-[#0a66ff] shadow-2xs hover:shadow-[0_4px_16px_rgba(10,102,255,0.25)] transition-all duration-300 hover:-translate-x-0.5 active:scale-95"
               >
-                <span className="w-4 h-4 rounded-full bg-[#e8f0fe] group-hover/back:bg-white/20 text-[#0a66ff] group-hover/back:text-white flex items-center justify-center transition-colors">
+                <span className="w-4 h-4 rounded-full bg-[#e8f0fe] dark:bg-slate-700 group-hover/back:bg-white/20 text-[#0a66ff] dark:text-[#38bdf8] group-hover/back:text-white flex items-center justify-center transition-colors">
                   <i className="fas fa-arrow-left text-[0.5rem] transition-transform group-hover/back:-translate-x-0.5"></i>
                 </span>
                 <span className="tracking-tight text-[0.72rem] hidden sm:inline">Back to Home</span>
@@ -370,7 +373,7 @@ export default function OnboardingPage() {
           {/* Progress Bar Track */}
           {!isSuccess && (
             <div className="px-5 sm:px-8 pt-3">
-              <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+              <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] rounded-full transition-all duration-500 ease-out"
                   style={{ width: `${progressPercent}%` }}
@@ -384,25 +387,25 @@ export default function OnboardingPage() {
             
             {!isSuccess ? (
               <div>
-                {/* STEP 1: ACADEMIC PROFILE (NO Name needed - collected on signup) */}
+                {/* STEP 1: ACADEMIC PROFILE */}
                 {currentStep === 1 && (
                   <div className="animate-fadeIn space-y-3.5">
                     <div className="mb-2">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] dark:bg-[#0a66ff]/15 text-[#0a66ff] dark:text-[#38bdf8] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
                         <i className="fas fa-building-columns text-[0.6rem]"></i>
                         <span>Step 1: Academic Institution & Goals</span>
                       </div>
-                      <h2 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
+                      <h2 className="text-xl sm:text-2xl font-black text-[#0b1a33] dark:text-white tracking-tight">
                         Configure your academic environment
                       </h2>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         Select your institution and academic standing so MyPact can sync campus study schedules and calibrate your Coursework AI.
                       </p>
                     </div>
 
                     {/* Institution / University Dropdown */}
                     <div className="relative">
-                      <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                      <label className="block text-[0.72rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-1">
                         Institution / University <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
@@ -412,16 +415,16 @@ export default function OnboardingPage() {
                           value={formData.university}
                           onChange={handleStep1Change}
                           onBlur={() => setStep1Touched((prev) => ({ ...prev, university: true }))}
-                          className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white appearance-none cursor-pointer ${(step1Touched.university) && step1Errors.university
+                          className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#142642] text-[#0b1a33] dark:text-white focus:bg-white dark:focus:bg-[#1a3258] appearance-none cursor-pointer ${(step1Touched.university) && step1Errors.university
                             ? "border-red-500 ring-2 ring-red-500/10"
                             : step1Touched.university && !step1Errors.university && formData.university
                               ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                              : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                              : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                             }`}
                         >
-                          <option value="">Select your university or polytechnic...</option>
+                          <option value="" className="dark:bg-[#0f1d32] text-slate-400">Select your university or polytechnic...</option>
                           {universities.map((uni) => (
-                            <option key={uni} value={uni}>
+                            <option key={uni} value={uni} className="dark:bg-[#0f1d32] dark:text-white">
                               {uni}
                             </option>
                           ))}
@@ -435,7 +438,7 @@ export default function OnboardingPage() {
 
                     {/* Faculty / Field of Study Dropdown */}
                     <div className="relative">
-                      <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                      <label className="block text-[0.72rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-1">
                         Faculty / Field of Study <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
@@ -445,16 +448,16 @@ export default function OnboardingPage() {
                           value={formData.faculty}
                           onChange={handleStep1Change}
                           onBlur={() => setStep1Touched((prev) => ({ ...prev, faculty: true }))}
-                          className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white appearance-none cursor-pointer ${(step1Touched.faculty) && step1Errors.faculty
+                          className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#142642] text-[#0b1a33] dark:text-white focus:bg-white dark:focus:bg-[#1a3258] appearance-none cursor-pointer ${(step1Touched.faculty) && step1Errors.faculty
                             ? "border-red-500 ring-2 ring-red-500/10"
                             : step1Touched.faculty && !step1Errors.faculty && formData.faculty
                               ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                              : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                              : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                             }`}
                         >
-                          <option value="">Select your faculty / department...</option>
+                          <option value="" className="dark:bg-[#0f1d32] text-slate-400">Select your faculty / department...</option>
                           {faculties.map((fac) => (
-                            <option key={fac} value={fac}>
+                            <option key={fac} value={fac} className="dark:bg-[#0f1d32] dark:text-white">
                               {fac}
                             </option>
                           ))}
@@ -470,7 +473,7 @@ export default function OnboardingPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {/* Academic Level Dropdown */}
                       <div className="relative">
-                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-1">
                           Current Academic Level <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
@@ -480,16 +483,16 @@ export default function OnboardingPage() {
                             value={formData.level}
                             onChange={handleStep1Change}
                             onBlur={() => setStep1Touched((prev) => ({ ...prev, level: true }))}
-                            className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white appearance-none cursor-pointer ${(step1Touched.level) && step1Errors.level
+                            className={`w-full pl-8 pr-8 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#142642] text-[#0b1a33] dark:text-white focus:bg-white dark:focus:bg-[#1a3258] appearance-none cursor-pointer ${(step1Touched.level) && step1Errors.level
                               ? "border-red-500 ring-2 ring-red-500/10"
                               : step1Touched.level && !step1Errors.level && formData.level
                                 ? "border-emerald-500 ring-2 ring-emerald-500/10"
-                                : "border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
+                                : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15"
                               }`}
                           >
-                            <option value="">Select current year / level...</option>
+                            <option value="" className="dark:bg-[#0f1d32] text-slate-400">Select current year / level...</option>
                             {academicLevels.map((lvl) => (
-                              <option key={lvl} value={lvl}>
+                              <option key={lvl} value={lvl} className="dark:bg-[#0f1d32] dark:text-white">
                                 {lvl}
                               </option>
                             ))}
@@ -503,7 +506,7 @@ export default function OnboardingPage() {
 
                       {/* Target GPA Dropdown */}
                       <div className="relative">
-                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-1">
                           Semester GPA Target
                         </label>
                         <div className="relative">
@@ -512,12 +515,12 @@ export default function OnboardingPage() {
                             name="targetGpa"
                             value={formData.targetGpa}
                             onChange={handleStep1Change}
-                            className="w-full pl-8 pr-8 py-2.5 rounded-xl border border-slate-200 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15 text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white appearance-none cursor-pointer"
+                            className="w-full pl-8 pr-8 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:border-[#0a66ff] focus:ring-3 focus:ring-[#0a66ff]/15 text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#142642] text-[#0b1a33] dark:text-white focus:bg-white dark:focus:bg-[#1a3258] appearance-none cursor-pointer"
                           >
-                            <option value="4.50 - 5.00 (First Class / Distinction)">4.50 - 5.00 (First Class / Top 5%)</option>
-                            <option value="3.50 - 4.49 (Second Class Upper)">3.50 - 4.49 (Second Class Upper)</option>
-                            <option value="3.00 - 3.49 (Solid Pass)">3.00 - 3.49 (Solid Pass)</option>
-                            <option value="Pass & Complete All Units">Pass & Complete All Units</option>
+                            <option value="4.50 - 5.00 (First Class / Distinction)" className="dark:bg-[#0f1d32]">4.50 - 5.00 (First Class / Top 5%)</option>
+                            <option value="3.50 - 4.49 (Second Class Upper)" className="dark:bg-[#0f1d32]">3.50 - 4.49 (Second Class Upper)</option>
+                            <option value="3.00 - 3.49 (Solid Pass)" className="dark:bg-[#0f1d32]">3.00 - 3.49 (Solid Pass)</option>
+                            <option value="Pass & Complete All Units" className="dark:bg-[#0f1d32]">Pass & Complete All Units</option>
                           </select>
                           <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                         </div>
@@ -530,14 +533,14 @@ export default function OnboardingPage() {
                 {currentStep === 2 && (
                   <div className="animate-fadeIn space-y-4">
                     <div className="mb-2">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] dark:bg-[#0a66ff]/15 text-[#0a66ff] dark:text-[#38bdf8] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
                         <i className="fas fa-book-bookmark text-[0.6rem]"></i>
                         <span>Step 2: Study Courses</span>
                       </div>
-                      <h2 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
+                      <h2 className="text-xl sm:text-2xl font-black text-[#0b1a33] dark:text-white tracking-tight">
                         Select your key courses
                       </h2>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         Choose the subjects you need strict study accountability for.
                       </p>
                     </div>
@@ -552,14 +555,14 @@ export default function OnboardingPage() {
                             onClick={() => toggleSubject(sub.id)}
                             className={`p-3 rounded-xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-2.5 select-none ${
                               isSelected
-                                ? "bg-[#e8f0fe] border-[#0a66ff] shadow-2xs text-[#0a66ff] ring-2 ring-[#0a66ff]/20 font-bold"
-                                : "bg-slate-50/60 border-slate-200 hover:border-slate-300 text-slate-700 font-medium"
+                                ? "bg-[#e8f0fe] dark:bg-[#0a182d] border-[#0a66ff] dark:border-[#38bdf8] shadow-2xs text-[#0a66ff] dark:text-[#38bdf8] ring-2 ring-[#0a66ff]/20 font-bold"
+                                : "bg-slate-50/60 dark:bg-[#142642] border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 font-medium"
                             }`}
                           >
                             <div className="flex items-center gap-2.5 truncate">
                               <div
                                 className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs shrink-0 ${
-                                  isSelected ? "bg-[#0a66ff] text-white" : "bg-white text-[#0a66ff] border border-slate-200"
+                                  isSelected ? "bg-[#0a66ff] text-white" : "bg-white dark:bg-[#0f1d32] text-[#0a66ff] dark:text-[#38bdf8] border border-slate-200 dark:border-slate-700"
                                 }`}
                               >
                                 <i className={sub.icon}></i>
@@ -569,7 +572,7 @@ export default function OnboardingPage() {
 
                             <div
                               className={`w-5 h-5 rounded-full flex items-center justify-center text-[0.6rem] shrink-0 ${
-                                isSelected ? "bg-[#0a66ff] text-white" : "border border-slate-300 text-transparent"
+                                isSelected ? "bg-[#0a66ff] text-white" : "border border-slate-300 dark:border-slate-600 text-transparent"
                               }`}
                             >
                               <i className="fas fa-check"></i>
@@ -587,12 +590,12 @@ export default function OnboardingPage() {
                     )}
 
                     {/* Coursework AI Helper Banner */}
-                    <div className="bg-gradient-to-r from-[#0a66ff]/10 via-[#7c3aed]/10 to-transparent p-3.5 rounded-xl border border-[#0a66ff]/15 flex items-center gap-3">
+                    <div className="bg-gradient-to-r from-[#0a66ff]/10 via-[#7c3aed]/10 to-transparent dark:from-[#0a66ff]/20 dark:via-[#7c3aed]/20 p-3.5 rounded-xl border border-[#0a66ff]/15 dark:border-slate-700 flex items-center gap-3">
                       <div className="w-9 h-9 rounded-xl bg-[#0a66ff] text-white flex items-center justify-center text-sm shrink-0 shadow-2xs">
                         <i className="fas fa-microchip"></i>
                       </div>
-                      <div className="text-xs text-slate-600">
-                        <strong className="text-[#0b1a33] block font-bold">Coursework AI Integration</strong>
+                      <div className="text-xs text-slate-600 dark:text-slate-300">
+                        <strong className="text-[#0b1a33] dark:text-white block font-bold">Coursework AI Integration</strong>
                         <span>We will calibrate personalized pact reminders and study materials for your courses.</span>
                       </div>
                     </div>
@@ -603,14 +606,14 @@ export default function OnboardingPage() {
                 {currentStep === 3 && (
                   <div className="animate-fadeIn space-y-4">
                     <div className="mb-2">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] dark:bg-[#0a66ff]/15 text-[#0a66ff] dark:text-[#38bdf8] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
                         <i className="fas fa-shield-halved text-[0.6rem]"></i>
                         <span>Step 3: Accountability Tier</span>
                       </div>
-                      <h2 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
+                      <h2 className="text-xl sm:text-2xl font-black text-[#0b1a33] dark:text-white tracking-tight">
                         Choose your enforcement mode
                       </h2>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         How strictly should MyPact hold you accountable during your study blocks?
                       </p>
                     </div>
@@ -622,27 +625,27 @@ export default function OnboardingPage() {
                         onClick={() => setSelectedTier("mild")}
                         className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer relative flex flex-col justify-between ${
                           selectedTier === "mild"
-                            ? "bg-[#e8f0fe] border-[#0a66ff] shadow-sm ring-2 ring-[#0a66ff]/20"
-                            : "bg-slate-50/60 border-slate-200 hover:border-slate-300"
+                            ? "bg-[#e8f0fe] dark:bg-[#0a182d] border-[#0a66ff] dark:border-[#38bdf8] shadow-sm ring-2 ring-[#0a66ff]/20"
+                            : "bg-slate-50/60 dark:bg-[#142642] border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
                         }`}
                       >
                         <div>
                           <div className="flex justify-between items-start mb-2">
-                            <div className="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-600 flex items-center justify-center text-sm font-bold">
+                            <div className="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm font-bold">
                               <i className="fas fa-leaf"></i>
                             </div>
                             <div
                               className={`w-5 h-5 rounded-full flex items-center justify-center text-[0.6rem] ${
-                                selectedTier === "mild" ? "bg-[#0a66ff] text-white" : "border border-slate-300"
+                                selectedTier === "mild" ? "bg-[#0a66ff] text-white" : "border border-slate-300 dark:border-slate-600"
                               }`}
                             >
                               {selectedTier === "mild" && <i className="fas fa-check"></i>}
                             </div>
                           </div>
-                          <h3 className="text-sm font-black text-[#0b1a33]">Mild</h3>
-                          <p className="text-[0.72rem] text-slate-500 mt-0.5">Gentle reminders & nudges</p>
+                          <h3 className="text-sm font-black text-[#0b1a33] dark:text-white">Mild</h3>
+                          <p className="text-[0.72rem] text-slate-500 dark:text-slate-400 mt-0.5">Gentle reminders & nudges</p>
                         </div>
-                        <span className="text-[0.65rem] font-bold text-slate-400 mt-3 pt-2 border-t border-slate-200/60 block">
+                        <span className="text-[0.65rem] font-bold text-slate-400 dark:text-slate-400 mt-3 pt-2 border-t border-slate-200/60 dark:border-slate-700 block">
                           Flexible check-in
                         </span>
                       </div>
@@ -652,8 +655,8 @@ export default function OnboardingPage() {
                         onClick={() => setSelectedTier("strict")}
                         className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer relative flex flex-col justify-between ${
                           selectedTier === "strict"
-                            ? "bg-[#e8f0fe] border-[#0a66ff] shadow-sm ring-2 ring-[#0a66ff]/20"
-                            : "bg-slate-50/60 border-slate-200 hover:border-slate-300"
+                            ? "bg-[#e8f0fe] dark:bg-[#0a182d] border-[#0a66ff] dark:border-[#38bdf8] shadow-sm ring-2 ring-[#0a66ff]/20"
+                            : "bg-slate-50/60 dark:bg-[#142642] border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
                         }`}
                       >
                         <span className="absolute -top-2.5 right-4 bg-gradient-to-r from-[#0a66ff] to-[#3b82f6] text-white text-[0.55rem] font-extrabold uppercase px-2.5 py-0.5 rounded-full tracking-wider shadow-2xs">
@@ -661,21 +664,21 @@ export default function OnboardingPage() {
                         </span>
                         <div>
                           <div className="flex justify-between items-start mb-2">
-                            <div className="w-9 h-9 rounded-xl bg-[#0a66ff]/15 text-[#0a66ff] flex items-center justify-center text-sm font-bold">
+                            <div className="w-9 h-9 rounded-xl bg-[#0a66ff]/15 text-[#0a66ff] dark:text-[#38bdf8] flex items-center justify-center text-sm font-bold">
                               <i className="fas fa-shield-halved"></i>
                             </div>
                             <div
                               className={`w-5 h-5 rounded-full flex items-center justify-center text-[0.6rem] ${
-                                selectedTier === "strict" ? "bg-[#0a66ff] text-white" : "border border-slate-300"
+                                selectedTier === "strict" ? "bg-[#0a66ff] text-white" : "border border-slate-300 dark:border-slate-600"
                               }`}
                             >
                               {selectedTier === "strict" && <i className="fas fa-check"></i>}
                             </div>
                           </div>
-                          <h3 className="text-sm font-black text-[#0b1a33]">Strict</h3>
-                          <p className="text-[0.72rem] text-slate-500 mt-0.5">Lockouts & escalating alarms</p>
+                          <h3 className="text-sm font-black text-[#0b1a33] dark:text-white">Strict</h3>
+                          <p className="text-[0.72rem] text-slate-500 dark:text-slate-400 mt-0.5">Lockouts & escalating alarms</p>
                         </div>
-                        <span className="text-[0.65rem] font-bold text-[#0a66ff] mt-3 pt-2 border-t border-slate-200/60 block">
+                        <span className="text-[0.65rem] font-bold text-[#0a66ff] dark:text-[#38bdf8] mt-3 pt-2 border-t border-slate-200/60 dark:border-slate-700 block">
                           Barcode & Library Verification
                         </span>
                       </div>
@@ -685,37 +688,37 @@ export default function OnboardingPage() {
                         onClick={() => setSelectedTier("zero")}
                         className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer relative flex flex-col justify-between ${
                           selectedTier === "zero"
-                            ? "bg-[#e8f0fe] border-[#0a66ff] shadow-sm ring-2 ring-[#0a66ff]/20"
-                            : "bg-slate-50/60 border-slate-200 hover:border-slate-300"
+                            ? "bg-[#e8f0fe] dark:bg-[#0a182d] border-[#0a66ff] dark:border-[#38bdf8] shadow-sm ring-2 ring-[#0a66ff]/20"
+                            : "bg-slate-50/60 dark:bg-[#142642] border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
                         }`}
                       >
                         <div>
                           <div className="flex justify-between items-start mb-2">
-                            <div className="w-9 h-9 rounded-xl bg-purple-500/15 text-purple-600 flex items-center justify-center text-sm font-bold">
+                            <div className="w-9 h-9 rounded-xl bg-purple-500/15 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm font-bold">
                               <i className="fas fa-bolt-lightning"></i>
                             </div>
                             <div
                               className={`w-5 h-5 rounded-full flex items-center justify-center text-[0.6rem] ${
-                                selectedTier === "zero" ? "bg-[#0a66ff] text-white" : "border border-slate-300"
+                                selectedTier === "zero" ? "bg-[#0a66ff] text-white" : "border border-slate-300 dark:border-slate-600"
                               }`}
                             >
                               {selectedTier === "zero" && <i className="fas fa-check"></i>}
                             </div>
                           </div>
-                          <h3 className="text-sm font-black text-[#0b1a33]">Zero Tolerance</h3>
-                          <p className="text-[0.72rem] text-slate-500 mt-0.5">Partner alerts + strict penalties</p>
+                          <h3 className="text-sm font-black text-[#0b1a33] dark:text-white">Zero Tolerance</h3>
+                          <p className="text-[0.72rem] text-slate-500 dark:text-slate-400 mt-0.5">Partner alerts + strict penalties</p>
                         </div>
-                        <span className="text-[0.65rem] font-bold text-purple-600 mt-3 pt-2 border-t border-slate-200/60 block">
+                        <span className="text-[0.65rem] font-bold text-purple-600 dark:text-purple-400 mt-3 pt-2 border-t border-slate-200/60 dark:border-slate-700 block">
                           Total Distraction Defense
                         </span>
                       </div>
                     </div>
 
                     {/* Optional Accountability Partner Section */}
-                    <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+                    <div className="bg-slate-50 dark:bg-[#142642] border border-slate-200 dark:border-slate-700 rounded-xl p-3.5">
                       <div className="flex items-center gap-2 mb-2">
-                        <i className="fas fa-user-group text-[#0a66ff] text-xs"></i>
-                        <h4 className="text-xs font-extrabold text-[#0b1a33]">Accountability Partner (Optional)</h4>
+                        <i className="fas fa-user-group text-[#0a66ff] dark:text-[#38bdf8] text-xs"></i>
+                        <h4 className="text-xs font-extrabold text-[#0b1a33] dark:text-white">Accountability Partner (Optional)</h4>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                         <input
@@ -723,32 +726,32 @@ export default function OnboardingPage() {
                           value={partnerInfo.name}
                           onChange={(e) => setPartnerInfo((prev) => ({ ...prev, name: e.target.value }))}
                           placeholder="Partner's Name (e.g. Samuel)"
-                          className="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs outline-none bg-white focus:border-[#0a66ff]"
+                          className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs outline-none bg-white dark:bg-[#0f1d32] text-[#0b1a33] dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-[#0a66ff]"
                         />
                         <input
                           type="text"
                           value={partnerInfo.phone}
                           onChange={(e) => setPartnerInfo((prev) => ({ ...prev, phone: e.target.value }))}
                           placeholder="WhatsApp / Phone (e.g. 080...)"
-                          className="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs outline-none bg-white focus:border-[#0a66ff]"
+                          className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs outline-none bg-white dark:bg-[#0f1d32] text-[#0b1a33] dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-[#0a66ff]"
                         />
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* STEP 4: FIRST PACT SETUP (Subject is a Dropdown) */}
+                {/* STEP 4: FIRST PACT SETUP */}
                 {currentStep === 4 && (
                   <div className="animate-fadeIn space-y-3.5">
                     <div className="mb-2">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f0fe] dark:bg-[#0a66ff]/15 text-[#0a66ff] dark:text-[#38bdf8] text-[0.65rem] font-extrabold uppercase tracking-wider mb-1.5">
                         <i className="fas fa-handshake text-[0.6rem]"></i>
                         <span>Step 4: First Study Pact</span>
                       </div>
-                      <h2 className="text-xl sm:text-2xl font-black text-[#0b1a33] tracking-tight">
+                      <h2 className="text-xl sm:text-2xl font-black text-[#0b1a33] dark:text-white tracking-tight">
                         Lock in your first commitment
                       </h2>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         Create your initial study block to establish your verified streak.
                       </p>
                     </div>
@@ -756,7 +759,7 @@ export default function OnboardingPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {/* Pact Name */}
                       <div className="relative">
-                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-1">
                           Pact name <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -765,9 +768,9 @@ export default function OnboardingPage() {
                           onChange={(e) => setPactData((prev) => ({ ...prev, name: e.target.value }))}
                           onBlur={() => setStep4Touched((prev) => ({ ...prev, name: true }))}
                           placeholder="e.g. Daily Deep Work Session"
-                          className={`w-full px-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white ${(step4Touched.name) && step4Errors.name
+                          className={`w-full px-3 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#142642] text-[#0b1a33] dark:text-white focus:bg-white dark:focus:bg-[#1a3258] ${(step4Touched.name) && step4Errors.name
                             ? "border-red-500 ring-2 ring-red-500/10"
-                            : "border-slate-200 focus:border-[#0a66ff]"
+                            : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff]"
                             }`}
                         />
                         {step4Touched.name && step4Errors.name && (
@@ -777,7 +780,7 @@ export default function OnboardingPage() {
 
                       {/* Subject Dropdown */}
                       <div className="relative">
-                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-1">
                           Subject / Course <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
@@ -785,20 +788,20 @@ export default function OnboardingPage() {
                             value={pactData.subject}
                             onChange={(e) => setPactData((prev) => ({ ...prev, subject: e.target.value }))}
                             onBlur={() => setStep4Touched((prev) => ({ ...prev, subject: true }))}
-                            className={`w-full pl-3 pr-8 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 focus:bg-white appearance-none cursor-pointer ${(step4Touched.subject) && step4Errors.subject
+                            className={`w-full pl-3 pr-8 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all outline-none bg-slate-50/50 dark:bg-[#142642] text-[#0b1a33] dark:text-white focus:bg-white dark:focus:bg-[#1a3258] appearance-none cursor-pointer ${(step4Touched.subject) && step4Errors.subject
                               ? "border-red-500 ring-2 ring-red-500/10"
-                              : "border-slate-200 focus:border-[#0a66ff]"
+                              : "border-slate-200 dark:border-slate-700 focus:border-[#0a66ff]"
                               }`}
                           >
-                            <option value="">Select study course...</option>
+                            <option value="" className="dark:bg-[#0f1d32] text-slate-400">Select study course...</option>
                             {availableSubjects.map((sub) => (
-                              <option key={sub.id} value={sub.name}>
+                              <option key={sub.id} value={sub.name} className="dark:bg-[#0f1d32] dark:text-white">
                                 {sub.name}
                               </option>
                             ))}
-                            <option value="General Coursework & Research">General Coursework & Research</option>
-                            <option value="Exam Revision & Past Questions">Exam Revision & Past Questions</option>
-                            <option value="Term Paper & Project Writing">Term Paper & Project Writing</option>
+                            <option value="General Coursework & Research" className="dark:bg-[#0f1d32]">General Coursework & Research</option>
+                            <option value="Exam Revision & Past Questions" className="dark:bg-[#0f1d32]">Exam Revision & Past Questions</option>
+                            <option value="Term Paper & Project Writing" className="dark:bg-[#0f1d32]">Term Paper & Project Writing</option>
                           </select>
                           <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                         </div>
@@ -811,7 +814,7 @@ export default function OnboardingPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {/* Duration in Minutes */}
                       <div className="relative">
-                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-1">
                           Duration (Minutes) <span className="text-red-500">*</span>
                         </label>
                         <div className="flex items-center gap-2">
@@ -821,7 +824,7 @@ export default function OnboardingPage() {
                             max="240"
                             value={pactData.duration}
                             onChange={(e) => setPactData((prev) => ({ ...prev, duration: parseInt(e.target.value) || 0 }))}
-                            className="w-20 px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm font-bold text-[#0a66ff] outline-none bg-slate-50/50 focus:bg-white focus:border-[#0a66ff]"
+                            className="w-20 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-bold text-[#0a66ff] dark:text-[#38bdf8] outline-none bg-slate-50/50 dark:bg-[#142642] focus:bg-white dark:focus:bg-[#1a3258] focus:border-[#0a66ff]"
                           />
                           {/* Quick Duration Chips */}
                           <div className="flex gap-1">
@@ -833,7 +836,7 @@ export default function OnboardingPage() {
                                 className={`px-2 py-1.5 rounded-lg text-[0.68rem] font-bold transition-colors cursor-pointer ${
                                   pactData.duration === mins
                                     ? "bg-[#0a66ff] text-white"
-                                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                    : "bg-slate-100 dark:bg-[#142642] text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[#1c365d]"
                                 }`}
                               >
                                 {mins}m
@@ -845,19 +848,19 @@ export default function OnboardingPage() {
 
                       {/* Frequency Dropdown */}
                       <div className="relative">
-                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] mb-1">
+                        <label className="block text-[0.72rem] font-bold text-[#0b1a33] dark:text-slate-200 mb-1">
                           Frequency
                         </label>
                         <div className="relative">
                           <select
                             value={pactData.frequency}
                             onChange={(e) => setPactData((prev) => ({ ...prev, frequency: e.target.value }))}
-                            className="w-full pl-3 pr-8 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm font-medium outline-none bg-slate-50/50 focus:bg-white focus:border-[#0a66ff] appearance-none cursor-pointer"
+                            className="w-full pl-3 pr-8 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-medium outline-none bg-slate-50/50 dark:bg-[#142642] text-[#0b1a33] dark:text-white focus:bg-white dark:focus:bg-[#1a3258] focus:border-[#0a66ff] appearance-none cursor-pointer"
                           >
-                            <option value="weekdays">Weekdays (Mon - Fri)</option>
-                            <option value="daily">Daily (7 days / week)</option>
-                            <option value="weekends">Weekends Only</option>
-                            <option value="3x">3 Times per Week</option>
+                            <option value="weekdays" className="dark:bg-[#0f1d32]">Weekdays (Mon - Fri)</option>
+                            <option value="daily" className="dark:bg-[#0f1d32]">Daily (7 days / week)</option>
+                            <option value="weekends" className="dark:bg-[#0f1d32]">Weekends Only</option>
+                            <option value="3x" className="dark:bg-[#0f1d32]">3 Times per Week</option>
                           </select>
                           <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                         </div>
@@ -886,44 +889,44 @@ export default function OnboardingPage() {
 
                     {/* Feature Toggles Checkbox Grid */}
                     <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 pt-1">
-                      <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200/80 text-[0.72rem] text-slate-700 cursor-pointer select-none">
+                      <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 dark:bg-[#142642] border border-slate-200/80 dark:border-slate-700 text-[0.72rem] text-slate-700 dark:text-slate-300 cursor-pointer select-none">
                         <input
                           type="checkbox"
                           checked={features.alarms}
                           onChange={(e) => setFeatures((prev) => ({ ...prev, alarms: e.target.checked }))}
                           className="accent-[#0a66ff] w-3.5 h-3.5"
                         />
-                        <i className="fas fa-bell text-[#0a66ff] text-xs"></i> Unstoppable alarms
+                        <i className="fas fa-bell text-[#0a66ff] dark:text-[#38bdf8] text-xs"></i> Unstoppable alarms
                       </label>
 
-                      <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200/80 text-[0.72rem] text-slate-700 cursor-pointer select-none">
+                      <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 dark:bg-[#142642] border border-slate-200/80 dark:border-slate-700 text-[0.72rem] text-slate-700 dark:text-slate-300 cursor-pointer select-none">
                         <input
                           type="checkbox"
                           checked={features.notifyPartner}
                           onChange={(e) => setFeatures((prev) => ({ ...prev, notifyPartner: e.target.checked }))}
                           className="accent-[#0a66ff] w-3.5 h-3.5"
                         />
-                        <i className="fas fa-user-group text-[#0a66ff] text-xs"></i> Partner alerts
+                        <i className="fas fa-user-group text-[#0a66ff] dark:text-[#38bdf8] text-xs"></i> Partner alerts
                       </label>
 
-                      <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200/80 text-[0.72rem] text-slate-700 cursor-pointer select-none">
+                      <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 dark:bg-[#142642] border border-slate-200/80 dark:border-slate-700 text-[0.72rem] text-slate-700 dark:text-slate-300 cursor-pointer select-none">
                         <input
                           type="checkbox"
                           checked={features.appLockout}
                           onChange={(e) => setFeatures((prev) => ({ ...prev, appLockout: e.target.checked }))}
                           className="accent-[#0a66ff] w-3.5 h-3.5"
                         />
-                        <i className="fas fa-mobile-screen-button text-[#0a66ff] text-xs"></i> App lockout
+                        <i className="fas fa-mobile-screen-button text-[#0a66ff] dark:text-[#38bdf8] text-xs"></i> App lockout
                       </label>
 
-                      <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-200/80 text-[0.72rem] text-slate-700 cursor-pointer select-none">
+                      <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 dark:bg-[#142642] border border-slate-200/80 dark:border-slate-700 text-[0.72rem] text-slate-700 dark:text-slate-300 cursor-pointer select-none">
                         <input
                           type="checkbox"
                           checked={features.emailSummary}
                           onChange={(e) => setFeatures((prev) => ({ ...prev, emailSummary: e.target.checked }))}
                           className="accent-[#0a66ff] w-3.5 h-3.5"
                         />
-                        <i className="fas fa-envelope text-[#0a66ff] text-xs"></i> Email session summary
+                        <i className="fas fa-envelope text-[#0a66ff] dark:text-[#38bdf8] text-xs"></i> Email session summary
                       </label>
                     </div>
                   </div>
@@ -956,29 +959,29 @@ export default function OnboardingPage() {
                   <i className="fas fa-check-double"></i>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl font-black text-[#0b1a33] tracking-tight mb-1">
+                <h2 className="text-2xl sm:text-3xl font-black text-[#0b1a33] dark:text-white tracking-tight mb-1">
                   You are all set, Scholar!
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto mb-6 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto mb-6 leading-relaxed">
                   Your MyPact student account and accountability engine have been configured. Your study streak begins today.
                 </p>
 
                 {/* Summary Metrics Row */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-lg mb-8">
-                  <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 text-center">
-                    <div className="text-lg font-black text-[#0a66ff]">1</div>
+                  <div className="bg-slate-50 dark:bg-[#142642] border border-slate-200/80 dark:border-slate-700 rounded-xl p-3 text-center">
+                    <div className="text-lg font-black text-[#0a66ff] dark:text-[#38bdf8]">1</div>
                     <div className="text-[0.62rem] uppercase font-bold text-slate-400 tracking-wider">Pact Initialized</div>
                   </div>
-                  <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 text-center">
-                    <div className="text-lg font-black text-[#0a66ff] capitalize">{selectedTier}</div>
+                  <div className="bg-slate-50 dark:bg-[#142642] border border-slate-200/80 dark:border-slate-700 rounded-xl p-3 text-center">
+                    <div className="text-lg font-black text-[#0a66ff] dark:text-[#38bdf8] capitalize">{selectedTier}</div>
                     <div className="text-[0.62rem] uppercase font-bold text-slate-400 tracking-wider">Enforcement</div>
                   </div>
-                  <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 text-center">
-                    <div className="text-lg font-black text-[#0a66ff]">{pactData.duration}m</div>
+                  <div className="bg-slate-50 dark:bg-[#142642] border border-slate-200/80 dark:border-slate-700 rounded-xl p-3 text-center">
+                    <div className="text-lg font-black text-[#0a66ff] dark:text-[#38bdf8]">{pactData.duration}m</div>
                     <div className="text-[0.62rem] uppercase font-bold text-slate-400 tracking-wider">Daily Goal</div>
                   </div>
-                  <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 text-center">
-                    <div className="text-lg font-black text-[#0a66ff]">{selectedSubjects.length || 3}</div>
+                  <div className="bg-slate-50 dark:bg-[#142642] border border-slate-200/80 dark:border-slate-700 rounded-xl p-3 text-center">
+                    <div className="text-lg font-black text-[#0a66ff] dark:text-[#38bdf8]">{selectedSubjects.length || 3}</div>
                     <div className="text-[0.62rem] uppercase font-bold text-slate-400 tracking-wider">Courses</div>
                   </div>
                 </div>
@@ -995,13 +998,13 @@ export default function OnboardingPage() {
 
             {/* ====== FOOTER CONTROLS ====== */}
             {!isSuccess && (
-              <div className="pt-6 border-t border-slate-100 flex items-center justify-between flex-wrap gap-3 mt-4">
+              <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between flex-wrap gap-3 mt-4">
                 {/* Back Button */}
                 {currentStep > 1 ? (
                   <button
                     type="button"
                     onClick={handleBack}
-                    className="px-4 py-2 rounded-full text-xs font-bold text-slate-600 hover:text-[#0a66ff] hover:bg-slate-100 transition-colors flex items-center gap-1.5 cursor-pointer"
+                    className="px-4 py-2 rounded-full text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-[#0a66ff] dark:hover:text-[#38bdf8] hover:bg-slate-100 dark:hover:bg-[#142642] transition-colors flex items-center gap-1.5 cursor-pointer"
                   >
                     <i className="fas fa-arrow-left text-[0.6rem]"></i>
                     <span>Back</span>
@@ -1016,7 +1019,7 @@ export default function OnboardingPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep((prev) => prev + 1)}
-                      className="px-4 py-2 rounded-full text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+                      className="px-4 py-2 rounded-full text-xs font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer"
                     >
                       Skip
                     </button>
@@ -1048,8 +1051,8 @@ export default function OnboardingPage() {
         </div>
 
         {/* Micro Trust Footer */}
-        <p className="text-center mt-4 text-[0.7rem] text-slate-400 flex items-center justify-center gap-1.5">
-          <i className="fas fa-shield-halved text-[#0a66ff] text-xs"></i>
+        <p className="text-center mt-4 text-[0.7rem] text-slate-400 dark:text-slate-500 flex items-center justify-center gap-1.5">
+          <i className="fas fa-shield-halved text-[#0a66ff] dark:text-[#38bdf8] text-xs"></i>
           <span>Encrypted academic profile · Protected under MyPact Student Trust</span>
         </p>
 

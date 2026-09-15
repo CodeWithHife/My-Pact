@@ -6,11 +6,11 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0b1a33] text-slate-400 pt-16 pb-12 border-t border-slate-800">
-        <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-slate-800">
+    <footer className="bg-[#0b1a33] dark:bg-[#070f1e] text-slate-400 pt-12 sm:pt-16 pb-10 sm:pb-12 border-t border-slate-800 transition-colors duration-300">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-8 pb-10 sm:pb-12 border-b border-slate-800">
             {/* Brand Column */}
-            <div className="lg:col-span-2 flex flex-col items-start">
+            <div className="col-span-2 lg:col-span-2 flex flex-col items-start">
               <Link href="/" className="flex items-center gap-2.5 mb-4 group" aria-label="MyPact Home">
                 <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-[#0a66ff] flex items-center justify-center shadow-sm">
                   <Image
@@ -22,7 +22,7 @@ export default function Footer() {
                   />
                 </div>
                 <span className="font-extrabold text-2xl text-white tracking-[-0.03em]">
-                  My<span className="text-[#0a66ff]">Pact</span>
+                  My<span className="text-[#0a66ff] dark:text-[#38bdf8]">Pact</span>
                 </span>
               </Link>
               <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm mb-6">

@@ -94,26 +94,26 @@ export default function Integrations() {
   const activeItem = integrationsList.find((i) => i.id === selectedIntegration) || integrationsList[0];
 
   return (
-    <section id="integrations" className="py-24 bg-[#ffffff] border-b border-slate-100 relative overflow-hidden">
+    <section id="integrations" className="py-16 sm:py-24 bg-[#ffffff] dark:bg-[#070f1e] border-b border-slate-100 dark:border-slate-800 relative overflow-hidden transition-colors duration-300">
       {/* Background Subtle Accent */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0a66ff]/3 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0a66ff]/3 dark:bg-[#0a66ff]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-4 border border-[#0a66ff]/20">
-            <i className="fas fa-plug text-[#0a66ff]"></i>
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e8f0fe] dark:bg-[#0a66ff]/15 text-[#0a66ff] dark:text-[#38bdf8] text-[0.72rem] sm:text-xs font-bold uppercase tracking-wider mb-3.5 sm:mb-4 border border-[#0a66ff]/20">
+            <i className="fas fa-plug text-[#0a66ff] dark:text-[#38bdf8]"></i>
             <span>Seamless Ecosystem</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] tracking-tight leading-tight mb-4">
-            Connects seamlessly with your <span className="text-[#0a66ff]">daily workflow</span>.
+          <h2 className="text-2xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] dark:text-white tracking-tight leading-tight mb-3 sm:mb-4">
+            Connects seamlessly with your <span className="text-[#0a66ff] dark:text-[#38bdf8]">daily workflow</span>.
           </h2>
-          <p className="text-base sm:text-lg text-[#3d4e6b] leading-relaxed">
+          <p className="text-sm sm:text-lg text-[#3d4e6b] dark:text-slate-300 leading-relaxed">
             No need to change your routine. MyPact sits atop your existing calendar, university LMS, and messaging apps.
           </p>
 
           {/* Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-6 sm:mt-8">
             {[
               { id: "all", label: "All Integrations" },
               { id: "calendar", label: "Calendars & Schedulers" },
@@ -124,10 +124,10 @@ export default function Integrations() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveFilter(tab.id as any)}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                   activeFilter === tab.id
                     ? "bg-[#0a66ff] text-white shadow-sm"
-                    : "bg-slate-100 text-slate-600 hover:text-[#0b1a33]"
+                    : "bg-slate-100 dark:bg-[#0f1d32] text-slate-600 dark:text-slate-300 hover:text-[#0b1a33] dark:hover:text-white border border-transparent dark:border-slate-700"
                 }`}
               >
                 {tab.label}
@@ -149,21 +149,21 @@ export default function Integrations() {
                   onClick={() => setSelectedIntegration(item.id)}
                   className={`p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between ${
                     isSelected
-                      ? "bg-[#f8faff] border-[#0a66ff] shadow-md shadow-[#0a66ff]/10 ring-1 ring-[#0a66ff]/30 -translate-y-0.5"
-                      : "bg-white border-slate-200/90 hover:border-slate-300"
+                      ? "bg-[#f8faff] dark:bg-[#0a182d] border-[#0a66ff] dark:border-[#38bdf8] shadow-md shadow-[#0a66ff]/10 ring-1 ring-[#0a66ff]/30 -translate-y-0.5"
+                      : "bg-white dark:bg-[#0f1d32] border-slate-200/90 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-white border border-slate-200/80 shadow-2xs flex items-center justify-center text-xl">
+                    <div className="w-10 h-10 rounded-xl bg-white dark:bg-[#142642] border border-slate-200/80 dark:border-slate-700 shadow-2xs flex items-center justify-center text-xl">
                       <i className={`${item.icon} ${item.iconColor}`}></i>
                     </div>
                     {isSelected && (
-                      <span className="w-2 h-2 rounded-full bg-[#0a66ff]"></span>
+                      <span className="w-2 h-2 rounded-full bg-[#0a66ff] dark:bg-[#38bdf8]"></span>
                     )}
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-sm text-[#0b1a33]">{item.name}</h3>
-                    <p className="text-[10px] font-semibold text-slate-500">{item.categoryLabel}</p>
+                    <h3 className="font-extrabold text-sm text-[#0b1a33] dark:text-white">{item.name}</h3>
+                    <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">{item.categoryLabel}</p>
                   </div>
                 </button>
               );
@@ -171,29 +171,29 @@ export default function Integrations() {
           </div>
 
           {/* Right: Active Integration Spotlight Card */}
-          <div className="lg:col-span-6 bg-[#f8faff] rounded-3xl p-7 sm:p-8 border border-[#0a66ff]/20 shadow-[0_16px_40px_rgba(10,102,255,0.06)]">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-5">
+          <div className="lg:col-span-6 bg-[#f8faff] dark:bg-[#0f1d32] rounded-3xl p-7 sm:p-8 border border-[#0a66ff]/20 dark:border-slate-700 shadow-[0_16px_40px_rgba(10,102,255,0.06)]">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-700 mb-5">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-center text-2xl flex-shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-white dark:bg-[#142642] border border-slate-200 dark:border-slate-700 shadow-xs flex items-center justify-center text-2xl flex-shrink-0">
                   <i className={`${activeItem.icon} ${activeItem.iconColor}`}></i>
                 </div>
                 <div>
-                  <h4 className="font-extrabold text-base text-[#0b1a33]">{activeItem.name}</h4>
-                  <span className="text-[11px] font-bold text-[#0a66ff]">{activeItem.badge}</span>
+                  <h4 className="font-extrabold text-base text-[#0b1a33] dark:text-white">{activeItem.name}</h4>
+                  <span className="text-[11px] font-bold text-[#0a66ff] dark:text-[#38bdf8]">{activeItem.badge}</span>
                 </div>
               </div>
-              <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">
+              <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                 {activeItem.status}
               </span>
             </div>
 
-            <p className="text-xs sm:text-sm text-[#3d4e6b] leading-relaxed mb-6">
+            <p className="text-xs sm:text-sm text-[#3d4e6b] dark:text-slate-300 leading-relaxed mb-6">
               {activeItem.description}
             </p>
 
-            <div className="p-3.5 rounded-2xl bg-white border border-slate-200 flex items-center justify-between text-xs mb-5">
-              <span className="text-slate-600 font-medium">Automatic background synchronization</span>
-              <span className="font-bold text-emerald-600">Zero Latency</span>
+            <div className="p-3.5 rounded-2xl bg-white dark:bg-[#142642] border border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs mb-5">
+              <span className="text-slate-600 dark:text-slate-300 font-medium">Automatic background synchronization</span>
+              <span className="font-bold text-emerald-600 dark:text-emerald-400">Zero Latency</span>
             </div>
 
             <a

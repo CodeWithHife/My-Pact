@@ -68,21 +68,21 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 bg-white border-b border-slate-100 relative overflow-hidden">
+    <section id="faq" className="py-16 sm:py-24 bg-white dark:bg-[#070f1e] border-b border-slate-100 dark:border-slate-800 relative overflow-hidden transition-colors duration-300">
       {/* Background Subtle Accent */}
-      <div className="absolute top-1/3 right-0 w-96 h-96 bg-[#0a66ff]/3 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 right-0 w-96 h-96 bg-[#0a66ff]/3 dark:bg-[#0a66ff]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e8f0fe] text-[#0a66ff] text-xs font-bold uppercase tracking-wider mb-4 border border-[#0a66ff]/20">
-            <i className="fas fa-circle-question text-[#0a66ff]"></i>
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e8f0fe] dark:bg-[#0a66ff]/15 text-[#0a66ff] dark:text-[#38bdf8] text-[0.72rem] sm:text-xs font-bold uppercase tracking-wider mb-3.5 sm:mb-4 border border-[#0a66ff]/20">
+            <i className="fas fa-circle-question text-[#0a66ff] dark:text-[#38bdf8]"></i>
             <span>Got Questions?</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] tracking-tight leading-tight mb-4">
-            Frequently Asked <span className="text-[#0a66ff]">Questions</span>
+          <h2 className="text-2xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#0b1a33] dark:text-white tracking-tight leading-tight mb-3 sm:mb-4">
+            Frequently Asked <span className="text-[#0a66ff] dark:text-[#38bdf8]">Questions</span>
           </h2>
-          <p className="text-base sm:text-lg text-[#3d4e6b] leading-relaxed">
+          <p className="text-sm sm:text-lg text-[#3d4e6b] dark:text-slate-300 leading-relaxed">
             Quick clarity on enforcement tiers, AI syllabus parsing, and account setup.
           </p>
 
@@ -101,7 +101,7 @@ export default function FAQ() {
                 className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                   activeCategory === cat.id
                     ? "bg-[#0a66ff] text-white shadow-sm"
-                    : "bg-slate-100 text-slate-600 hover:text-[#0b1a33]"
+                    : "bg-slate-100 dark:bg-[#0f1d32] text-slate-600 dark:text-slate-300 hover:text-[#0b1a33] dark:hover:text-white border border-transparent dark:border-slate-700"
                 }`}
               >
                 {cat.label}
@@ -119,8 +119,8 @@ export default function FAQ() {
                 key={faq.id}
                 className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
                   isOpen
-                    ? "bg-[#f8faff] border-[#0a66ff]/40 shadow-sm ring-1 ring-[#0a66ff]/20"
-                    : "bg-white border-slate-200/90 hover:border-slate-300"
+                    ? "bg-[#f8faff] dark:bg-[#0f1d32] border-[#0a66ff]/40 dark:border-[#38bdf8]/40 shadow-sm ring-1 ring-[#0a66ff]/20 dark:ring-[#38bdf8]/20"
+                    : "bg-white dark:bg-[#0f1d32] border-slate-200/90 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
                 }`}
               >
                 <button
@@ -131,21 +131,23 @@ export default function FAQ() {
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs flex-shrink-0 transition-colors ${
-                      isOpen ? "bg-[#0a66ff] text-white" : "bg-[#e8f0fe] text-[#0a66ff]"
+                      isOpen 
+                        ? "bg-[#0a66ff] text-white" 
+                        : "bg-[#e8f0fe] dark:bg-[#142642] text-[#0a66ff] dark:text-[#38bdf8]"
                     }`}>
                       <i className={faq.icon}></i>
                     </div>
-                    <span className="font-bold text-sm text-[#0b1a33]">
+                    <span className="font-bold text-sm text-[#0b1a33] dark:text-white">
                       {faq.question}
                     </span>
                   </div>
                   <i className={`fas fa-chevron-down text-xs text-slate-400 transition-transform duration-200 flex-shrink-0 ${
-                    isOpen ? "rotate-180 text-[#0a66ff]" : ""
+                    isOpen ? "rotate-180 text-[#0a66ff] dark:text-[#38bdf8]" : ""
                   }`}></i>
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-xs text-[#3d4e6b] leading-relaxed border-t border-slate-100">
+                  <div className="px-5 pb-5 pt-1 text-xs text-[#3d4e6b] dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-700">
                     {faq.answer}
                   </div>
                 )}
@@ -155,21 +157,21 @@ export default function FAQ() {
         </div>
 
         {/* Still Have Questions Bar */}
-        <div className="max-w-4xl mx-auto p-6 rounded-3xl bg-[#f8faff] border border-[#0a66ff]/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="max-w-4xl mx-auto p-6 rounded-3xl bg-[#f8faff] dark:bg-[#0f1d32] border border-[#0a66ff]/20 dark:border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="flex items-center gap-3.5">
             <div className="w-10 h-10 rounded-2xl bg-[#0a66ff] text-white flex items-center justify-center text-base flex-shrink-0 shadow-xs">
               <i className="fas fa-headset"></i>
             </div>
             <div>
-              <h4 className="font-extrabold text-sm text-[#0b1a33]">Need personalized assistance?</h4>
-              <p className="text-xs text-slate-500">Our student support team is active on WhatsApp and email.</p>
+              <h4 className="font-extrabold text-sm text-[#0b1a33] dark:text-white">Need personalized assistance?</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Our student support team is active on WhatsApp and email.</p>
             </div>
           </div>
           <a
             href="https://wa.me/2349027874036?text=Hello%20MyPact%20Support,%20I%20have%20a%20question"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-2.5 rounded-full bg-[#0b1a33] hover:bg-[#1a2d4a] text-white font-semibold text-xs shadow-xs transition-all whitespace-nowrap flex items-center gap-2 cursor-pointer"
+            className="px-6 py-2.5 rounded-full bg-[#0b1a33] dark:bg-[#0a66ff] hover:bg-[#1a2d4a] dark:hover:bg-[#084bc2] text-white font-semibold text-xs shadow-xs transition-all whitespace-nowrap flex items-center gap-2 cursor-pointer"
           >
             <i className="fab fa-whatsapp text-emerald-400"></i>
             <span>Chat On WhatsApp</span>
