@@ -19,14 +19,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setMounted(true);
     const savedTheme = localStorage.getItem("mypact_theme") as Theme | null;
+    
+    // Default strictly to 'light' mode on first visit
     if (savedTheme === "dark" || savedTheme === "light") {
       setThemeState(savedTheme);
       applyTheme(savedTheme);
     } else {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const initialTheme: Theme = prefersDark ? "dark" : "light";
-      setThemeState(initialTheme);
-      applyTheme(initialTheme);
+      setThemeState("light");
+      applyTheme("light");
     }
   }, []);
 
