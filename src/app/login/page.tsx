@@ -183,7 +183,7 @@ export default function LoginPage() {
     setConfettiPieces(pieces);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setHasSubmitted(true);
     setTouched({
@@ -197,49 +197,41 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      const identifier = formData.loginIdentifier.trim();
-      let username = identifier;
-      let firstName = identifier;
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          identifier: formData.loginIdentifier.trim(),
+          password: formData.password,
+        }),
+      });
 
-      if (identifier.includes("@")) {
-        const prefix = identifier.split("@")[0];
-        username = prefix;
-        firstName = prefix.charAt(0).toUpperCase() + prefix.slice(1);
-      } else {
-        firstName = identifier.charAt(0).toUpperCase() + identifier.slice(1);
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || data.error || "Invalid login credentials");
+        setIsLoading(false);
+        return;
       }
 
-      // Preserve existing user info if present or create new
-      const existing = localStorage.getItem("mypact_user");
-      let userObj: any = {
-        firstName,
-        username,
-        email: identifier.includes("@") ? identifier : `${username}@student.mypact.site`,
-        name: firstName,
-      };
-
-      if (existing) {
-        try {
-          const parsed = JSON.parse(existing);
-          userObj = {
-            ...parsed,
-            username: parsed.username || username,
-            firstName: parsed.firstName || firstName,
-            name: parsed.name || firstName,
-          };
-        } catch (e) {}
+      const loggedInUser = data.data?.user;
+      localStorage.setItem("mypact_user", JSON.stringify(loggedInUser));
+      if (data.data?.token) {
+        localStorage.setItem("mypact_token", data.data.token);
       }
 
-      localStorage.setItem("mypact_user", JSON.stringify(userObj));
-    } catch (e) {
-      console.error("Failed to save login user:", e);
-    }
-
-    setTimeout(() => {
       setIsLoading(false);
       setIsSuccess(true);
       triggerConfetti();
-    }, 1000);
+
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 900);
+    } catch (e) {
+      console.error("Login network error:", e);
+      alert("Could not reach backend on http://localhost:5000. Please ensure the backend server is running.");
+      setIsLoading(false);
+    }
   };
 
   const currentSession = studySessions[activeSessionIndex];

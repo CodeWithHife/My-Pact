@@ -175,7 +175,7 @@ export default function SignUpPage() {
     setConfettiPieces(pieces);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setHasSubmitted(true);
     setTouched({
@@ -194,22 +194,46 @@ export default function SignUpPage() {
     setIsLoading(true);
 
     try {
-      const userPayload = {
+      // Send directly to Backend API on Port 5000
+      const res = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: formData.firstName.trim(),
+          lastName: formData.lastName.trim(),
+          username: formData.username.trim(),
+          email: formData.email.trim(),
+          password: formData.password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || data.error || "Failed to create account.");
+        setIsLoading(false);
+        return;
+      }
+
+      const savedUser = data.data?.user || {
         firstName: formData.firstName.trim(),
         lastName: formData.lastName.trim(),
         username: formData.username.trim(),
         email: formData.email.trim(),
         name: `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim(),
       };
-      localStorage.setItem("mypact_user", JSON.stringify(userPayload));
-    } catch (e) {
-      console.error("Failed to save user in localStorage:", e);
-    }
 
-    // Navigate immediately to onboarding with zero delays or congratulations screens
-    setTimeout(() => {
+      localStorage.setItem("mypact_user", JSON.stringify(savedUser));
+      if (data.data?.token) {
+        localStorage.setItem("mypact_token", data.data.token);
+      }
+
       router.push("/onboarding");
-    }, 400);
+    } catch (e) {
+      console.error("Signup network error:", e);
+      alert("Could not reach backend on http://localhost:5000. Please ensure the backend server is running.");
+      setIsLoading(false);
+    }
   };
 
   return (
