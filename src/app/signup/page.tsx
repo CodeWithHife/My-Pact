@@ -195,7 +195,7 @@ export default function SignUpPage() {
 
     try {
       // Send directly to Backend API on Port 5000
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -215,7 +215,7 @@ export default function SignUpPage() {
         return;
       }
 
-      const savedUser = data.data?.user || {
+      const savedUser = data.user || data.data?.user || {
         firstName: formData.firstName.trim(),
         lastName: formData.lastName.trim(),
         username: formData.username.trim(),
@@ -224,14 +224,14 @@ export default function SignUpPage() {
       };
 
       localStorage.setItem("mypact_user", JSON.stringify(savedUser));
-      if (data.data?.token) {
-        localStorage.setItem("mypact_token", data.data.token);
+      if (data.token || data.data?.token) {
+        localStorage.setItem("mypact_token", data.token || data.data?.token);
       }
 
       router.push("/onboarding");
     } catch (e) {
       console.error("Signup network error:", e);
-      alert("Could not reach backend on http://localhost:5000. Please ensure the backend server is running.");
+      alert("Could not connect to database server. Please check your connection and try again.");
       setIsLoading(false);
     }
   };

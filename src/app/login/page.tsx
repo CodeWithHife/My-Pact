@@ -199,7 +199,7 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -216,10 +216,10 @@ export default function LoginPage() {
         return;
       }
 
-      const loggedInUser = data.data?.user;
+      const loggedInUser = data.user || data.data?.user;
       localStorage.setItem("mypact_user", JSON.stringify(loggedInUser));
-      if (data.data?.token) {
-        localStorage.setItem("mypact_token", data.data.token);
+      if (data.token || data.data?.token) {
+        localStorage.setItem("mypact_token", data.token || data.data?.token);
       }
 
       setIsLoading(false);
@@ -231,7 +231,7 @@ export default function LoginPage() {
       }, 900);
     } catch (e) {
       console.error("Login network error:", e);
-      alert("Could not reach backend on http://localhost:5000. Please ensure the backend server is running.");
+      alert("Could not connect to database server. Please check your connection and try again.");
       setIsLoading(false);
     }
   };
