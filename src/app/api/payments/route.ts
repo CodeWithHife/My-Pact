@@ -4,6 +4,7 @@ import connectToDatabase from "@/lib/mongodb";
 import Payment from "@/models/Payment";
 import User from "@/models/User";
 import { verifyToken } from "@/lib/auth";
+import { sendPaymentPendingAdminEmail } from "@/lib/email";
 
 export async function GET(req: Request) {
   try {
@@ -51,10 +52,18 @@ export async function POST(req: Request) {
       senderName,
       senderBank,
       transactionRef,
+      reference,
       paymentProof,
       userEmail,
       userId,
     } = body;
+
+    if (!senderName || !senderName.trim()) {
+      return NextResponse.json(
+        { error: "Sender account name is required for transfer verification." },
+        { status: 400 }
+      );
+    }
 
     await connectToDatabase();
 
@@ -66,29 +75,62 @@ export async function POST(req: Request) {
       user = await User.findOne({ email: (userEmail || payload?.email).toLowerCase().trim() });
     }
 
-    const refNumber = "PACT-" + Math.floor(100000 + Math.random() * 900000);
+    const effectiveUserEmail = user ? user.email : userEmail || "student@mypact.app";
+    const effectiveUserName = user ? user.name : senderName || "MyPact Student";
 
+    // Deduplication check: prevent submitting the exact same reference
+    const refNumber = reference && reference.startsWith("PACT-") ? reference : "PACT-" + Math.floor(100000 + Math.random() * 900000);
+    const existingPayment = await Payment.findOne({ reference: refNumber });
+    if (existingPayment) {
+      return NextResponse.json({
+        success: true,
+        message: "Payment transfer already recorded and is awaiting verification.",
+        payment: existingPayment,
+      });
+    }
+
+    // Always create with "pending" status (NEVER activate automatically)
     const payment = await Payment.create({
       userId: user ? user._id : undefined,
-      userEmail: user ? user.email : userEmail || "student@mypact.app",
-      userName: user ? user.name : senderName || "MyPact Student",
-      planId: planId || "pro",
+      userEmail: effectiveUserEmail,
+      userName: effectiveUserName,
+      planId: planId || "scholar-pro",
       planName: planName || "Scholar Pro",
       amount: Number(amount) || 1500,
       currency: "NGN",
-      senderName: senderName || "Unknown Sender",
-      senderBank: senderBank || "OPay / Bank",
-      transactionRef: transactionRef || "",
+      senderName: senderName.trim(),
+      senderBank: senderBank ? senderBank.trim() : "OPay",
+      transactionRef: transactionRef ? transactionRef.trim() : "",
       reference: refNumber,
       paymentProof: paymentProof || "",
       status: "pending",
     });
 
-    return NextResponse.json({
-      success: true,
-      message: "Payment transfer submitted for verification",
-      payment,
-    }, { status: 201 });
+    // Send automatic email notification to Admin (graceful / non-blocking)
+    try {
+      await sendPaymentPendingAdminEmail({
+        userName: payment.userName,
+        userEmail: payment.userEmail,
+        planName: payment.planName,
+        amount: payment.amount,
+        reference: payment.reference,
+        transactionRef: payment.transactionRef,
+        senderName: payment.senderName,
+        senderBank: payment.senderBank,
+        submittedAt: payment.createdAt,
+      });
+    } catch (emailErr) {
+      console.warn("Non-fatal email notification warning:", emailErr);
+    }
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Payment transfer submitted successfully and is awaiting admin verification.",
+        payment,
+      },
+      { status: 201 }
+    );
   } catch (error: any) {
     console.error("Create payment error:", error);
     return NextResponse.json({ error: error.message || "Failed to submit payment" }, { status: 500 });
