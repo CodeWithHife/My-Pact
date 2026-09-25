@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
+import { DEFAULT_PAYMENT_ACCOUNT, PaymentAccountConfig } from "@/config/payment";
 
 interface PlanItem {
   _id: string;
@@ -39,12 +40,7 @@ export default function PricingPage() {
   const [copiedField, setCopiedField] = useState("");
 
   // Default Bank Details from System Settings / Atlas
-  const [bankInfo, setBankInfo] = useState({
-    bankName: "OPay",
-    accountNumber: "8101831889",
-    accountName: "Lolade Bilebo",
-    instructions: "Transfer the exact amount using your bank app (OPay, Kuda, PalmPay, GTBank, Zenith, Access). Enter your Sender Name below so we can verify and unlock your subscription immediately.",
-  });
+  const [bankInfo, setBankInfo] = useState<PaymentAccountConfig>(DEFAULT_PAYMENT_ACCOUNT);
 
   const [uniqueRef, setUniqueRef] = useState("");
 
