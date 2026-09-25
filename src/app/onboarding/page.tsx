@@ -166,6 +166,8 @@ export default function OnboardingPage() {
   });
 
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [confettiPieces, setConfettiPieces] = useState<
     Array<{
       id: number;
@@ -255,7 +257,7 @@ export default function OnboardingPage() {
     setConfettiPieces(pieces);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep === 1) {
       setStep1Touched({
         university: true,
@@ -282,24 +284,102 @@ export default function OnboardingPage() {
       const hasErrors = Object.values(step4Errors).some((msg) => msg.length > 0);
       if (hasErrors) return;
 
-      setIsSuccess(true);
-      // Save onboarding config to localStorage for dashboard personalization
-      try {
-        const onboardingPayload = {
-          university: formData.university,
-          faculty: formData.faculty,
-          level: formData.level,
-          targetGpa: formData.targetGpa,
-          courses: selectedSubjects.length > 0 ? selectedSubjects : ["Organic Chemistry", "Calculus III", "Data Structures"],
-          tier: selectedTier,
-          firstPact: pactData,
-          completedAt: new Date().toISOString(),
+      setIsSubmitting(true);
+      setSubmitError("");
+
+      const mappedCourses = selectedSubjects.map((subId) => {
+        const item = availableSubjects.find((s) => s.id === subId);
+        return {
+          code: subId.toUpperCase() + " 201",
+          name: item?.name || subId,
+          targetHoursPerWeek: 5,
         };
+      });
+
+      const onboardingPayload = {
+        university: formData.university,
+        institution: formData.university,
+        faculty: formData.faculty,
+        level: formData.level,
+        targetGpa: formData.targetGpa,
+        courses: mappedCourses,
+        tier: selectedTier,
+        firstPact: pactData,
+        partnerInfo: partnerInfo.name ? partnerInfo : undefined,
+        completedAt: new Date().toISOString(),
+      };
+
+      try {
+        let token = "";
+        let userEmail = "";
+        let userId = "";
+        try {
+          token = localStorage.getItem("mypact_token") || "";
+          const storedUser = localStorage.getItem("mypact_user");
+          if (storedUser) {
+            const parsed = JSON.parse(storedUser);
+            userEmail = parsed.email || "";
+            userId = parsed.id || parsed._id || "";
+          }
+        } catch (e) {}
+
+        const headers: Record<string, string> = {
+          "Content-Type": "application/json",
+        };
+        if (token) {
+          headers["Authorization"] = "Bearer " + token;
+        }
+
+        const res = await fetch("/api/auth/onboarding", {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            ...onboardingPayload,
+            email: userEmail,
+            userId,
+          }),
+        });
+
+        const data = await res.json();
+
         localStorage.setItem("mypact_onboarding_data", JSON.stringify(onboardingPayload));
+        if (data && data.user) {
+          localStorage.setItem("mypact_user", JSON.stringify(data.user));
+        } else {
+          const storedUser = localStorage.getItem("mypact_user");
+          if (storedUser) {
+            const parsed = JSON.parse(storedUser);
+            parsed.isOnboarded = true;
+            parsed.university = formData.university;
+            parsed.faculty = formData.faculty;
+            parsed.level = formData.level;
+            parsed.targetGpa = formData.targetGpa;
+            localStorage.setItem("mypact_user", JSON.stringify(parsed));
+          }
+        }
+
+        setIsSuccess(true);
+        triggerConfetti();
       } catch (err) {
-        console.error("Failed to save onboarding data:", err);
+        console.warn("Onboarding API fallback:", err);
+        localStorage.setItem("mypact_onboarding_data", JSON.stringify(onboardingPayload));
+        const storedUser = localStorage.getItem("mypact_user");
+        if (storedUser) {
+          try {
+            const parsed = JSON.parse(storedUser);
+            parsed.isOnboarded = true;
+            parsed.university = formData.university;
+            parsed.faculty = formData.faculty;
+            parsed.level = formData.level;
+            parsed.targetGpa = formData.targetGpa;
+            localStorage.setItem("mypact_user", JSON.stringify(parsed));
+          } catch (e) {}
+        }
+        setIsSuccess(true);
+        triggerConfetti();
+      } finally {
+        setIsSubmitting(false);
       }
-      triggerConfetti();
       return;
     }
 
