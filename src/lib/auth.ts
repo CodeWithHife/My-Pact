@@ -5,8 +5,9 @@ const JWT_SECRET = process.env.JWT_SECRET || "mypact_jwt_secret_fallback_key";
 export interface TokenPayload {
   userId: string;
   email: string;
-  username: string;
-  name: string;
+  username?: string;
+  name?: string;
+  role?: string;
 }
 
 export function signToken(payload: TokenPayload): string {

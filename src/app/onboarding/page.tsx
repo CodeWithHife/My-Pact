@@ -1066,13 +1066,21 @@ export default function OnboardingPage() {
                   </div>
                 </div>
 
-                <Link
-                  href="/dashboard"
-                  className="w-full max-w-xs py-3 px-6 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#084bc2] text-white font-bold text-sm shadow-[0_8px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_12px_36px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
-                >
-                  <span>Go to My Dashboard</span>
-                  <i className="fas fa-arrow-right text-xs"></i>
-                </Link>
+                <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md justify-center">
+                  <Link
+                    href="/pricing?from=onboarding"
+                    className="w-full sm:w-auto py-3 px-6 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#084bc2] text-white font-bold text-sm shadow-[0_8px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_12px_36px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Choose Plan / Start Free</span>
+                    <i className="fas fa-arrow-right text-xs"></i>
+                  </Link>
+                  <Link
+                    href="/dashboard"
+                    className="w-full sm:w-auto py-3 px-5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <span>Go to Dashboard</span>
+                  </Link>
+                </div>
               </div>
             )}
 
