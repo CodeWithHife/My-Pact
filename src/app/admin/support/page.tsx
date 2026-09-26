@@ -2,78 +2,117 @@
 
 import React, { useState, useEffect } from "react";
 
+interface TicketItem {
+  _id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  category: string;
+  status: "open" | "in_progress" | "resolved" | "closed";
+  priority: string;
+  createdAt: string;
+}
+
 export default function AdminSupportPage() {
-  const [tickets, setTickets] = useState<any[]>([]);
+  const [tickets, setTickets] = useState<TicketItem[]>([]);
+  const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadTickets() {
-      try {
-        const res = await fetch("/api/admin/support");
-        const data = await res.json();
-        if (data.tickets) setTickets(data.tickets);
-      } catch (e) {
-      } finally {
-        setLoading(false);
-      }
-    }
     loadTickets();
-  }, []);
+  }, [filter]);
+
+  async function loadTickets() {
+    try {
+      const res = await fetch(`/api/admin/support${filter !== "all" ? `?status=${filter}` : ""}`);
+      const data = await res.json();
+      if (data.tickets) {
+        setTickets(data.tickets);
+      }
+    } catch (e) {
+      console.warn("Failed to load tickets:", e);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-    <div className="space-y-6 animate-fadeIn">
-      <div>
-        <h1 className="text-2xl font-black text-[#0b1a33] dark:text-white tracking-tight">
-          Student Support & Inquiries
-        </h1>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-          Manage student help requests, billing inquiries, and study assistance.
-        </p>
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-xl sm:text-2xl font-black text-[#0b1a33] dark:text-white flex items-center gap-2.5">
+            <i className="fas fa-headset text-[#0a66ff] dark:text-[#38bdf8]"></i>
+            Student Support & Inquiries
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Resolve student payment issues, account adjustments, and technical feedback.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {["all", "open", "resolved"].map((st) => (
+            <button
+              key={st}
+              type="button"
+              onClick={() => setFilter(st)}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                filter === st
+                  ? "bg-[#0a66ff] text-white"
+                  : "bg-white dark:bg-[#0f1d32] border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400"
+              }`}
+            >
+              {st}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className="bg-white dark:bg-[#0f1d32] border border-slate-200/90 dark:border-slate-700/80 rounded-2xl shadow-xs overflow-hidden">
-        <table className="w-full text-left text-xs">
-          <thead className="bg-slate-50 dark:bg-[#142642]/60 text-slate-500 border-b border-slate-200/80 dark:border-slate-700/80 font-bold uppercase text-[10px]">
-            <tr>
-              <th className="p-4">Scholar</th>
-              <th className="p-4">Subject & Message</th>
-              <th className="p-4">Category</th>
-              <th className="p-4">Status</th>
-              <th className="p-4">Date</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-200">
-            {loading ? (
-              <tr>
-                <td colSpan={5} className="p-8 text-center text-slate-400">Loading tickets...</td>
-              </tr>
-            ) : tickets.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="p-8 text-center text-slate-400">No support requests submitted.</td>
-              </tr>
-            ) : (
-              tickets.map((t) => (
-                <tr key={t._id}>
-                  <td className="p-4">
-                    <p className="font-bold">{t.userName}</p>
-                    <p className="text-[11px] text-slate-400 font-mono">{t.userEmail}</p>
-                  </td>
-                  <td className="p-4 max-w-sm">
-                    <p className="font-bold">{t.subject}</p>
-                    <p className="text-slate-500 text-xs truncate">{t.message}</p>
-                  </td>
-                  <td className="p-4 uppercase font-bold text-[10px] text-slate-500">{t.category}</td>
-                  <td className="p-4">
-                    <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold uppercase">
-                      {t.status}
+      <div className="bg-white dark:bg-[#0f1d32] border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
+        <div className="divide-y divide-slate-100 dark:divide-slate-800">
+          {loading ? (
+            <div className="py-12 text-center text-xs font-bold text-slate-400">
+              <i className="fas fa-spinner fa-spin text-lg mb-2 block"></i>
+              Loading support queue...
+            </div>
+          ) : tickets.length === 0 ? (
+            <div className="py-12 text-center text-slate-400 text-xs">
+              <i className="fas fa-circle-check text-emerald-500 text-2xl mb-2 block"></i>
+              All student support tickets have been resolved!
+            </div>
+          ) : (
+            tickets.map((t) => (
+              <div key={t._id} className="py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-[#0b1a33] dark:text-white">{t.subject}</span>
+                    <span className="px-2 py-0.5 rounded-full text-[0.62rem] font-bold uppercase bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                      {t.category}
                     </span>
-                  </td>
-                  <td className="p-4 text-slate-400 text-[10px]">{new Date(t.createdAt).toLocaleDateString()}</td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                    {t.message}
+                  </p>
+                  <div className="text-[0.65rem] text-slate-400 mt-1.5">
+                    From: <strong>{t.name}</strong> ({t.email})
+                  </div>
+                </div>
+
+                <div className="shrink-0">
+                  <span
+                    className={`px-3 py-1 rounded-full text-[0.65rem] font-black uppercase ${
+                      t.status === "open"
+                        ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30"
+                        : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30"
+                    }`}
+                  >
+                    {t.status}
+                  </span>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

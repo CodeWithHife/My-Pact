@@ -1,65 +1,77 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { requireAdminAuth } from "@/lib/auth";
 import connectToDatabase from "@/lib/mongodb";
 import User from "@/models/User";
 import Payment from "@/models/Payment";
 import Task from "@/models/Task";
 import Course from "@/models/Course";
 import SupportRequest from "@/models/SupportRequest";
-import { verifyToken } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("mypact_token")?.value;
-    const payload = token ? verifyToken(token) : null;
-
-    if (!payload || payload.role !== "admin") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-    }
-
+    await requireAdminAuth(req);
     await connectToDatabase();
+
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
     const [
       totalUsers,
+      newUsers,
       activeUsers,
+      freeUsers,
+      paidUsers,
       pendingPayments,
       approvedPayments,
+      rejectedPayments,
       totalTasks,
       totalCourses,
       openSupport,
+      recentUsers,
+      recentPayments,
+      recentTasks,
     ] = await Promise.all([
       User.countDocuments(),
+      User.countDocuments({ createdAt: { $gte: sevenDaysAgo } }),
       User.countDocuments({ status: "active" }),
+      User.countDocuments({ $or: [{ "subscription.planType": "free" }, { subscription: { $exists: false } }] }),
+      User.countDocuments({ "subscription.planType": "paid", "subscription.status": "active" }),
       Payment.countDocuments({ status: "pending" }),
       Payment.find({ status: "approved" }).lean(),
+      Payment.countDocuments({ status: "rejected" }),
       Task.countDocuments(),
       Course.countDocuments(),
       SupportRequest.countDocuments({ status: "open" }),
+      User.find().sort({ createdAt: -1 }).limit(6).select("-password").lean(),
+      Payment.find().sort({ createdAt: -1 }).limit(6).lean(),
+      Task.find().sort({ createdAt: -1 }).limit(6).lean(),
     ]);
 
     const totalRevenue = approvedPayments.reduce((acc: number, p: any) => acc + (p.amount || 0), 0);
-
-    const recentPayments = await Payment.find().sort({ createdAt: -1 }).limit(5).lean();
-    const recentUsers = await User.find().sort({ createdAt: -1 }).limit(5).select("-password").lean();
 
     return NextResponse.json({
       success: true,
       stats: {
         totalUsers,
+        newUsers,
         activeUsers,
+        freeUsers,
+        paidUsers,
+        activeSubscriptions: paidUsers,
+        expiredSubscriptions: Math.max(0, totalUsers - activeUsers - paidUsers),
         pendingPayments,
         approvedPaymentsCount: approvedPayments.length,
+        rejectedPayments,
         totalRevenue,
         totalTasks,
         totalCourses,
         openSupport,
       },
-      recentPayments,
       recentUsers,
+      recentPayments,
+      recentActivity: recentTasks,
     });
   } catch (error: any) {
     console.error("Admin stats error:", error);
-    return NextResponse.json({ error: error.message || "Failed to load stats" }, { status: 500 });
+    return NextResponse.json({ error: error.message || "Unauthorized" }, { status: 403 });
   }
 }
