@@ -1066,19 +1066,22 @@ export default function OnboardingPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md justify-center">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full max-w-md justify-center px-2">
+                  <Link
+                    href="/pricing?from=onboarding&plan=free-trial"
+                    className="w-full sm:w-auto flex-1 py-3 px-5 rounded-2xl bg-gradient-to-r from-[#0a66ff] to-[#084bc2] text-white font-bold text-xs tracking-tight shadow-[0_8px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_12px_36px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <i className="fas fa-seedling text-xs"></i>
+                    <span>Get Started for Free</span>
+                    <i className="fas fa-arrow-right text-[0.65rem]"></i>
+                  </Link>
+
                   <Link
                     href="/pricing?from=onboarding"
-                    className="w-full sm:w-auto py-3 px-6 rounded-full bg-gradient-to-r from-[#0a66ff] to-[#084bc2] text-white font-bold text-sm shadow-[0_8px_24px_rgba(10,102,255,0.35)] hover:shadow-[0_12px_36px_rgba(10,102,255,0.45)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full sm:w-auto flex-1 py-3 px-5 rounded-2xl bg-slate-100 dark:bg-[#142642] text-slate-800 dark:text-slate-100 font-bold text-xs hover:bg-slate-200 dark:hover:bg-[#1b335a] border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>Choose Plan / Start Free</span>
-                    <i className="fas fa-arrow-right text-xs"></i>
-                  </Link>
-                  <Link
-                    href="/dashboard"
-                    className="w-full sm:w-auto py-3 px-5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-1.5"
-                  >
-                    <span>Go to Dashboard</span>
+                    <i className="fas fa-bolt text-[#0a66ff] dark:text-[#38bdf8] text-xs"></i>
+                    <span>Choose Paid Plan</span>
                   </Link>
                 </div>
               </div>
